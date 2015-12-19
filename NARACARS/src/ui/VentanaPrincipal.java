@@ -310,9 +310,4 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		this.conjunto = conjunto;
 	}
 
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		VentanaPrincipal a = new VentanaPrincipal();
-	}
-
 }

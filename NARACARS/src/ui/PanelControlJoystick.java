@@ -1,6 +1,10 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
@@ -22,6 +26,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	final int COLUMNAS = 1;
 	final int FILAS = 3;
 	final int MARGEN = 30; //px
+	final int ANCHO_COMPONENTE = 900; //px
+	final int ALTO_COMPONENTE = 100; //px
 	
 	Joystick mando;
 	JLabel estadoDelLink;
@@ -34,6 +40,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		mando.addObserver(this);
 		this.idioma=ventana.getIdioma();
 		setLayout(new GridLayout(FILAS, COLUMNAS, MARGEN, MARGEN));
+		setAlignmentX(CENTER_ALIGNMENT);
+		setAlignmentY(CENTER_ALIGNMENT);
 		crearContenido();
 		escribirTextos();
 	}
@@ -45,23 +53,36 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	}
 
 	private Component crearPBGiro() {
-		giro = new JProgressBar();
-		giro.setSize(900, 100);
+		JPanel panelGiro = new JPanel(new FlowLayout());
 		
-		return giro;
+		giro = new JProgressBar();
+		giro.setForeground(Color.BLUE);
+		giro.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
+		panelGiro.add(giro);
+		
+		return panelGiro;
 	}
 
 	private Component crearPBAceleracion() {
-		aceleracion = new JProgressBar();
-		aceleracion.setSize(900, 100);
+		JPanel panelAceleracion = new JPanel(new FlowLayout());
 		
-		return aceleracion;
+		aceleracion = new JProgressBar();
+		aceleracion.setForeground(Color.RED);
+		aceleracion.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
+		panelAceleracion.add(aceleracion);
+		
+		return panelAceleracion;
 	}
 
 	private Component crearLabelEstado() {
+		JPanel panelEstado = new JPanel(new FlowLayout());
+		
 		estadoDelLink = new JLabel("Conectando");
-	
-		return estadoDelLink;
+		estadoDelLink.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
+		estadoDelLink.setFont(new Font("Arial", Font.BOLD, 32));
+		panelEstado.add(estadoDelLink);
+		
+		return panelEstado;
 	}
 
 	@Override
@@ -86,10 +107,14 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 			estadoDelLink.setText(idioma.getProperty("Conectado", "Conectado"));
 			aceleracion.setValue(mando.getAceleracion());
 			giro.setValue(mando.getGiro());
+			aceleracion.setEnabled(true);
+			giro.setEnabled(true);
 		}else{
 			estadoDelLink.setText(idioma.getProperty("Desconectado", "Desconectado"));
-			aceleracion.setValue(0);
-			giro.setValue(0);
+			aceleracion.setValue(aceleracion.getMaximum()/2);
+			giro.setValue(giro.getMaximum()/2);
+			aceleracion.setEnabled(false);
+			giro.setEnabled(false);
 		}
 	}
 	
