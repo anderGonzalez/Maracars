@@ -1,0 +1,7 @@
+DirectorioImagenes = iconos/
+DirectorioIdiomas = idiomas/
+IconoVentana = naracars.png
+DefaultIdioma = castellano
+IconoTabla = table.png
+IconoControlador = control.png
+iconoMapa = mapa.png
