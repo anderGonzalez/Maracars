@@ -19,7 +19,7 @@ public class Joystick extends Observable {
 	Timer refresh;
 	int aceleracion;
 	int giro;
-	double deadZone = 0.1;
+	double deadZone = 0.15;
 
 	public Joystick() {
 		refresh = new Timer();
