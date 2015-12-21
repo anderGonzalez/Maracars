@@ -2,6 +2,7 @@ package Interfaces;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.BitSet;
 import java.util.Enumeration;
 
 import javax.comm.CommPortIdentifier;
@@ -11,7 +12,7 @@ import javax.comm.UnsupportedCommOperationException;
 
 public class ControladorCoche {
 
-	void enviarComando(double radio, int motor) { // ambos valores 0-100
+	public void enviarComando(int radio, int motor) { // ambos valores 0-100
 
 		@SuppressWarnings("rawtypes")
 		Enumeration portList;
@@ -39,13 +40,30 @@ public class ControladorCoche {
 					} catch (UnsupportedCommOperationException e) {
 					}
 					try {
-						outputStream.write((byte) radio);
+						escribirByteStart(outputStream);
+						outputStream.write(((Integer) radio).byteValue());
+						outputStream.write(((Integer) motor).byteValue());
+						escribirByteEnd(outputStream);
 					} catch (IOException e) {
 					}
 				}
 			}
 		}
 
+	}
+
+	private void escribirByteEnd(OutputStream outputStream) throws IOException {
+		BitSet bits = new BitSet(8);
+		bits.set(0);
+		outputStream.write(bits.toByteArray());
+		
+	}
+
+	private void escribirByteStart(OutputStream outputStream) throws IOException {
+		BitSet bits = new BitSet(8);
+		bits.set(0, 8);
+		outputStream.write(bits.toByteArray());
+		
 	}
 }
 

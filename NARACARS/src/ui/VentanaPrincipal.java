@@ -292,8 +292,14 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	public void setModo(Modo modo) {
 		this.modo = modo;
 	}
-	
 
+	public Controlador getPanelControlador() {
+		return panelControlador;
+	}
+
+	public void setPanelControlador(Controlador panelControlador) {
+		this.panelControlador = panelControlador;
+	}
 
 	public JMenuItem getCrearConjunto() {
 		return crearConjunto;

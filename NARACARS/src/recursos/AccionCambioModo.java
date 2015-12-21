@@ -27,6 +27,7 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		ventana.setModo(modo);
+		ventana.getPanelControlador().desactivar();
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(ventana.crearPanelTabs(), BorderLayout.CENTER);
 		try{

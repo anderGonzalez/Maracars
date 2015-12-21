@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -16,6 +18,7 @@ import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
 import Interfaces.Controlador;
+import Interfaces.ControladorCoche;
 import Interfaces.Traducible;
 import recursos.Idioma;
 import recursos.Joystick;
@@ -34,6 +37,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	JProgressBar aceleracion;
 	JProgressBar giro;
 	Idioma idioma;
+	ControladorCoche controlador;
+	Timer enviarComando;
 	
 	public PanelControlJoystick(VentanaPrincipal ventana){
 		mando = new Joystick();
@@ -42,6 +47,17 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		setLayout(new GridLayout(FILAS, COLUMNAS, MARGEN, MARGEN));
 		setAlignmentX(CENTER_ALIGNMENT);
 		setAlignmentY(CENTER_ALIGNMENT);
+		
+		controlador = new ControladorCoche();
+		enviarComando = new Timer();
+		enviarComando.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				enviarComando();
+			}
+		}, 0, 20);
+		
 		crearContenido();
 		escribirTextos();
 	}
@@ -87,7 +103,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 
 	@Override
 	public void enviarComando() {
-		
+		controlador.enviarComando(mando.getGiro(), mando.getAceleracion());
 	}
 
 	@Override
@@ -116,6 +132,12 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 			aceleracion.setEnabled(false);
 			giro.setEnabled(false);
 		}
+	}
+	
+
+	@Override
+	public void desactivar() {
+		enviarComando.cancel();
 	}
 	
 	
