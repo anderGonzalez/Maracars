@@ -38,10 +38,14 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 			}else if(ventana.getOpciones().getMenuComponentCount()==2){
 				if(modo==Modo.AUTOMATICO){
 					ventana.getOpciones().add(ventana.getCrearConjunto());
+					/*double velocidadMax = Math.sqrt(ventana.getConjunto().getRecorrido().getRadio()*this.ventana.getConjunto().getCircuito().getFriccion()*9.8);
+					ventana.setTitle(ventana.getTitle()+velocidadMax);*/
 				}
 			}
 			
 			ventana.escribirTextos();
+			
+
 
 		}catch(Exception a){
 			a.getMessage();

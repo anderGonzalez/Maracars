@@ -59,6 +59,9 @@ public class Recorrido implements Dibujable {
 					(int) (x + ((radio + longitudRecta) * pixelsPorMetro)),
 					(int) (y + ((2 * radio) * pixelsPorMetro)));
 	}
+	public Circuito getCircuito(){
+		return circuito;
+	}
 
 	public double getLongitudRecta() {
 		return longitudRecta;

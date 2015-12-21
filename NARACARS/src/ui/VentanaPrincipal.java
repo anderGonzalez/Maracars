@@ -33,6 +33,7 @@ import recursos.AccionCambioConjunto;
 import recursos.AccionCambioIdioma;
 import recursos.AccionCambioModo;
 import recursos.Conjunto;
+import recursos.Fisicas;
 import recursos.Idioma;
 
 @SuppressWarnings("serial")
@@ -62,6 +63,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	JMenuItem crearConjunto;
 	JMenuBar menuBar = new JMenuBar();
 	Controlador panelControlador;
+	Fisicas fisicas;
 	
 	public VentanaPrincipal() {
 		

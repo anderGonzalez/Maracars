@@ -13,12 +13,14 @@ public class Circuito extends Observable implements Dibujable {
 	double radioGrande, radioPequeño;
 	double ancho;
 	double recta;
-	
-	public Circuito(double radioGrande, double anchoDePista, double recta) {
+	double friccion;
+
+	public Circuito(double radioGrande, double anchoDePista, double recta, double friccion) {
 		this.ancho = anchoDePista;
 		this.radioGrande = radioGrande;
 		this.radioPequeño = radioGrande - anchoDePista;
 		this.recta = recta;
+		this.friccion= friccion;
 		
 	}
 	
@@ -52,6 +54,9 @@ public class Circuito extends Observable implements Dibujable {
 					(int) (2 * radioPequeño * pixelsPorMetro));
 		
 			
+	}
+	public double getFriccion() {
+		return friccion;
 	}
 
 	public double getRadioGrande() {
