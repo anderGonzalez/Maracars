@@ -134,10 +134,11 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		}
 	}
 	
-
+	
 	@Override
 	public void desactivar() {
 		enviarComando.cancel();
+		mando.getRefresh().cancel();
 	}
 	
 	
