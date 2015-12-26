@@ -7,10 +7,19 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Enums.Modo;
 import net.java.games.input.Component;
 import net.java.games.input.Component.Identifier;
+import ui.VentanaPrincipal;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
+
+
+/**
+ * Esta clase define un joystick.
+ * 
+ * @author Ander
+ */
 
 public class Joystick extends Observable {
 

@@ -9,6 +9,13 @@ import Interfaces.Traducible;
 import ui.DialogoNuevoConjunto;
 import ui.VentanaPrincipal;
 
+/**
+ * Esta clase es una accion que cambia el conjunto de el menu principal
+ * 
+ * @author Ander
+ *
+ */
+
 @SuppressWarnings("serial")
 public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	VentanaPrincipal ventana;

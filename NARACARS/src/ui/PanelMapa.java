@@ -11,6 +11,14 @@ import javax.swing.JPanel;
 
 import recursos.Conjunto;
 
+
+/**
+ * Panel en el que se dibuja un conjunto
+ * 
+ * @author Ander
+ */
+
+
 public class PanelMapa extends JPanel implements Observer {
 	private static final long serialVersionUID = 2245416530216305191L;
 	final int ANCHO = 900;

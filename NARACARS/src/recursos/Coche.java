@@ -2,6 +2,13 @@ package recursos;
 
 import java.awt.Graphics;
 
+/**
+ * Esta clase define un coche por sus dimensiones
+ * 
+ * @author Ander
+ *
+ */
+
 import Interfaces.Dibujable;
 
 public class Coche implements Dibujable {

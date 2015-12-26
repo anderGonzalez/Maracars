@@ -6,6 +6,12 @@ import java.awt.Graphics;
 import Enums.Sentido;
 import Interfaces.Dibujable;
 
+/**
+ * Esta clase define el recorrido que seguira un Coche en un Circuito.
+ * 
+ * @author Ander
+ */
+
 public class Recorrido implements Dibujable {
 
 	static final int POSX = 0;

@@ -1,6 +1,14 @@
 package recursos;
 
+import Enums.Modo;
 import ui.VentanaPrincipal;
+
+/**
+ * Esta clase define las fisicas a las que se somete un coche durante su recorrido
+ * 
+ * @author Joanes
+ *
+ */
 
 public class Fisicas {
 	final static double GRAVEDAD = 9.8;

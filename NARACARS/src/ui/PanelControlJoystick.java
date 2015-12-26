@@ -23,6 +23,13 @@ import Interfaces.Traducible;
 import recursos.Idioma;
 import recursos.Joystick;
 
+/**
+ * Esta clase define un panel que es un controlador mediante un joystick
+ * 
+ * @author Ander
+ */
+
+
 @SuppressWarnings("serial")
 public class PanelControlJoystick extends JPanel implements Traducible, Controlador, Observer{
 

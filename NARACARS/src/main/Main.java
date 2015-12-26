@@ -5,6 +5,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import ui.VentanaPrincipal;
 
+
+/**
+ * Esta clase contiene la funcion main de el proyecto
+ * 
+ * @author Ander
+ *
+ */
+
+
+
 public class Main {
 
 

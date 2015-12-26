@@ -9,6 +9,18 @@ import Enums.Modo;
 import Interfaces.Traducible;
 import ui.VentanaPrincipal;
 
+/**
+ * Esta clase que extiende a una accion realiza un cambio en el modo de 
+ * de una VentanaPrincipal.
+ * 
+ * @author Ander
+ * @see Modo
+ * @see VentanaPrincipal
+ *
+ */
+
+
+
 @SuppressWarnings("serial")
 public class AccionCambioModo extends AbstractAction implements Traducible {
 

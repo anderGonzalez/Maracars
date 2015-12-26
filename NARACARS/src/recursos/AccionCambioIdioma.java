@@ -9,6 +9,16 @@ import javax.swing.JOptionPane;
 import Interfaces.Traducible;
 import ui.VentanaPrincipal;
 
+
+/**
+ * Esta clase contiene es una accion (Action) que realiza el cambio de un idioma.
+ * 
+ * @author Ander
+ * @see Idioma
+ */
+
+
+
 @SuppressWarnings("serial")
 public class AccionCambioIdioma extends AbstractAction implements Traducible{
 

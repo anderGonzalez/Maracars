@@ -23,6 +23,14 @@ import recursos.Conjunto;
 import recursos.Idioma;
 import recursos.Recorrido;
 
+/**
+ * Un dialogo que recoge los parametros de un conjunto.
+ * 
+ * @author Ander
+ * @see Conjunto
+ */
+
+
 @SuppressWarnings("serial")
 public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	

@@ -10,6 +10,15 @@ import javax.comm.PortInUseException;
 import javax.comm.SerialPort;
 import javax.comm.UnsupportedCommOperationException;
 
+import ui.VentanaPrincipal;
+
+/**
+ * Esta clase contiene las funcionalidades necesarias para enviar un paquete de
+ * comando al coche radio control.
+ *
+ * @author Ander
+ */
+
 public class ControladorCoche {
 
 	public void enviarComando(int radio, int motor) { // ambos valores 0-100
@@ -56,14 +65,13 @@ public class ControladorCoche {
 		BitSet bits = new BitSet(8);
 		bits.set(0);
 		outputStream.write(bits.toByteArray());
-		
+
 	}
 
 	private void escribirByteStart(OutputStream outputStream) throws IOException {
 		BitSet bits = new BitSet(8);
 		bits.set(0, 8);
 		outputStream.write(bits.toByteArray());
-		
+
 	}
 }
-

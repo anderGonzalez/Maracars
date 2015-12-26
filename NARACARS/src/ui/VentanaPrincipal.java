@@ -36,6 +36,14 @@ import recursos.Conjunto;
 import recursos.Fisicas;
 import recursos.Idioma;
 
+
+/**
+ * Esta clase define la ventana principal de el programa principal.
+ * 
+ * @author Ander
+ */
+
+
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 
