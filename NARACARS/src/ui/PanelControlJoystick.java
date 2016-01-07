@@ -47,6 +47,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	ControladorCoche controlador;
 	Timer enviarComando;
 	
+	
 	public PanelControlJoystick(VentanaPrincipal ventana){
 		mando = new Joystick();
 		mando.addObserver(this);

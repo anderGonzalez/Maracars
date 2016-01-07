@@ -107,13 +107,13 @@ public class Joystick extends Observable {
 					float axisValue = component.getPollData();
 					int axisValueInPercentage;
 
-					if (componentIdentifier == Component.Identifier.Axis.Y) {
+					if (componentIdentifier == Component.Identifier.Axis.Z) {
 						axisValueInPercentage = sacarValor(-axisValue);
 						aceleracion = axisValueInPercentage;
 						continue;
 					}
 
-					if (componentIdentifier == Component.Identifier.Axis.Z) {
+					if (componentIdentifier == Component.Identifier.Axis.X) {
 						axisValueInPercentage = sacarValor(axisValue);
 						giro = axisValueInPercentage;
 						continue;

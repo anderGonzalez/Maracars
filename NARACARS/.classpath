@@ -10,7 +10,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="NARACARS"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="comm.jar" sourcepath="comm.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jinput"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jinput Library"/>
+	<classpathentry kind="lib" path="jinput.jar"/>
+	<classpathentry kind="lib" path="RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
