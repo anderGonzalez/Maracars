@@ -52,11 +52,11 @@ public class ControladorCoche {
 				} catch (UnsupportedCommOperationException e) {
 				}
 				try {
-					escribirByteStart(outputStream);
-					System.out.println("Enviado un byte");
-					//outputStream.write(((Integer) radio).byteValue());
+					//escribirByteStart(outputStream);
+					outputStream.write(((Integer) radio).byteValue());
 					//outputStream.write(((Integer) motor).byteValue());
 					//escribirByteEnd(outputStream);
+					System.out.println("Enviado un byte");
 				} catch (IOException e) {
 				}
 				serialPort.close();
@@ -81,12 +81,12 @@ public class ControladorCoche {
 	public static void main(String[] args) {
 		Timer timer = new  Timer();
 		timer.schedule(new TimerTask() {
-			
+			int i = 0;
 			@Override
 			public void run() {
 				ControladorCoche a = new ControladorCoche();
-				a.enviarComando(0, 0);
-				
+				a.enviarComando(i++, 0);
+				if(i > 255) i = 0;
 			}
 		}, 0, 20);
 	}
