@@ -6,7 +6,6 @@ import java.util.BitSet;
 import java.util.Enumeration;
 
 import gnu.io.CommPortIdentifier;
-import gnu.io.NoSuchPortException;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.UnsupportedCommOperationException;

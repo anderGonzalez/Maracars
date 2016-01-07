@@ -38,6 +38,10 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		AccionCambioConjunto conjunto= new AccionCambioConjunto(ventana);
+		if(modo==Modo.AUTOMATICO){
+			conjunto.actionPerformed(null);
+		}
 		ventana.setModo(modo);
 		ventana.getPanelControlador().desactivar();
 		ventana.getContentPane().removeAll();

@@ -1,7 +1,5 @@
 package Enums;
 
-import ui.VentanaPrincipal;
-
 /**
  * Esta clase es un enumerador de las direcciones posibles en las que se puede
  * recorrer un circuito:

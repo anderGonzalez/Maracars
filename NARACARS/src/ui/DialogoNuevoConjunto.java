@@ -60,7 +60,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		this.idioma=ventana.getIdioma();
 		this.setBounds(200, 75, 400,400);
 		this.add(this.panelNagusia());
-		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
 		

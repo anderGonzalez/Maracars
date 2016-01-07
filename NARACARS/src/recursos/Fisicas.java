@@ -1,6 +1,5 @@
 package recursos;
 
-import Enums.Modo;
 import ui.VentanaPrincipal;
 
 /**

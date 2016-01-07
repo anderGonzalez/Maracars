@@ -114,13 +114,11 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 
 	private void crearMenuModo() {
 		mModos = new JMenu("Modos");
-		
 		modoAuto = new AccionCambioModo(Modo.AUTOMATICO, this);
 		modoMan = new AccionCambioModo(Modo.MANUAL, this);
 		mModos.add(modoAuto);
 		mModos.add(modoMan);
-		
-	}
+		}
 
 	private void crearMenuIdiomas() {
 		

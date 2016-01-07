@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Observable;
 
-import Enums.Modo;
 import Interfaces.Dibujable;
-import ui.VentanaPrincipal;
 
 /**
  * Esta clase define un circuito compuesto por dos rectas paralelas y dos semicirculos del mismo radio.

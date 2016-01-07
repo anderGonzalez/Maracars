@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.Observable;
 
-import Enums.Modo;
 import Enums.Sentido;
 import Interfaces.Dibujable;
-import ui.VentanaPrincipal;
 
 /**
  * Esta clase define el conjunto formado por un chche, el circuito 

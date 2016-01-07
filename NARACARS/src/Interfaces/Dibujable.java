@@ -2,8 +2,6 @@ package Interfaces;
 
 import java.awt.Graphics;
 
-import ui.VentanaPrincipal;
-
 /**
  * Esta interfaz define la funcion necesaria que debe tener cualquer elemento no
  * perteneciente a Swing para ser dibujado en un conponente Graphics.

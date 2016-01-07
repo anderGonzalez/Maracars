@@ -20,9 +20,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import Enums.Modo;
-import ui.VentanaPrincipal;
-
 
 /**
  * Esta clase define un idioma mediante un properties
