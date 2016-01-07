@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.BitSet;
 import java.util.Enumeration;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import org.omg.CORBA.Environment;
 
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
@@ -30,9 +34,10 @@ public class ControladorCoche {
 		portList = CommPortIdentifier.getPortIdentifiers();
 
 		while (portList.hasMoreElements()) {
-			System.out.println("He encontrado un serial jajajaja");
+			
 			portId = (CommPortIdentifier) portList.nextElement();
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
+				System.out.println("He encontrado un serial jajajaja");
 				try {
 					serialPort = (SerialPort) portId.open("SimpleWriteApp", 2000);
 				} catch (PortInUseException e) {
@@ -48,9 +53,10 @@ public class ControladorCoche {
 				}
 				try {
 					escribirByteStart(outputStream);
-					outputStream.write(((Integer) radio).byteValue());
-					outputStream.write(((Integer) motor).byteValue());
-					escribirByteEnd(outputStream);
+					System.out.println("Enviado un byte");
+					//outputStream.write(((Integer) radio).byteValue());
+					//outputStream.write(((Integer) motor).byteValue());
+					//escribirByteEnd(outputStream);
 				} catch (IOException e) {
 				}
 				serialPort.close();
@@ -70,5 +76,18 @@ public class ControladorCoche {
 		bits.set(0, 8);
 		outputStream.write(bits.toByteArray());
 
+	}
+	
+	public static void main(String[] args) {
+		Timer timer = new  Timer();
+		timer.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				ControladorCoche a = new ControladorCoche();
+				a.enviarComando(0, 0);
+				
+			}
+		}, 0, 20);
 	}
 }
