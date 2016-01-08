@@ -35,7 +35,7 @@ public class ControladorCoche {
 		
 		if (portId==null) {
 			portList = CommPortIdentifier.getPortIdentifiers();
-			while (portList.hasMoreElements()) {
+			while (portList.hasMoreElements()&&portId.getPortType() != CommPortIdentifier.PORT_SERIAL) {
 				portId = (CommPortIdentifier) portList.nextElement();
 				if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 					System.out.println("He encontrado un serial jajajaja");
