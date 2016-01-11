@@ -14,6 +14,10 @@ import Interfaces.Dibujable;
  */
 
 
+/**
+ * @author Joanes
+ *
+ */
 public class Circuito extends Observable implements Dibujable {
 
 	double pixelsPorMetro = 20;
@@ -23,6 +27,14 @@ public class Circuito extends Observable implements Dibujable {
 	double recta;
 	double friccion;
 
+	/**
+	 * Constructor del circuito 
+	 * 
+	 * @param radioGrande
+	 * @param anchoDePista
+	 * @param recta
+	 * @param friccion
+	 */
 	public Circuito(double radioGrande, double anchoDePista, double recta, double friccion) {
 		this.ancho = anchoDePista;
 		this.radioGrande = radioGrande;
@@ -63,6 +75,7 @@ public class Circuito extends Observable implements Dibujable {
 		
 			
 	}
+
 	public double getFriccion() {
 		return friccion;
 	}

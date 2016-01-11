@@ -12,6 +12,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jinput Library"/>
 	<classpathentry kind="lib" path="jinput.jar"/>
-	<classpathentry kind="lib" path="RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Joanes/Desktop/rxtx librerias para 64 bits/RXTXcomm.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

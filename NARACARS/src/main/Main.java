@@ -12,9 +12,6 @@ import ui.VentanaPrincipal;
  * @author Ander
  *
  */
-
-
-
 public class Main {
 
 
@@ -26,7 +23,6 @@ public class Main {
 			        UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

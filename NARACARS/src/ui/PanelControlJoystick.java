@@ -18,8 +18,8 @@ import javax.swing.JProgressBar;
 import javax.swing.border.BevelBorder;
 
 import Interfaces.Controlador;
-import Interfaces.ControladorCoche;
 import Interfaces.Traducible;
+import recursos.ControladorCoche;
 import recursos.Idioma;
 import recursos.Joystick;
 

@@ -25,6 +25,13 @@ public class AccionCambioIdioma extends AbstractAction implements Traducible{
 	String path;
 	VentanaPrincipal ventana;
 	
+	/**
+	 * Constructor de la accion de cambio de idioma
+	 * 
+	 * @param nombre
+	 * @param path
+	 * @param ventana
+	 */
 	public AccionCambioIdioma(String nombre, String path, VentanaPrincipal ventana) {
 		super(nombre);
 		
@@ -36,6 +43,9 @@ public class AccionCambioIdioma extends AbstractAction implements Traducible{
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		try {

@@ -32,6 +32,9 @@ public class Idioma extends Observable {
 
 	Properties idioma;
 	
+	/**
+	 * @param idiomaPredeterminado
+	 */
 	public  Idioma(String idiomaPredeterminado) {
 		idioma = new Properties();
 		try {

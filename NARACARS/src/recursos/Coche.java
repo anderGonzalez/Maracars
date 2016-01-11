@@ -14,7 +14,6 @@ import Interfaces.Dibujable;
 public class Coche implements Dibujable {
 
 	double pixelsPorMetro = 20; // px
-
 	double ancho;
 
 	public Coche(Double ancho) {

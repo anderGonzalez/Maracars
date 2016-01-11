@@ -19,6 +19,10 @@ import net.java.games.input.ControllerEnvironment;
  * @author Ander
  */
 
+/**
+ * @author Joanes
+ *
+ */
 public class Joystick extends Observable {
 
 	Controller mando;
@@ -28,6 +32,9 @@ public class Joystick extends Observable {
 	int giro;
 	double deadZone = 0.15;
 
+	/**
+	 * Constructor del Joystick
+	 */
 	public Joystick() {
 		refresh = new Timer();
 		conectado = false;
@@ -42,6 +49,10 @@ public class Joystick extends Observable {
 		}, 0, 20);
 	}
 
+	/**
+	 * @return
+	 * @throws ReflectiveOperationException
+	 */
 	private static ControllerEnvironment crearDefaultEnvironment() throws ReflectiveOperationException {
 		@SuppressWarnings("unchecked")
 		Constructor<ControllerEnvironment> constructor = (Constructor<ControllerEnvironment>) Class
@@ -52,6 +63,9 @@ public class Joystick extends Observable {
 		return constructor.newInstance();
 	}
 
+	/**
+	 * 
+	 */
 	private void buscarMando() {
 		Controller[] controllers = null;
 		try {
@@ -87,6 +101,9 @@ public class Joystick extends Observable {
 		});
 	}
 
+	/**
+	 * 
+	 */
 	private void loop() {
 
 		if (mando == null || !mando.poll()) {
@@ -123,6 +140,10 @@ public class Joystick extends Observable {
 		notifyObservers();
 	}
 
+	/**
+	 * @param axisValue
+	 * @return
+	 */
 	private int sacarValor(double axisValue) {
 		if (Math.abs(axisValue) < deadZone) {
 			axisValue = 0;

@@ -20,6 +20,14 @@ import Interfaces.Dibujable;
  */
 
 
+/**
+ * @author Joanes
+ *
+ */
+/**
+ * @author Joanes
+ *
+ */
 public class Conjunto extends Observable implements Dibujable {
 	static final int POSX = 0;
 	static final int POSY = 1;
@@ -35,6 +43,12 @@ public class Conjunto extends Observable implements Dibujable {
 
 	double pixelsPorMetro = 20;
 
+	/**
+	 * Constructor del conjunto
+	 * @param circuito 
+	 * @param coche
+	 * @param recorrido
+	 */
 	public Conjunto(Circuito circuito, Coche coche, Recorrido recorrido) {
 		this.coche = coche;
 		this.recorrido = recorrido;
@@ -49,6 +63,7 @@ public class Conjunto extends Observable implements Dibujable {
 		calcularPosicionCoche(distancia, g);
 
 	}
+
 
 	public Dimension getDimension() {
 		Dimension ret = new Dimension((int) ((circuito.getRadioGrande() * 2 + circuito.getRecta()) * pixelsPorMetro),
@@ -65,6 +80,9 @@ public class Conjunto extends Observable implements Dibujable {
 		notifyObservers();
 	}
 
+	/**
+	 * @param metros
+	 */
 	public void addDistancia(double metros) {
 		distancia += metros;
 		setChanged();
@@ -72,6 +90,10 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 	
 
+	/**
+	 * @param tramo
+	 * @return distancia
+	 */
 	public double distanciaHasta(int tramo) {
 		switch (tramo) {
 		case RECTA1:
@@ -90,6 +112,10 @@ public class Conjunto extends Observable implements Dibujable {
 
 	}
 
+	/**
+	 * @param distancia
+	 * @param g
+	 */
 	public void calcularPosicionCoche(double distancia, Graphics g) {
 		int x = 0, y = 0;
 		while (distancia >= distanciaHasta(RECTA3)) {

@@ -27,6 +27,12 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 	VentanaPrincipal ventana;
 	Modo modo;
 
+	/**
+	 * Constructor de la accion de cambio de modo (automatico, manual)
+	 * 
+	 * @param modo
+	 * @param ventana
+	 */
 	public AccionCambioModo(Modo modo, VentanaPrincipal ventana) {
 		super();
 		this.ventana = ventana;

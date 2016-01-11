@@ -16,16 +16,32 @@ import ui.VentanaPrincipal;
  *
  */
 
+/**
+ * @author Joanes
+ *
+ */
+/**
+ * @author Joanes
+ *
+ */
 @SuppressWarnings("serial")
 public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	VentanaPrincipal ventana;
 
+	/**
+	 * Este es el constructor de la accion
+	 * @param ventana
+	 */
 	public AccionCambioConjunto(VentanaPrincipal ventana) {
 		this.ventana = ventana;
 		ventana.getTraducibles().add(this);
 		escribirTextos();
 	}
 
+	
+	/* (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		DialogoNuevoConjunto dialogo = new DialogoNuevoConjunto(ventana, "Nuevo Conjunto", true);

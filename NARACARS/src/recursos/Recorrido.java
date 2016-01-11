@@ -30,6 +30,11 @@ public class Recorrido implements Dibujable {
 		
 	};
 
+	/**
+	 * @param circuito
+	 * @param coche
+	 * @param sentido
+	 */
 	public void crearRecorrido(Circuito circuito, Coche coche, Sentido sentido) {
 		this.longitudRecta = circuito.getRecta() - 2 * circuito.getAncho() + 4 * coche.getAncho();
 		this.radio = circuito.getRadioGrande() - coche.getAncho();
@@ -86,13 +91,7 @@ public class Recorrido implements Dibujable {
 		this.coordenadasInicio[POSX]= (int)((circuito.getRecta()/2+circuito.getRadioGrande())*pixelsPorMetro);//x
 		this.coordenadasInicio[POSY]= (int)(anchoCoche*pixelsPorMetro);//y
 	}
-	
-	
 
-
-	
-
-	
 }
 
 
