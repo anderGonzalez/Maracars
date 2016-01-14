@@ -3,8 +3,6 @@ package recursos;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import Enums.Modo;
 import Interfaces.Traducible;
