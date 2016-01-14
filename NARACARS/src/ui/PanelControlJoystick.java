@@ -56,7 +56,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		setAlignmentX(CENTER_ALIGNMENT);
 		setAlignmentY(CENTER_ALIGNMENT);
 		
-		controlador = new ControladorCoche();
+		controlador = new ControladorCoche(ventana.getDatos());
 		enviarComando = new Timer();
 		enviarComando.schedule(new TimerTask() {
 			
@@ -111,7 +111,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 
 	@Override
 	public void enviarComando() {
-		controlador.enviarComando(mando.getGiro(), mando.getAceleracion());
+
+
 	}
 
 	@Override

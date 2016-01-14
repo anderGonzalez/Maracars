@@ -19,21 +19,6 @@ import gnu.io.UnsupportedCommOperationException;
  * @author Ander
  */
 
-
-/**
- * @author Joanes
- *
- */
-
-
-/**
- * @author Joanes
- *
- */
-/**
- * @author Joanes
- *
- */
 public class ControladorCoche {
 
 	SerialPort serialPort;
@@ -42,16 +27,15 @@ public class ControladorCoche {
 
 	static int turno = 0;
 
-	public ControladorCoche() {
+	public ControladorCoche(Datos datos) {
 		@SuppressWarnings("rawtypes")
 		Enumeration portList;
 		CommPortIdentifier portId;
 		serialPort = null;
 		outputStream = null;
 		inputStream = null;
-
+		datos.setVelMax(datos.getVelMax()+1);
 		portList = CommPortIdentifier.getPortIdentifiers();
-
 		if (portList.hasMoreElements()) {
 
 			portId = (CommPortIdentifier) portList.nextElement();
@@ -70,6 +54,12 @@ public class ControladorCoche {
 				try {
 					serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 							SerialPort.PARITY_NONE);
+					if(datos.conjunto!=null){
+						procesoEnviar(datos);
+						procesoLeer(datos);
+					}
+					
+					
 				} catch (UnsupportedCommOperationException e) {
 				}
 			}
@@ -114,7 +104,7 @@ public class ControladorCoche {
 	public void read() {
 		byte[] readBuffer = new byte[8];
 		try {
-
+			
 			while (inputStream.available() > 0) {
 				int numBytes = inputStream.read(readBuffer);
 				System.out.print((readBuffer[0] & 0xFF) + "\n");
@@ -128,13 +118,15 @@ public class ControladorCoche {
 	/**
 	 * 
 	 */
-	public void procesoLeer() {
+	public void procesoLeer(Datos datos) {
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
-			ControladorCoche a = new ControladorCoche();
+			ControladorCoche a = new ControladorCoche(datos);
 
 			@Override
 			public void run() {
+				//TODO hemen irakurri biharko zan serialekua eta gero datosen gorde
+				//Ez dakit baina zela juango gan gordetzen... suposatzen da ordenian datozela...				
 				a.read();
 
 			}
@@ -144,27 +136,18 @@ public class ControladorCoche {
 	/**
 	 * 
 	 */
-	public void procesoEnviar() {
+	public void procesoEnviar(Datos datos) {
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
-			int i = 0;
-			ControladorCoche a = new ControladorCoche();
+			ControladorCoche a = new ControladorCoche(datos);
 
 			@Override
 			public void run() {
 
-				a.enviarComando(i, i);
-				i++;
-				if (i > 250) {
-					i = 0;
-					}
+				a.enviarComando(datos.getGiro(), datos.getMotor());
 			}
 		}, 0, 1);
 	}
 
-	public static void main(String[] args) {
-		ControladorCoche coche = new ControladorCoche();
-		coche.procesoEnviar();
-		coche.procesoLeer();
-	}
+	
 }

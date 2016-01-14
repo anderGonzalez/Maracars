@@ -20,14 +20,6 @@ import Interfaces.Dibujable;
  */
 
 
-/**
- * @author Joanes
- *
- */
-/**
- * @author Joanes
- *
- */
 public class Conjunto extends Observable implements Dibujable {
 	static final int POSX = 0;
 	static final int POSY = 1;
@@ -40,6 +32,7 @@ public class Conjunto extends Observable implements Dibujable {
 	Coche coche;
 	Recorrido recorrido;
 	Double distancia;
+	//TODO distantzia hau berez ez da hemen egongo, datos klasetik hartuko dau.
 
 	double pixelsPorMetro = 20;
 
@@ -131,6 +124,7 @@ public class Conjunto extends Observable implements Dibujable {
 			y = recorrido.coordenadasInicio[POSY];
 
 		} else if (distancia < distanciaHasta(CURVA1)) {
+
 			double angulo = ((distancia - distanciaHasta(RECTA1)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
@@ -160,6 +154,7 @@ public class Conjunto extends Observable implements Dibujable {
 			}
 
 		} else if (distancia < distanciaHasta(RECTA2)) {
+
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				x = recorrido.coordenadasInicio[POSX]
 						- (int) (((recorrido.longitudRecta / 2) - (distancia - distanciaHasta(CURVA1)))
@@ -172,6 +167,7 @@ public class Conjunto extends Observable implements Dibujable {
 			y = recorrido.coordenadasInicio[POSY] + (int) (recorrido.getRadio() * 2 * pixelsPorMetro);
 
 		} else if (distancia < distanciaHasta(CURVA2)) {
+
 			double angulo = ((distancia - distanciaHasta(RECTA2)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
@@ -203,6 +199,7 @@ public class Conjunto extends Observable implements Dibujable {
 				}
 			}
 		} else if (distancia <= distanciaHasta(RECTA3)) {
+
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				x = (	recorrido.coordenadasInicio[POSX]
 						+ (int) ((recorrido.longitudRecta / 2 - (distancia - distanciaHasta(CURVA2)))

@@ -19,14 +19,11 @@ import ui.VentanaPrincipal;
  *
  */
 
-
-
 @SuppressWarnings("serial")
 public class AccionCambioModo extends AbstractAction implements Traducible {
 
 	VentanaPrincipal ventana;
 	Modo modo;
-
 	/**
 	 * Constructor de la accion de cambio de modo (automatico, manual)
 	 * 
@@ -61,15 +58,11 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 			}else if(ventana.getOpciones().getMenuComponentCount()==2){
 				if(modo==Modo.AUTOMATICO){
 					ventana.getOpciones().add(ventana.getCrearConjunto());
-					/*double velocidadMax = Math.sqrt(ventana.getConjunto().getRecorrido().getRadio()*this.ventana.getConjunto().getCircuito().getFriccion()*9.8);
-					ventana.setTitle(ventana.getTitle()+velocidadMax);*/
 				}
 			}
 			
 			ventana.escribirTextos();
 			
-
-
 		}catch(Exception a){
 			a.getMessage();
 		}
@@ -83,7 +76,6 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 		switch (modo) {
 		case AUTOMATICO:
 			putValue(NAME, ventana.getIdioma().getProperty("Automatico", "Automático")); // Automatico
-
 			break;
 		case MANUAL:
 			putValue(NAME, ventana.getIdioma().getProperty("Manual", "Manual")); // Manual

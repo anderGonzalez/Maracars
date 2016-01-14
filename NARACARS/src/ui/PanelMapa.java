@@ -44,8 +44,6 @@ public class PanelMapa extends JPanel implements Observer {
 		
 	}
 	
-	
-	
 	public Conjunto getConjunto() {
 		return conjunto;
 	}

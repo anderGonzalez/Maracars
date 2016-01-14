@@ -130,7 +130,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		kotxezabal= getTexto1();pistaZabal=getTexto2();rektaLuze=getTexto3();
 		erradio= getTexto4();marrus=getTexto5();
 		if(kotxezabal<=pistaZabal&&pistaZabal>0&&rektaLuze>=0
-				&&erradio>(pistaZabal*2)&&marrus>=0){
+				&&marrus>=0){
 			Circuito circuito= new Circuito(erradio, pistaZabal, rektaLuze, marrus);
 			Coche coche= new Coche(kotxezabal);
 			Recorrido recorrido= new Recorrido();
