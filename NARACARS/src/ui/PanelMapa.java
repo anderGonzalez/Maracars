@@ -55,7 +55,7 @@ public class PanelMapa extends JPanel implements Observer {
 	@Override
 	public void paint(Graphics g){
 		setOpaque(false);
-		conjunto.dibujar(g, 100, 100);
+		conjunto.dibujar(g, 0, 0);
 		
 	}
 

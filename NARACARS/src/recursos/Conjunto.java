@@ -53,7 +53,7 @@ public class Conjunto extends Observable implements Dibujable {
 	public void dibujar(Graphics g, int x, int y) {
 		circuito.dibujar(g, x, y);
 		recorrido.dibujar(g, getXRecorrido(x), getYRecorrido(y));
-		calcularPosicionCoche(x, y, distancia, g);
+		calcularPosicionCoche(distancia, g);
 
 	}
 
@@ -109,7 +109,7 @@ public class Conjunto extends Observable implements Dibujable {
 	 * @param distancia
 	 * @param g
 	 */
-	public void calcularPosicionCoche(int xBase, int yBase, double distancia, Graphics g) {
+	public void calcularPosicionCoche(double distancia, Graphics g) {
 		int x = 0, y = 0;
 		while (distancia >= distanciaHasta(RECTA3)) {
 			distancia -= distanciaHasta(RECTA3);
@@ -124,30 +124,23 @@ public class Conjunto extends Observable implements Dibujable {
 			y = recorrido.coordenadasInicio[POSY];
 
 		} else if (distancia < distanciaHasta(CURVA1)) {
-
+			
 			double angulo = ((distancia - distanciaHasta(RECTA1)) / recorrido.getRadio());
+			System.out.println("ANGELUA: "+angulo);
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
-					angulo -= (Math.PI * recorrido.getRadio() / 2);
-					y = (recorrido.coordenadasInicio[POSY])
-						+ (int) ((Math.cos(angulo) * recorrido.getRadio()) * pixelsPorMetro);
-				} else {
+				
+					System.err.println("gutxiau");
 					y = (recorrido.coordenadasInicio[POSY])
 						+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
-				}
+				
 				x = recorrido.coordenadasInicio[POSX]
 						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
 			} else {
-				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
-					angulo -= (Math.PI * recorrido.getRadio() / 2);
-					y = recorrido.coordenadasInicio[POSY]
-						- (int) ((recorrido.getRadio() * (1 - Math.cos(angulo)) - 2 * recorrido.getRadio())
-						* pixelsPorMetro);
-				} else {
+				
 					y = recorrido.coordenadasInicio[POSY]
 						- (int) ((recorrido.getRadio() * (Math.cos(angulo) - 1)) * pixelsPorMetro);
-				}
+				
 				x = recorrido.coordenadasInicio[POSX]
 					+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
@@ -170,33 +163,21 @@ public class Conjunto extends Observable implements Dibujable {
 
 			double angulo = ((distancia - distanciaHasta(RECTA2)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
-					angulo -= (Math.PI * recorrido.getRadio() / 2);
-					y = recorrido.coordenadasInicio[POSY]
-							+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
-					x = recorrido.coordenadasInicio[POSX]
-							+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo)) * pixelsPorMetro);
-				} else {
+				
 					y = recorrido.coordenadasInicio[POSY]
 							+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
 					x = recorrido.coordenadasInicio[POSX]
 							+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
 									* pixelsPorMetro);
-				}
+				
 			} else {
-				if (angulo > (Math.PI * recorrido.getRadio() / 2)) {
-					angulo -= (Math.PI * recorrido.getRadio() / 2);
-					y = recorrido.coordenadasInicio[POSY]
-						+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
-					x = recorrido.coordenadasInicio[POSX]
-						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo)) * pixelsPorMetro);
-				} else {
+				
 					y = recorrido.coordenadasInicio[POSY]
 						+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
 					x = recorrido.coordenadasInicio[POSX]
 						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
 						* pixelsPorMetro);
-				}
+				
 			}
 		} else if (distancia <= distanciaHasta(RECTA3)) {
 
@@ -213,7 +194,7 @@ public class Conjunto extends Observable implements Dibujable {
 
 		}
 		g.setColor(Color.MAGENTA);
-		coche.dibujar(g, x +xBase, y + yBase);
+		coche.dibujar(g, x, y);
 	}
 
 	@SuppressWarnings("unused")
