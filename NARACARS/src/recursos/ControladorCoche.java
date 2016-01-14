@@ -24,6 +24,8 @@ public class ControladorCoche {
 	SerialPort serialPort;
 	OutputStream outputStream;
 	InputStream inputStream;
+	Timer timEnviar;
+	Timer timRecivir;
 
 	static int turno = 0;
 
@@ -119,15 +121,14 @@ public class ControladorCoche {
 	 * 
 	 */
 	public void procesoLeer(Datos datos) {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			ControladorCoche a = new ControladorCoche(datos);
-
+		timRecivir = new Timer();
+		timRecivir.schedule(new TimerTask() {
+			
 			@Override
 			public void run() {
 				//TODO hemen irakurri biharko zan serialekua eta gero datosen gorde
 				//Ez dakit baina zela juango gan gordetzen... suposatzen da ordenian datozela...				
-				a.read();
+				ControladorCoche.this.read();
 
 			}
 		}, 0, 1);
@@ -137,14 +138,15 @@ public class ControladorCoche {
 	 * 
 	 */
 	public void procesoEnviar(Datos datos) {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			ControladorCoche a = new ControladorCoche(datos);
+		timEnviar = new Timer();
+		timEnviar.schedule(new TimerTask() {
+			
 
 			@Override
 			public void run() {
 
-				a.enviarComando(datos.getGiro(), datos.getMotor());
+				ControladorCoche.this.enviarComando(datos.getGiro(), datos.getMotor());
+				
 			}
 		}, 0, 1);
 	}
