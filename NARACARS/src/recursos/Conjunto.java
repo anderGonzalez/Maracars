@@ -126,10 +126,8 @@ public class Conjunto extends Observable implements Dibujable {
 		} else if (distancia < distanciaHasta(CURVA1)) {
 			
 			double angulo = ((distancia - distanciaHasta(RECTA1)) / recorrido.getRadio());
-			System.out.println("ANGELUA: "+angulo);
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				
-					System.err.println("gutxiau");
 					y = (recorrido.coordenadasInicio[POSY])
 						+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
 				

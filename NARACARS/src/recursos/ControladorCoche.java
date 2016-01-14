@@ -1,5 +1,6 @@
 package recursos;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Interfaces.Controlador;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
@@ -19,24 +21,28 @@ import gnu.io.UnsupportedCommOperationException;
  * @author Ander
  */
 
-public class ControladorCoche {
-
+public class ControladorCoche{
+	final int INICIAL = 0;
+	final int ACELEROMETRO_X = 1;
+	final int ACELEROMETRO_Y = 2;
+	final int OBSTACULO = 3;
+	final int REVOLUCIONES = 4;
 	SerialPort serialPort;
 	OutputStream outputStream;
 	InputStream inputStream;
-	Timer timEnviar;
-	Timer timRecivir;
-
+	Datos datos;
+	Timer timerEnviar, timerRecibir;
 	static int turno = 0;
+	static int turnoEnviar=0;
 
 	public ControladorCoche(Datos datos) {
 		@SuppressWarnings("rawtypes")
 		Enumeration portList;
 		CommPortIdentifier portId;
+		this.datos= datos;
 		serialPort = null;
 		outputStream = null;
 		inputStream = null;
-		datos.setVelMax(datos.getVelMax()+1);
 		portList = CommPortIdentifier.getPortIdentifiers();
 		if (portList.hasMoreElements()) {
 
@@ -56,12 +62,9 @@ public class ControladorCoche {
 				try {
 					serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 							SerialPort.PARITY_NONE);
-					if(datos.conjunto!=null){
-						procesoEnviar(datos);
-						procesoLeer(datos);
-					}
-					
-					
+					serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);	
+					procesoEnviar();
+					procesoLeer();
 				} catch (UnsupportedCommOperationException e) {
 				}
 			}
@@ -70,25 +73,32 @@ public class ControladorCoche {
 
 	/**
 	 * 
-	 * @param radio 
+	 * @param giro 
 	 * @param motor
 	 */
-	public void enviarComando(int radio, int motor) { // ambos valores 0-100
+	public void enviarComando(int giro, int motor) { // ambos valores 0-100
 
 		try {
+			
 			switch (turno) {
 			case 0:
 				outputStream.write(new Integer(255).byteValue());
-				System.out.println("Enviado un paquete: " + 255);
 				break;
 			case 1:
-				outputStream.write(((Integer) motor).byteValue());
-				System.out.println("Enviado un paquete: " + ((Integer) motor));
+				if(giro>50){
+					giro-=50;
+					giro=giro*30/50+50;
+				}
+				if(giro<50){
+					giro=giro*35/50+15;
+					
+				}
+				outputStream.write(((Integer) giro).byteValue());
 				break;
 			case 2:
-				outputStream.write(((Integer) radio).byteValue());
-				System.out.println("Enviado un paquete: " + ((Integer) radio));
+				outputStream.write(((Integer) motor).byteValue());
 				break;
+			
 			default:
 				break;
 			}
@@ -99,6 +109,42 @@ public class ControladorCoche {
 		if (turno > 2)
 			turno = 0;
 	}
+	
+	
+	public void guardar(int numero){
+		int turnoEnviarAux= turnoEnviar;
+		switch(turnoEnviarAux){
+		case INICIAL:
+			if(numero==255){
+				turnoEnviar++;
+			}
+			break;
+		case ACELEROMETRO_X:
+			datos.setAcelerometro_x(numero);
+			turnoEnviar++;
+			break;
+		case ACELEROMETRO_Y:
+			datos.setAcelerometro_y(numero);
+			turnoEnviar++;
+			break;
+		case OBSTACULO:
+			if(numero==0){
+				datos.setObstaculo(false);
+			}else{
+				datos.setObstaculo(true);
+			}
+			System.err.println("Obstaculo: "+numero);
+			turnoEnviar++;
+			break;
+		case REVOLUCIONES:
+			datos.setRevol(numero);
+			turnoEnviar=0;
+			break;
+			default:
+				break;
+			}
+		
+	}
 
 	/**
 	 * 
@@ -106,11 +152,13 @@ public class ControladorCoche {
 	public void read() {
 		byte[] readBuffer = new byte[8];
 		try {
-			
 			while (inputStream.available() > 0) {
 				int numBytes = inputStream.read(readBuffer);
-				System.out.print((readBuffer[0] & 0xFF) + "\n");
-
+				for(int i=0; i<numBytes;i++){
+					Thread.sleep(1);
+					int numero=(readBuffer[i] & 0xFF);
+					guardar(numero);
+				}
 			}
 		} catch (Exception e) {
 		
@@ -120,10 +168,10 @@ public class ControladorCoche {
 	/**
 	 * 
 	 */
-	public void procesoLeer(Datos datos) {
-		timRecivir = new Timer();
-		timRecivir.schedule(new TimerTask() {
-			
+	public void procesoLeer() {
+		timerRecibir = new Timer();
+		timerRecibir.schedule(new TimerTask() {
+
 			@Override
 			public void run() {
 				//TODO hemen irakurri biharko zan serialekua eta gero datosen gorde
@@ -137,19 +185,18 @@ public class ControladorCoche {
 	/**
 	 * 
 	 */
-	public void procesoEnviar(Datos datos) {
-		timEnviar = new Timer();
-		timEnviar.schedule(new TimerTask() {
-			
+	public void procesoEnviar( ) {
+		timerEnviar = new Timer();
+		timerEnviar.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-
 				ControladorCoche.this.enviarComando(datos.getGiro(), datos.getMotor());
-				
 			}
-		}, 0, 1);
+		}, 0, 19);
 	}
 
+
+	
 	
 }

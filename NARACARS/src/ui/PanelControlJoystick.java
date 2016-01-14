@@ -137,6 +137,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 			public void run() {
 				PanelControlJoystick.this.datos.setMotor(PanelControlJoystick.this.mando.getAceleracion());
 				PanelControlJoystick.this.datos.setGiro(PanelControlJoystick.this.mando.getGiro());
+				
 			}
 		}, 0, 19);
 		
