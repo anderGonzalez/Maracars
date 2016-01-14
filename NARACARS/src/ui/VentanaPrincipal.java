@@ -73,7 +73,6 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	JMenu mModos;
 	JMenuItem crearConjunto;
 	JTable tablaDatos;
-	DefaultTableModel model;
 	JMenuBar menuBar;
 	Controlador panelControlador;
 	Datos datos;
@@ -97,7 +96,6 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().add(crearPanelTabs(), BorderLayout.CENTER);
-		procesoTablaDatos();
 		this.escribirTextos();
 		setVisible(true);
 	}
@@ -233,33 +231,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 
 	private JComponent crearPanelTabla() {
 		JScrollPane panel = new JScrollPane();
-		String[][] rowData = {{"Velocidad", ""+datos.getVelMax()},
-				{"Obstaculo",""+datos.isObstaculo()},{"Giro", ""+datos.getGiro()}};
-		String[] columnNames = {idioma.getProperty("Nombre", "Nombre"), idioma.getProperty("Valor", "Valor")};
-		model= new DefaultTableModel(rowData, columnNames);
-		tablaDatos = new JTable();
-		tablaDatos.setModel(model);
-		tablaDatos.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tablaDatos.getTableHeader().setReorderingAllowed(false);
-		tablaDatos.setFillsViewportHeight(true);
+		tablaDatos= new TablaDatos(datos);
 		panel.setViewportView(tablaDatos);
 		return panel;
 	}
-	
-	public void procesoTablaDatos() {
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-
-			@Override
-			public void run() {
-				tablaDatos.setValueAt(""+datos.getVelMax(), 0, 1);
-				tablaDatos.setValueAt(""+datos.isObstaculo(), 1, 1);
-				tablaDatos.setValueAt(""+datos.getGiro(), 2, 1);		
-
-			}
-		}, 0, 2000);
-	}
-	
 
 	private void cargarPropiedades() {
 		propiedades = new Properties();
