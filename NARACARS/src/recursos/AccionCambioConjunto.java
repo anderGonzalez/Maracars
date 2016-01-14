@@ -27,6 +27,8 @@ import ui.VentanaPrincipal;
 @SuppressWarnings("serial")
 public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	VentanaPrincipal ventana;
+	
+	final String DEFAULT_NUEVO_CONJUNTO = "Nuevo Conjunto";
 
 	/**
 	 * Este es el constructor de la accion
@@ -44,7 +46,7 @@ public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		DialogoNuevoConjunto dialogo = new DialogoNuevoConjunto(ventana, "Nuevo Conjunto", true);
+		DialogoNuevoConjunto dialogo = new DialogoNuevoConjunto(ventana, DEFAULT_NUEVO_CONJUNTO, true);
 		if (dialogo.isPrest()) {
 			if (ventana.getConjunto() == null) {
 				ventana.setConjunto(dialogo.getConjunto());

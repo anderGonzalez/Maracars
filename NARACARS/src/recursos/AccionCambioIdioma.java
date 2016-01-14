@@ -22,6 +22,8 @@ import ui.VentanaPrincipal;
 @SuppressWarnings("serial")
 public class AccionCambioIdioma extends AbstractAction implements Traducible{
 
+	final String MENAJE_ERROR_CARGA_IDOMA = "No se ha cargado satisfactoriamente el idioma seleccionado";
+	final String DEFAULT_CAMBIODEIDIOMAMSG = "Cambiar al idioma seleccionado";
 	String path;
 	VentanaPrincipal ventana;
 	
@@ -51,7 +53,7 @@ public class AccionCambioIdioma extends AbstractAction implements Traducible{
 		try {
 			ventana.getIdioma().load(new FileInputStream(path));
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(ventana, "No se ha cargado satisfactoriamente el idioma seleccionado");
+			JOptionPane.showMessageDialog(ventana, MENAJE_ERROR_CARGA_IDOMA);
 		}
 
 	}
@@ -59,7 +61,7 @@ public class AccionCambioIdioma extends AbstractAction implements Traducible{
 
 	@Override
 	public void escribirTextos() {
-		putValue(SHORT_DESCRIPTION, ventana.getIdioma().getProperty("DescripcionCambioDeIdioma", "Cambiar al idioma seleccionado")); //DescripccionCAmbioDeIdioma
+		putValue(SHORT_DESCRIPTION, ventana.getIdioma().getProperty("DescripcionCambioDeIdioma", DEFAULT_CAMBIODEIDIOMAMSG)); //DescripccionCAmbioDeIdioma
 	}
 
 }
