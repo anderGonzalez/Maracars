@@ -1,5 +1,9 @@
 package Interfaces;
 
+import java.util.Timer;
+
+import recursos.Datos;
+
 /**
  * 
  * Esta interrfaz describe las funciones que una clase que sea capaz de
@@ -10,9 +14,12 @@ package Interfaces;
  */
 
 public interface Controlador {
-
-	public void enviarComando();
-
-	public void desactivar();
+		
+	public void iniciarActualizacionDatos();
+	
+	public void terminarActualizarDatos();
+	
+	
+	
 
 }

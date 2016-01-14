@@ -45,8 +45,8 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 		if(modo==Modo.AUTOMATICO){
 			conjunto.actionPerformed(null);
 		}
+		ventana.getPanelControlador().terminarActualizarDatos();
 		ventana.setModo(modo);
-		ventana.getPanelControlador().desactivar();
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(ventana.crearPanelTabs(), BorderLayout.CENTER);
 		try{

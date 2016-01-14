@@ -19,7 +19,7 @@ import javax.swing.border.BevelBorder;
 
 import Interfaces.Controlador;
 import Interfaces.Traducible;
-import recursos.ControladorCoche;
+import recursos.Datos;
 import recursos.Idioma;
 import recursos.Joystick;
 
@@ -44,8 +44,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	JProgressBar aceleracion;
 	JProgressBar giro;
 	Idioma idioma;
-	ControladorCoche controlador;
-	Timer enviarComando;
+	Datos datos;
+	Timer actualizarDatos;
 	
 	
 	public PanelControlJoystick(VentanaPrincipal ventana){
@@ -55,17 +55,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		setLayout(new GridLayout(FILAS, COLUMNAS, MARGEN, MARGEN));
 		setAlignmentX(CENTER_ALIGNMENT);
 		setAlignmentY(CENTER_ALIGNMENT);
-		
-		controlador = new ControladorCoche(ventana.getDatos());
-		enviarComando = new Timer();
-		enviarComando.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				enviarComando();
-			}
-		}, 0, 20);
-		
+		datos = ventana.getDatos();
+		iniciarActualizacionDatos();
 		crearContenido();
 		escribirTextos();
 	}
@@ -108,13 +99,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		
 		return panelEstado;
 	}
-
-	@Override
-	public void enviarComando() {
-
-
-	}
-
+	
 	@Override
 	public void escribirTextos() {
 		
@@ -143,11 +128,24 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		}
 	}
 	
-	
 	@Override
-	public void desactivar() {
-		enviarComando.cancel();
-		mando.getRefresh().cancel();
+	public void iniciarActualizacionDatos() {
+		actualizarDatos = new Timer();
+		actualizarDatos.schedule(new TimerTask() {
+			
+			@Override
+			public void run() {
+				PanelControlJoystick.this.datos.setMotor(PanelControlJoystick.this.mando.getAceleracion());
+				PanelControlJoystick.this.datos.setGiro(PanelControlJoystick.this.mando.getGiro());
+			}
+		}, 0, 19);
+		
+	}
+
+	@Override
+	public void terminarActualizarDatos() {
+		actualizarDatos.cancel();
+		
 	}
 	
 	

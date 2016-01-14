@@ -53,7 +53,7 @@ public class Conjunto extends Observable implements Dibujable {
 	public void dibujar(Graphics g, int x, int y) {
 		circuito.dibujar(g, x, y);
 		recorrido.dibujar(g, getXRecorrido(x), getYRecorrido(y));
-		calcularPosicionCoche(distancia, g);
+		calcularPosicionCoche(x, y, distancia, g);
 
 	}
 
@@ -109,7 +109,7 @@ public class Conjunto extends Observable implements Dibujable {
 	 * @param distancia
 	 * @param g
 	 */
-	public void calcularPosicionCoche(double distancia, Graphics g) {
+	public void calcularPosicionCoche(int xBase, int yBase, double distancia, Graphics g) {
 		int x = 0, y = 0;
 		while (distancia >= distanciaHasta(RECTA3)) {
 			distancia -= distanciaHasta(RECTA3);
@@ -213,7 +213,7 @@ public class Conjunto extends Observable implements Dibujable {
 
 		}
 		g.setColor(Color.MAGENTA);
-		coche.dibujar(g, x, y);
+		coche.dibujar(g, x +xBase, y + yBase);
 	}
 
 	@SuppressWarnings("unused")
