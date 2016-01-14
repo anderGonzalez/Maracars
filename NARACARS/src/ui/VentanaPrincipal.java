@@ -10,14 +10,11 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Properties;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -26,8 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
 
 import Enums.Modo;
 import Interfaces.Controlador;
@@ -36,6 +31,7 @@ import recursos.AccionCambioConjunto;
 import recursos.AccionCambioIdioma;
 import recursos.AccionCambioModo;
 import recursos.Conjunto;
+import recursos.ControladorCoche;
 import recursos.Datos;
 import recursos.Idioma;
 
@@ -76,8 +72,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	JMenuBar menuBar;
 	Controlador panelControlador;
 	Datos datos;
+	ControladorCoche controlador;
 	public VentanaPrincipal() {
 		datos= new Datos();
+		controlador= new ControladorCoche(datos);
 		modo = Modo.MANUAL;
 		traducibles = new ArrayList<>();
 		traducibles.add(this);
@@ -104,16 +102,13 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 
 	private JMenuBar crearBarraMenus() {
 		menuBar = new JMenuBar();
-
 		opciones = new JMenu("Opciones");
 		accionConjunto= new AccionCambioConjunto(this);
-		
 		crearMenuIdiomas();
 		opciones.add(idiomas);
 		crearMenuModo();
 		opciones.add(mModos);
 		menuBar.add(opciones);
-		
 		return menuBar;
 	}
 
@@ -170,7 +165,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		case AUTOMATICO:
 			
 			iconControl = new ImageIcon(iconControl.getImage().getScaledInstance(ICONSIZE, ICONSIZE, Image.SCALE_SMOOTH));
-			JComponent panelControlAuto = crearPanelControlAuto();
+			JComponent panelControlAuto = new PanelControlAutomatico(this);
 			tabbedPane.addTab("Panel de Control Automatico", iconControl, panelControlAuto,
 			                  "Panel de control del modo automatico");
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
@@ -220,12 +215,6 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		PanelMapa panelMap = new PanelMapa(conjunto);
 		JScrollPane panel = new JScrollPane(panelMap);
 		
-		return panel;
-	}
-
-	private JComponent crearPanelControlAuto() {
-		JPanel panel = new JPanel();
-		panel.add(new JLabel("Panel de control automatico"));
 		return panel;
 	}
 

@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import recursos.Datos;
 
+@SuppressWarnings("serial")
 public class TablaDatos extends JTable{
 	RendererTabla renderer= new RendererTabla();
 	DefaultTableModel model;
@@ -16,7 +17,7 @@ public class TablaDatos extends JTable{
 	
 	public TablaDatos (Datos datos){
 		String[][] rowData = {{"Velocidad", ""+datos.getVelMax()},
-				{"Obstaculo",""+datos.isObstaculo()},{"Giro", ""+datos.getGiro()}};
+				{"Obstaculo",""+datos.isObstaculo()},{"Giro", ""+datos.getGiro()},{"Motor",""+datos.getMotor()}};
 		String[] columnNames = {"Izena", "Balorea"};
 		this.datos= datos;
 		model= new DefaultTableModel(rowData, columnNames);
@@ -34,17 +35,12 @@ public class TablaDatos extends JTable{
 
 			@Override
 			public void run() {
-				if(datos.isObstaculo()){
-					datos.setObstaculo(false);
-				}else{
-					datos.setObstaculo(true);
-				}
-				datos.setVelMax(datos.getVelMax()+1);
 				setValueAt(""+datos.getVelMax(), 0, 1);
 				setValueAt(""+datos.isObstaculo(), 1, 1);
-				setValueAt(""+datos.getGiro(), 2, 1);		
+				setValueAt(""+datos.getGiro(), 2, 1);
+				setValueAt(""+datos.getMotor(), 3, 1);
 
 			}
-		}, 0, 2000);
+		}, 0, 1);
 	}
 }

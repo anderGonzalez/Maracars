@@ -2,9 +2,11 @@ package recursos;
 
 public class Datos {
 	
-	double  velMax=0;
+	double  velMax=0, velMom;
+	
+
 	double  tiempoInicio, tiempo, distancia;
-	int  acelerometro_x,acelerometro_y, giro=50, motor=50;
+	int  acelerometro_x,acelerometro_y, giro=0, motor=0, revol;
 	boolean obstaculo=false;
 	Conjunto conjunto;
 	
@@ -19,7 +21,21 @@ public class Datos {
 	public void inicializarTiempo(){
 		this.tiempoInicio=System.currentTimeMillis();
 	}
+	public int getRevol() {
+		return revol;
+	}
 
+	public void setRevol(int revol) {
+		this.revol = revol;
+	}
+
+	public double getVelMom() {
+		return velMom;
+	}
+
+	public void setVelMom(double velMom) {
+		this.velMom = velMom;
+	}
 	public int getMotor() {
 		return motor;
 	}
