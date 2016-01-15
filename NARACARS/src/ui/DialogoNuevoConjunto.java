@@ -34,11 +34,13 @@ import recursos.Recorrido;
 @SuppressWarnings("serial")
 public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	
-	JTextField texto1;
-	JTextField texto2;
-	JTextField texto3;
-	JTextField texto4;
-	JTextField texto5; 
+	JTextField anchoCoche_tf;
+	JTextField longitudCoche_tf;
+	JTextField anchoPista_tf;
+	JTextField longitudRecta_tf;
+	JTextField radioAncho_tf;
+	JTextField coefFriccion_tf; 
+
 	JRadioButton reloj;
 	JRadioButton contrareloj;
 	ButtonGroup grupo;
@@ -47,8 +49,9 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	Sentido sentido;
 	Idioma idioma;
 
-	boolean prest=false;
+	boolean preparado=false;
 	double kotxezabal;
+	double longitudCoche;
 	double pistaZabal;
 	double rektaLuze;
 	double erradio;
@@ -58,7 +61,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	public DialogoNuevoConjunto (VentanaPrincipal ventana,String titulo, boolean modo) {
 		super(ventana,titulo,modo);
 		this.idioma=ventana.getIdioma();
-		this.setBounds(200, 75, 400,400);
+		this.setBounds(200, 75, 400,470);
 		this.add(this.panelNagusia());
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
@@ -76,19 +79,22 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 
 	private Container erdikoPanela(){
 
-		JPanel panelCentral=new JPanel(new GridLayout(6,1,10,10));
+		JPanel panelCentral=new JPanel(new GridLayout(7,1,10,10));
 		panelCentral.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		texto1=new JTextField("",20);
-		texto2=new JTextField("",20);
-		texto3=new JTextField("",20);
-		texto4=new JTextField("",20);
-		texto5=new JTextField("",20);
+		anchoCoche_tf=new JTextField("",20);
+		longitudCoche_tf= new JTextField("",20);
+		anchoPista_tf=new JTextField("",20);
+		longitudRecta_tf=new JTextField("",20);
+		radioAncho_tf=new JTextField("",20);
+		coefFriccion_tf=new JTextField("",20);
 		
-		panelCentral.add(texto1);
-		panelCentral.add(texto2);
-		panelCentral.add(texto3);
-		panelCentral.add(texto4);
-		panelCentral.add(texto5);
+		
+		panelCentral.add(anchoCoche_tf);
+		panelCentral.add(longitudCoche_tf);
+		panelCentral.add(anchoPista_tf);
+		panelCentral.add(longitudRecta_tf);
+		panelCentral.add(radioAncho_tf);
+		panelCentral.add(coefFriccion_tf);
 		panelCentral.add(añadirReloj());
 		return panelCentral;
 	}
@@ -116,45 +122,47 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		return behekoPanela;
 	}
 	public void escribirTexto(){
-		texto1.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoCoche","Ancho del coche")));//metrotan
-		texto2.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoPista","Ancho de la pista")));//metrotan
-		texto3.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("LongitudRecta","Longitud de la recta")));//metrotan
-		texto4.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("RadioAncho","Radio más ancho")));//metrotan
-		texto5.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("CoeficienteFriccion","Coeficiente de fricción")));
+		anchoCoche_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoCoche","Ancho del coche")));//metrotan
+		anchoPista_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoPista","Ancho de la pista")));//metrotan
+		longitudRecta_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("LongitudRecta","Longitud de la recta")));//metrotan
+		radioAncho_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("RadioAncho","Radio más ancho")));//metrotan
+		longitudCoche_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("LongitudCoche","Longitud del coche")));
+		coefFriccion_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("CoeficienteFriccion","Coeficiente de fricción")));
 		botonOk.setText("Ok");
 		reloj.setText(idioma.getProperty("Reloj","Reloj"));
 		contrareloj.setText(idioma.getProperty("Contrareloj","Contrareloj"));
 	}
 	
 	private void aldagaiGorde()throws NumberFormatException{
-		kotxezabal= getTexto1();pistaZabal=getTexto2();rektaLuze=getTexto3();
-		erradio= getTexto4();marrus=getTexto5();
+		kotxezabal= getAnchoCoche();
+		longitudCoche= getLongitudCoche();
+		pistaZabal=getAnchoPista();
+		rektaLuze=getLongitudRecta();
+		erradio= getRadioAncho();
+		marrus=getCoefFriccion();
 		if(kotxezabal<=pistaZabal&&pistaZabal>0&&rektaLuze>=0
 				&&marrus>=0){
 			Circuito circuito= new Circuito(erradio, pistaZabal, rektaLuze, marrus);
-			Coche coche= new Coche(kotxezabal);
+			Coche coche= new Coche(kotxezabal, longitudCoche);
 			Recorrido recorrido= new Recorrido();
 			recorrido.crearRecorrido(circuito, coche, getReloj()?Sentido.CLOCKWISE:Sentido.COUNTERCLOCKWISE);
 			conjunto= new Conjunto(circuito, coche, recorrido);
-			prest=true;
+			preparado=true;
 			this.dispose();
 		}else{
 			JOptionPane.showMessageDialog(this, 
 					"Balio horiek ez dira onak.",
 					"ERROR", JOptionPane.ERROR_MESSAGE);
-			}		
-		
+			}			
 	}
-
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		switch(e.getActionCommand()){
 		
 		case "Ok":
-			if(texto1.getText().length()!=0 &&texto2.getText().length()!=0
-			&&texto3.getText().length()!=0&&texto4.getText().length()!=0
-			&&texto5.getText().length()!=0){
+			if(anchoCoche_tf.getText().length()!=0 &&longitudCoche_tf.getText().length()!=0
+			&&anchoPista_tf.getText().length()!=0&&longitudRecta_tf.getText().length()!=0
+			&&radioAncho_tf.getText().length()!=0&&coefFriccion_tf.getText().length()!=0){
 				
 				try{
 					aldagaiGorde();
@@ -175,23 +183,26 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		}
 	}
 	
-	public double getTexto1() {
-		return Double.parseDouble(texto1.getText());
+	public double getLongitudCoche() {
+		return Double.parseDouble(longitudCoche_tf.getText());
 	}
-	public double getTexto2() {
-		return Double.parseDouble(texto2.getText());
+	public double getAnchoCoche() {
+		return Double.parseDouble(anchoCoche_tf.getText());
 	}
-	public double getTexto3() {
-		return Double.parseDouble(texto3.getText());
+	public double getAnchoPista() {
+		return Double.parseDouble(anchoPista_tf.getText());
 	}
-	public double getTexto4() {
-		return Double.parseDouble(texto4.getText());
+	public double getLongitudRecta() {
+		return Double.parseDouble(longitudRecta_tf.getText());
 	}
-	public double getTexto5() {
-		return Double.parseDouble(texto5.getText());
+	public double getRadioAncho() {
+		return Double.parseDouble(radioAncho_tf.getText());
 	}
-	public boolean isPrest() {
-		return prest;
+	public double getCoefFriccion() {
+		return Double.parseDouble(coefFriccion_tf.getText());
+	}
+	public boolean isPreparado() {
+		return preparado;
 	}
 
 	public boolean getReloj() {

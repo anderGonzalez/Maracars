@@ -4,9 +4,8 @@ public class Datos {
 	
 	double  velMax=0, velMom;
 	
-
-	double  tiempoInicio, tiempo, distancia;
-	int  acelerometro_x,acelerometro_y, giro=0, motor=0, revol;
+	double  tiempoInicio, tiempo, distanciaTotal=0.0, angulo;
+	int  acelerometro_x,acelerometro_y, giro=0, motor=0, revol, giro_aux;
 	boolean obstaculo=false;
 	Conjunto conjunto;
 	
@@ -20,6 +19,14 @@ public class Datos {
 	
 	public void inicializarTiempo(){
 		this.tiempoInicio=System.currentTimeMillis();
+	}
+	
+	public double getAngulo() {
+		return angulo;
+	}
+
+	public void setAngulo(double angulo) {
+		this.angulo = angulo;
 	}
 	public int getRevol() {
 		return revol;
@@ -46,12 +53,18 @@ public class Datos {
 	public void setConjunto(Conjunto conjunto) {
 		this.conjunto = conjunto;
 		if(this.conjunto!=null){
-			velMax=fisicas.getVmax(conjunto);
+			velMax=fisicas.getVmax(this);
 		}else{
 			velMax= 0;
 		}
+		angulo= fisicas.getAngulo(this);
+		giro_aux=Math.round((float)fisicas.getGiro(this));
 	}
 	
+	public Conjunto getConjunto() {
+		return conjunto;
+	}
+
 	public double getTiempoInicio() {
 		return tiempoInicio;
 	}
@@ -77,10 +90,10 @@ public class Datos {
 		this.tiempo = tiempo;
 	}
 	public double getDistancia() {
-		return distancia;
+		return distanciaTotal;
 	}
 	public void setDistancia(double distancia) {
-		this.distancia = distancia;
+		this.distanciaTotal = distancia;
 	}
 	
 	public int getAcelerometro_x() {
@@ -104,6 +117,14 @@ public class Datos {
 	}
 	public void setObstaculo(boolean obstaculo) {
 		this.obstaculo = obstaculo;
+	}
+
+	public int getGiro_aux() {
+		return giro_aux;
+	}
+
+	public void setGiro_aux(int giro_aux) {
+		this.giro_aux = giro_aux;
 	}
 
 }

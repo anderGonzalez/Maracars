@@ -47,15 +47,14 @@ public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		DialogoNuevoConjunto dialogo = new DialogoNuevoConjunto(ventana, DEFAULT_NUEVO_CONJUNTO, true);
-		if (dialogo.isPrest()) {
+		if (dialogo.isPreparado()) {
 			if (ventana.getConjunto() == null) {
 				ventana.setConjunto(dialogo.getConjunto());
 			} else {
 				ventana.getConjunto().setConjunto(dialogo.getConjunto());
-				
-			}
-		
+			}		
 			ventana.getDatos().setConjunto(dialogo.getConjunto());
+
 			
 			
 		} else {

@@ -31,7 +31,9 @@ public class Conjunto extends Observable implements Dibujable {
 	Circuito circuito;
 	Coche coche;
 	Recorrido recorrido;
-	Double distancia;
+	Double distancia=0.0;
+	int x = 0, y = 0;
+
 	//TODO distantzia hau berez ez da hemen egongo, datos klasetik hartuko dau.
 
 	double pixelsPorMetro = 20;
@@ -53,7 +55,9 @@ public class Conjunto extends Observable implements Dibujable {
 	public void dibujar(Graphics g, int x, int y) {
 		circuito.dibujar(g, x, y);
 		recorrido.dibujar(g, getXRecorrido(x), getYRecorrido(y));
-		calcularPosicionCoche(distancia, g);
+		calcularPosicionCoche(distancia);
+		g.setColor(Color.MAGENTA);
+		coche.dibujar(g, this.x, this.y);
 
 	}
 
@@ -76,11 +80,7 @@ public class Conjunto extends Observable implements Dibujable {
 	/**
 	 * @param metros
 	 */
-	public void addDistancia(double metros) {
-		distancia += metros;
-		setChanged();
-		notifyObservers();
-	}
+
 	
 
 	/**
@@ -109,37 +109,36 @@ public class Conjunto extends Observable implements Dibujable {
 	 * @param distancia
 	 * @param g
 	 */
-	public void calcularPosicionCoche(double distancia, Graphics g) {
-		int x = 0, y = 0;
+	public void calcularPosicionCoche(double distancia) {
 		while (distancia >= distanciaHasta(RECTA3)) {
 			distancia -= distanciaHasta(RECTA3);
 		}
 
 		if (distancia <= distanciaHasta(RECTA1)) {
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				x = recorrido.coordenadasInicio[POSX] - (int) (distancia * pixelsPorMetro);
+				this.x = recorrido.coordenadasInicio[POSX] - (int) (distancia * pixelsPorMetro);
 			} else {
-				x = recorrido.coordenadasInicio[POSX] + (int) (distancia * pixelsPorMetro);
+				this.x = recorrido.coordenadasInicio[POSX] + (int) (distancia * pixelsPorMetro);
 			}
-			y = recorrido.coordenadasInicio[POSY];
+			this.y = recorrido.coordenadasInicio[POSY];
 
 		} else if (distancia < distanciaHasta(CURVA1)) {
 			
 			double angulo = ((distancia - distanciaHasta(RECTA1)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				
-					y = (recorrido.coordenadasInicio[POSY])
+				this.y = (recorrido.coordenadasInicio[POSY])
 						+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
 				
-				x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
 			} else {
 				
-					y = recorrido.coordenadasInicio[POSY]
+				this.y = recorrido.coordenadasInicio[POSY]
 						- (int) ((recorrido.getRadio() * (Math.cos(angulo) - 1)) * pixelsPorMetro);
 				
-				x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 					+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
 			}
@@ -147,32 +146,32 @@ public class Conjunto extends Observable implements Dibujable {
 		} else if (distancia < distanciaHasta(RECTA2)) {
 
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 						- (int) (((recorrido.longitudRecta / 2) - (distancia - distanciaHasta(CURVA1)))
 								* pixelsPorMetro);
 			} else {
-				x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 						+ (int) (((recorrido.longitudRecta / 2) - (distancia - distanciaHasta(CURVA1)))
 								* pixelsPorMetro);
 			}
-			y = recorrido.coordenadasInicio[POSY] + (int) (recorrido.getRadio() * 2 * pixelsPorMetro);
+			this.y = recorrido.coordenadasInicio[POSY] + (int) (recorrido.getRadio() * 2 * pixelsPorMetro);
 
 		} else if (distancia < distanciaHasta(CURVA2)) {
 
 			double angulo = ((distancia - distanciaHasta(RECTA2)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
 				
-					y = recorrido.coordenadasInicio[POSY]
+				this.y = recorrido.coordenadasInicio[POSY]
 							+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
-					x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 							+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
 									* pixelsPorMetro);
 				
 			} else {
 				
-					y = recorrido.coordenadasInicio[POSY]
+				this.y = recorrido.coordenadasInicio[POSY]
 						+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
-					x = recorrido.coordenadasInicio[POSX]
+				this.x = recorrido.coordenadasInicio[POSX]
 						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
 						* pixelsPorMetro);
 				
@@ -180,19 +179,18 @@ public class Conjunto extends Observable implements Dibujable {
 		} else if (distancia <= distanciaHasta(RECTA3)) {
 
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				x = (	recorrido.coordenadasInicio[POSX]
+				this.x = (	recorrido.coordenadasInicio[POSX]
 						+ (int) ((recorrido.longitudRecta / 2 - (distancia - distanciaHasta(CURVA2)))
 						* pixelsPorMetro));
 			} else {
-				x = (	recorrido.coordenadasInicio[POSX]
+				this.x = (	recorrido.coordenadasInicio[POSX]
 						- (int) ((recorrido.longitudRecta / 2 - (distancia - distanciaHasta(CURVA2)))
 						* pixelsPorMetro));
 			}
-			y = recorrido.coordenadasInicio[POSY];
+			this.y = recorrido.coordenadasInicio[POSY];
 
 		}
-		g.setColor(Color.MAGENTA);
-		coche.dibujar(g, x, y);
+		
 	}
 
 	@SuppressWarnings("unused")
@@ -238,6 +236,8 @@ public class Conjunto extends Observable implements Dibujable {
 
 	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
+		setChanged();
+		notifyObservers();
 	}
 
 	public double getPIXELS_POR_METRO() {
@@ -252,4 +252,25 @@ public class Conjunto extends Observable implements Dibujable {
 		return (int) (y + (coche.getAncho()) * pixelsPorMetro);
 	}
 
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+		setChanged();
+		notifyObservers();
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+		setChanged();
+		notifyObservers();
+	}
+
+	
 }

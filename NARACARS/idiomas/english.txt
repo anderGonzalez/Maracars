@@ -16,6 +16,7 @@ BordeAceleracion=Acceleration
 BordeConexion=Connection status
 Conectado=Connected
 Desconectado=Disconnected
+LongitudCoche= Car's lenght
 AnchoCoche=Car's width
 AnchoPista=Path's width
 LongitudRecta=Straight path's length

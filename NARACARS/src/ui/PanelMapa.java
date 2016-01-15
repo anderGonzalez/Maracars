@@ -23,7 +23,6 @@ public class PanelMapa extends JPanel implements Observer {
 	private static final long serialVersionUID = 2245416530216305191L;
 	final int ANCHO = 900;
 	final int ALTO = 900;
-	
 	Conjunto conjunto;
 	
 	public PanelMapa(Conjunto conjunto) {
@@ -32,15 +31,7 @@ public class PanelMapa extends JPanel implements Observer {
 		conjunto.addObserver(this);
 		escalar();
 		setPreferredSize(conjunto.getDimension());
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			
-			@Override
-			public void run() {
-				conjunto.addDistancia(0.15);
-				
-			}
-		}, 0, 50);
+		
 		
 	}
 	

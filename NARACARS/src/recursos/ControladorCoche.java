@@ -4,11 +4,11 @@ package recursos;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
 import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Interfaces.Controlador;
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
@@ -87,10 +87,10 @@ public class ControladorCoche{
 			case 1:
 				if(giro>50){
 					giro-=50;
-					giro=giro*30/50+50;
+					giro=giro*35/50+15;
 				}
 				if(giro<50){
-					giro=giro*35/50+15;
+					giro=giro*30/50+50;
 					
 				}
 				outputStream.write(((Integer) giro).byteValue());
@@ -177,7 +177,6 @@ public class ControladorCoche{
 				//TODO hemen irakurri biharko zan serialekua eta gero datosen gorde
 				//Ez dakit baina zela juango gan gordetzen... suposatzen da ordenian datozela...				
 				ControladorCoche.this.read();
-
 			}
 		}, 0, 1);
 	}

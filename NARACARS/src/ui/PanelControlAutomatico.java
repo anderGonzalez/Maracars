@@ -30,12 +30,17 @@ import recursos.Datos;
 @SuppressWarnings("serial")
 public class PanelControlAutomatico extends JPanel implements Traducible, Controlador, Observer, ActionListener{
 
+	static final int RECTA1 = 2;
+	static final int CURVA1 = 3;
+	static final int RECTA2 = 4;
+	static final int CURVA2 = 5;
+	static final int RECTA3 = 6;
 	final int COLUMNAS = 1;
 	final int FILAS = 4;
 	final int MARGEN = 30; //px
 	final int ANCHO_COMPONENTE = 900; //px
 	final int ALTO_COMPONENTE = 100; //px
-	
+	static int turno = 0;
 	Datos datos;
 	Timer actualizarDatos;
 	VentanaPrincipal ventana;
@@ -49,7 +54,6 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		setAlignmentY(CENTER_ALIGNMENT);
 		this.ventana= ventana;
 		datos = ventana.getDatos();
-		iniciarActualizacionDatos();
 		crearContenido();
 		escribirTextos();
 	}
@@ -74,6 +78,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	private Component crearRESET() {
 		JPanel panelReset = new JPanel(new FlowLayout());
 		reset_bt= new JButton();
+		reset_bt.setEnabled(false);
 		reset_bt.addActionListener(this);
 		reset_bt.setActionCommand("reset");
 		panelReset.add(reset_bt);				
@@ -132,10 +137,58 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			
 			@Override
 			public void run() {
-				
+				calcularDistanciaRecorrida();
+				//TODO hemen scripta exekutauko da, eta datuak klaseko motor eta giro eguneratuko dittu
+				//Bittartian, pintatzen juango da panelMapa, hau da, PanelMapa observa a datos
 			}
-		}, 0, 19);
+		}, 0, 1);
 		
+	}
+	public void calcularDistanciaRecorrida(){
+		double distancia=(datos.getTiempo()/1000)*datos.getVelMax();
+	
+		switch (turno) {
+		case 0:
+			datos.setGiro(50);
+			datos.setMotor(50);//TODO kalkulatu egin behar da zenbat den bidali beharrekoa
+			if(datos.getConjunto().distanciaHasta(RECTA1)<=distancia){
+				turno++;
+			}
+			break;
+		case 1:
+			datos.setGiro(50+datos.getGiro_aux());
+			datos.setMotor(50);//TODO kalkulatu egin behar da zenbat den bidali beharrekoa
+			if(datos.getConjunto().distanciaHasta(CURVA1)<=distancia){
+				turno++;
+			}
+			break;
+		case 2:
+			datos.setGiro(50);
+			datos.setMotor(50);//TODO kalkulatu egin behar da zenbat den bidali beharrekoa
+			if(datos.getConjunto().distanciaHasta(RECTA2)<=distancia){
+				turno++;
+			}
+			break;
+		case 3:
+			datos.setGiro(50-datos.getGiro_aux());
+			datos.setMotor(50);//TODO kalkulatu egin behar da zenbat den bidali beharrekoa
+			if(datos.getConjunto().distanciaHasta(CURVA2)<=distancia){
+				turno++;
+			}
+			break;
+		case 4:
+			datos.setGiro(50);
+			datos.setMotor(50);//TODO kalkulatu egin behar da zenbat den bidali beharrekoa
+			if(datos.getConjunto().distanciaHasta(RECTA3)<=distancia){
+				datos.inicializarTiempo();
+				turno=0;
+			}
+			break;
+
+		default:
+			break;
+		}
+		datos.getConjunto().setDistancia(distancia);
 	}
 
 	@Override
@@ -149,7 +202,22 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 
 		switch (e.getActionCommand()) {
 		case "start":
-			
+			datos.inicializarTiempo();
+			turno=0;
+			iniciarActualizacionDatos();
+			situacion.setText("Simulacion iniciada");
+			reset_bt.setEnabled(true);
+			start_bt.setEnabled(false);
+			break;
+		case "nuevo":
+			ventana.accionConjunto.actionPerformed(null);
+			break;
+		case "reset":
+			situacion.setText("Simulacion parada");
+			datos.inicializarTiempo();
+			reset_bt.setEnabled(false);
+			start_bt.setEnabled(true);
+			actualizarDatos.cancel();
 			break;
 
 		default:

@@ -15,9 +15,19 @@ public class Coche implements Dibujable {
 
 	double pixelsPorMetro = 20; // px
 	double ancho;
-
-	public Coche(Double ancho) {
+	double longitud;
+	
+	public Coche(Double ancho, Double longitud) {
 		this.ancho = ancho;
+		this.longitud= longitud;
+	}
+
+	public double getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(double longitud) {
+		this.longitud = longitud;
 	}
 
 	public double getAncho() {

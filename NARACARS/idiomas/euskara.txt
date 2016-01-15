@@ -16,6 +16,7 @@ BordeAceleracion=Azelerazioa
 BordeConexion=Konexioaren egoera
 Conectado=Konektatuta
 Desconectado=Deskonektatuta
+LongitudCoche=Kotxearen luzeera
 AnchoCoche=Kotxearen zabalera
 AnchoPista=Pistaren zabalera
 LongitudRecta=Pistaren luzeera
