@@ -40,7 +40,7 @@ public class PanelMapa extends JPanel implements Observer {
 	}
 
 	public void setConjunto(Conjunto conjunto) {
-		this.conjunto = conjunto;
+		this.conjunto.setConjunto(conjunto);
 	}
 	
 	@Override

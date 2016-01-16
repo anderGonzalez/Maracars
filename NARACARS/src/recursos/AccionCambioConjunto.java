@@ -53,7 +53,7 @@ public class AccionCambioConjunto extends AbstractAction implements Traducible {
 			} else {
 				ventana.getConjunto().setConjunto(dialogo.getConjunto());
 			}		
-			ventana.getDatos().setConjunto(dialogo.getConjunto());
+			ventana.getDatos().setConjunto(ventana.getConjunto());
 
 			
 			

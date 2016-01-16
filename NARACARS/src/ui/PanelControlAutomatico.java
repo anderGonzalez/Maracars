@@ -211,7 +211,6 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case "nuevo":
 			ventana.accionConjunto.actionPerformed(null);
-			break;
 		case "reset":
 			situacion.setText("Simulacion parada");
 			datos.inicializarTiempo();

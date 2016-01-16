@@ -51,7 +51,11 @@ public class Datos {
 		this.motor = motor;
 	}
 	public void setConjunto(Conjunto conjunto) {
-		this.conjunto = conjunto;
+		if (this.conjunto == null){
+			this.conjunto = conjunto;
+		}
+			
+		this.conjunto.setConjunto(conjunto);
 		if(this.conjunto!=null){
 			velMax=fisicas.getVmax(this);
 		}else{
