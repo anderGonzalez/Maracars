@@ -22,6 +22,7 @@ public class TablaDatos extends JTable {
 				{ "Giro", "" + datos.getGiro() }, { "Motor", "" + datos.getMotor() }, { "Distancia", "" } };
 		String[] columnNames = { "Izena", "Balorea" };
 		this.datos = datos;
+		setEnabled(false);
 		model = new DefaultTableModel(rowData, columnNames);
 		setModel(model);
 		setDefaultRenderer(Object.class, renderer);
