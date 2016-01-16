@@ -18,8 +18,8 @@ public class TablaDatos extends JTable {
 	Datos datos;
 
 	public TablaDatos(Datos datos) {
-		String[][] rowData = { { "Velocidad", "" + datos.getVelMax() }, { "Obstaculo", "" + datos.isObstaculo() },
-				{ "Giro", "" + datos.getGiro() }, { "Motor", "" + datos.getMotor() }, { "Distancia", "" } };
+		String[][] rowData = { {"Velocidad", ""}, { "Obstaculo", ""},
+				{"Giro", ""},{"Motor",""},{"Distancia", ""},{"Distancia Total"} };
 		String[] columnNames = { "Izena", "Balorea" };
 		this.datos = datos;
 		setEnabled(false);
@@ -49,6 +49,10 @@ public class TablaDatos extends JTable {
 				setValueAt(""+datos.getAngulo(), 3, 1);
 				if(datos.getConjunto()!=null){
 					setValueAt(""+nf.format(datos.getConjunto().getDistancia()), 4, 1);
+					setValueAt(""+nf.format(datos.getDistancia()), 5, 1);
+				}else{
+					setValueAt("0.0", 4, 1);
+					setValueAt("0.0", 5, 1);
 				}
 				
 

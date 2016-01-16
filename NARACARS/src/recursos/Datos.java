@@ -4,7 +4,7 @@ public class Datos {
 	
 	double  velMax=0, velMom;
 	
-	double  tiempoInicio, tiempo, distanciaTotal=0.0, angulo;
+	double  tiempoInicioVuelta, tiempoVuelta,tiempoInicio, tiempoTotal, distanciaTotal=0.0, angulo;
 	int  acelerometro_x,acelerometro_y, giro=0, motor=0, revol, giro_aux;
 	boolean obstaculo=false;
 	Conjunto conjunto;
@@ -17,10 +17,22 @@ public class Datos {
 		
 	}
 	
-	public void inicializarTiempo(){
+	public void inicializarTiempoVuelta(){
+		this.tiempoInicioVuelta=System.currentTimeMillis();
+	}
+	public void inicializarTiempoTotal(){
 		this.tiempoInicio=System.currentTimeMillis();
 	}
 	
+	public double getTiempoTotal() {
+		tiempoTotal=System.currentTimeMillis()-tiempoInicio;
+		return tiempoTotal;
+	}	
+	public double getTiempo() {
+		tiempoVuelta= System.currentTimeMillis()-tiempoInicioVuelta;
+		return tiempoVuelta;
+	}
+
 	public double getAngulo() {
 		return angulo;
 	}
@@ -70,7 +82,7 @@ public class Datos {
 	}
 
 	public double getTiempoInicio() {
-		return tiempoInicio;
+		return tiempoInicioVuelta;
 	}
 
 	public double getVelMax() {
@@ -85,13 +97,9 @@ public class Datos {
 	public void setGiro(int giro) {
 		this.giro = giro;
 	}
-	
-	public double getTiempo() {
-		tiempo= System.currentTimeMillis()-tiempoInicio;
-		return tiempo;
-	}
+
 	public void setTiempo(double tiempo) {
-		this.tiempo = tiempo;
+		this.tiempoVuelta = tiempo;
 	}
 	public double getDistancia() {
 		return distanciaTotal;
