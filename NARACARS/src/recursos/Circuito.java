@@ -8,21 +8,14 @@ import Interfaces.Dibujable;
 
 /**
  * Esta clase define un circuito compuesto por dos rectas paralelas y dos semicirculos del mismo radio.
- * 
- * @author Ander
- *
- */
-
-
-/**
  * @author Joanes
  *
  */
 public class Circuito extends Observable implements Dibujable {
 
 	double pixelsPorMetro = 20;
-
-	double radioGrande, radioPequeño;
+	double radioGrande;
+	double radioPequeño;
 	double ancho;
 	double recta;
 	double friccion;
@@ -30,10 +23,10 @@ public class Circuito extends Observable implements Dibujable {
 	/**
 	 * Constructor del circuito 
 	 * 
-	 * @param radioGrande
-	 * @param anchoDePista
-	 * @param recta
-	 * @param friccion
+	 * @param radioGrande El radio mas ancho del circuito
+	 * @param anchoDePista Ancho de la pista
+	 * @param recta Longitud de la recta del circuito
+	 * @param friccion Coeficiente de friccion del circuito
 	 */
 	public Circuito(double radioGrande, double anchoDePista, double recta, double friccion) {
 		this.ancho = anchoDePista;
@@ -44,6 +37,9 @@ public class Circuito extends Observable implements Dibujable {
 		
 	}
 	
+	/**
+	 * Dibuja el circuito en el panel
+	 */
 	@Override
 	public void dibujar(Graphics g, int x, int y) {
 		g.setColor(Color.BLACK);

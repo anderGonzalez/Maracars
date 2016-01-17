@@ -16,24 +16,22 @@ public class Recorrido implements Dibujable {
 
 	static final int POSX = 0;
 	static final int POSY = 1;
+	static final int NUMPOS = 2;
 	
 	double pixelsPorMetro = 20; // px
-	int coordenadasInicio[]= new int [2];
+	int coordenadasInicio[]= new int [NUMPOS];
 	Sentido sentido;
 	double longitudRecta; // m
 	double radio; // m
 	double anchoCoche; //m
-	
 	Circuito circuito;
-
-	public Recorrido() {
-		
-	};
-
+	
 	/**
-	 * @param circuito
-	 * @param coche
-	 * @param sentido
+	 * Metodo que crea el recorrido que el coche recorrerá
+	 * 
+	 * @param circuito Recibe el circuito para calcular el recorrido
+	 * @param coche Recibe el coche para calcular el recorrido
+	 * @param sentido Recibe el sentido para calcular el recorrido
 	 */
 	public void crearRecorrido(Circuito circuito, Coche coche, Sentido sentido) {
 		this.longitudRecta = circuito.getRecta() - 2 * circuito.getAncho() + 4 * coche.getAncho();

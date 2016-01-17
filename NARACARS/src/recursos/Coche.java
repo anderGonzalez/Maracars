@@ -1,6 +1,7 @@
 package recursos;
 
 import java.awt.Graphics;
+import Interfaces.Dibujable;
 
 /**
  * Esta clase define un coche por sus dimensiones
@@ -9,7 +10,6 @@ import java.awt.Graphics;
  *
  */
 
-import Interfaces.Dibujable;
 
 public class Coche implements Dibujable {
 
@@ -17,6 +17,11 @@ public class Coche implements Dibujable {
 	double ancho;
 	double longitud;
 	
+	/**
+	 * Constructor de la clase del coche
+	 * @param ancho ancho del coche
+	 * @param longitud longitud del coche
+	 */
 	public Coche(Double ancho, Double longitud) {
 		this.ancho = ancho;
 		this.longitud= longitud;
@@ -42,6 +47,12 @@ public class Coche implements Dibujable {
 		return pixelsPorMetro;
 	}
 
+	/**
+	 * Los pixels por metro son una medida que hemos creado para que las
+	 * medidas se puedan apreciar mejor. Este metodo hace el set de los pixels por metro.
+	 * 
+	 * @param pixelsPorMetro
+	 */
 	public void setPixelsPorMetro(double pixelsPorMetro) {
 		this.pixelsPorMetro = pixelsPorMetro;
 	}

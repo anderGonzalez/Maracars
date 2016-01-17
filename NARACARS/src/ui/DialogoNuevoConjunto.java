@@ -33,7 +33,14 @@ import recursos.Recorrido;
 
 @SuppressWarnings("serial")
 public class DialogoNuevoConjunto extends JDialog implements ActionListener {
-	
+	final int POSX = 200;
+	final int POSY = 75;
+	final int WIDTH = 400;
+	final int HEIGHT = 470;
+	final int ROW = 7;
+	final int COLUMN = 1;
+	final int MARGEN = 10;
+	final int TAMAÑOTF = 20;
 	JTextField anchoCoche_tf;
 	JTextField longitudCoche_tf;
 	JTextField anchoPista_tf;
@@ -61,7 +68,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	public DialogoNuevoConjunto (VentanaPrincipal ventana,String titulo, boolean modo) {
 		super(ventana,titulo,modo);
 		this.idioma=ventana.getIdioma();
-		this.setBounds(200, 75, 400,470);
+		this.setBounds(POSX, POSY,WIDTH ,HEIGHT);
 		this.add(this.panelNagusia());
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
@@ -79,14 +86,14 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 
 	private Container erdikoPanela(){
 
-		JPanel panelCentral=new JPanel(new GridLayout(7,1,10,10));
-		panelCentral.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-		anchoCoche_tf=new JTextField("",20);
-		longitudCoche_tf= new JTextField("",20);
-		anchoPista_tf=new JTextField("",20);
-		longitudRecta_tf=new JTextField("",20);
-		radioAncho_tf=new JTextField("",20);
-		coefFriccion_tf=new JTextField("",20);
+		JPanel panelCentral=new JPanel(new GridLayout(ROW,COLUMN,MARGEN,MARGEN));
+		panelCentral.setBorder(BorderFactory.createEmptyBorder(MARGEN,MARGEN,MARGEN,MARGEN));
+		anchoCoche_tf=new JTextField("",TAMAÑOTF);
+		longitudCoche_tf= new JTextField("",TAMAÑOTF);
+		anchoPista_tf=new JTextField("",TAMAÑOTF);
+		longitudRecta_tf=new JTextField("",TAMAÑOTF);
+		radioAncho_tf=new JTextField("",TAMAÑOTF);
+		coefFriccion_tf=new JTextField("",TAMAÑOTF);
 		
 		
 		panelCentral.add(anchoCoche_tf);

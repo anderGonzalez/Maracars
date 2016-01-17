@@ -12,16 +12,12 @@ import net.java.games.input.Component.Identifier;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
+//TODO javadoc eitteko.
 
 /**
  * Esta clase define un joystick.
  * 
  * @author Ander
- */
-
-/**
- * @author Joanes
- *
  */
 public class Joystick extends Observable {
 
@@ -33,7 +29,7 @@ public class Joystick extends Observable {
 	double deadZone = 0.15;
 
 	/**
-	 * Constructor del Joystick
+	 * Constructor del Joystick, inicializa un timer
 	 */
 	public Joystick() {
 		refresh = new Timer();
@@ -64,7 +60,7 @@ public class Joystick extends Observable {
 	}
 
 	/**
-	 * 
+	 * Metodo que intenta buscar un mando
 	 */
 	private void buscarMando() {
 		Controller[] controllers = null;

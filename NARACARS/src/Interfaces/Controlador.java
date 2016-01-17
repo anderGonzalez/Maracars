@@ -1,12 +1,8 @@
 package Interfaces;
 
-import java.util.Timer;
-
-import recursos.Datos;
-
 /**
  * 
- * Esta interrfaz describe las funciones que una clase que sea capaz de
+ * Esta interfaz describe las funciones que una clase que sea capaz de
  * controlar un vehiculo debe tener para funcionar a modo de emisor.
  * 
  * @author Ander

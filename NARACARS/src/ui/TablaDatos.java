@@ -1,6 +1,5 @@
 package ui;
 
-import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,51 +11,58 @@ import javax.swing.table.DefaultTableModel;
 import recursos.Datos;
 
 @SuppressWarnings("serial")
-public class TablaDatos extends JTable {
-	RendererTabla renderer = new RendererTabla();
+public class TablaDatos extends JTable { 
+	//TODO txukunduta
+	final int DIGITOS = 2;
+	final int FRECUENCIA = 1;
+	final int DATOS = 1;
+	final int VELOCIDAD = 0;
+	final int OBSTACULO = 1;
+	final int GIRO = 2;
+	final int MOTOR = 3;
+	final int DISTANCIA = 4;
+	RendererTabla renderer;
 	DefaultTableModel model;
 	Datos datos;
 
 	public TablaDatos(Datos datos) {
 		String[][] rowData = { {"Velocidad", ""}, { "Obstaculo", ""},
-				{"Giro", ""},{"Motor",""},{"Distancia", ""},{"Distancia Total"} };
-		String[] columnNames = { "Izena", "Balorea" };
-		this.datos = datos;
-		setEnabled(false);
+				{"Giro", ""},{"Motor",""},{"Distancia Total"} };
+		String[] columnNames = { "Nombre", "Valor" };
+		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
 		setModel(model);
 		setDefaultRenderer(Object.class, renderer);
 		getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
 		setFillsViewportHeight(true);
+		setEnabled(false);
+		this.datos = datos;
 		procesoTablaDatos();
 	}
 
 	public void procesoTablaDatos() {
 		NumberFormat nf= NumberFormat.getInstance();
-		nf.setMaximumFractionDigits(2);
-		nf.setMinimumFractionDigits(2);
-		nf.setRoundingMode(RoundingMode.HALF_UP);
+		nf.setMaximumFractionDigits(DIGITOS);
+		nf.setMinimumFractionDigits(DIGITOS);
 
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
-				setValueAt(""+datos.getVelMax(), 0, 1);
-				setValueAt(""+datos.isObstaculo(), 1, 1);
-				setValueAt(""+datos.getGiro(), 2, 1);
-				setValueAt(""+datos.getAngulo(), 3, 1);
+				setValueAt(""+datos.getVelMax(), VELOCIDAD, DATOS);
+				setValueAt(""+datos.isObstaculo(), OBSTACULO, DATOS);
+				setValueAt(""+datos.getAngulo(), GIRO, DATOS);
+				setValueAt(""+datos.getGiro(), MOTOR, DATOS);
 				if(datos.getConjunto()!=null){
-					setValueAt(""+nf.format(datos.getConjunto().getDistancia()), 4, 1);
-					setValueAt(""+nf.format(datos.getDistancia()), 5, 1);
+					setValueAt(""+nf.format(datos.getDistancia()), DISTANCIA, DATOS);
 				}else{
-					setValueAt("0.0", 4, 1);
-					setValueAt("0.0", 5, 1);
+					setValueAt("0.0", DISTANCIA, DATOS);
 				}
 				
 
 			}
-		}, 0, 1);
+		}, 0, FRECUENCIA);
 	}
 }

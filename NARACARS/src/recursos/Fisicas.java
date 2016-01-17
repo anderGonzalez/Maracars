@@ -14,30 +14,41 @@ public class Fisicas {
 	double velocidadMax;
 	double angulo;
 	double giro;
-	
-	public Fisicas(){
 
-	}
+	/**
+	 * Metodo que calcula la velocidad maxima del coche en una curva
+	 * 
+	 * @param datos 
+	 * @return Devuelve la velocidad maxima
+	 */
 	public double getVmax(Datos datos){
 		this.radio= datos.getConjunto().getRecorrido().getRadio();
 		this.friccion=datos.getConjunto().getCircuito().getFriccion();
 		velocidadMax= Math.sqrt(this.radio*this.friccion*GRAVEDAD);
 		return velocidadMax;
 	}
+	/**
+	 * Metodo que calcula el angulo de las ruedas que debe dar el coche en la curva
+	 * 
+	 * @param datos
+	 * @return
+	 */
 	public double getAngulo(Datos datos) {
 		angulo=Math.asin(datos.getConjunto().getCoche().getAncho()/
 				datos.getConjunto().getRecorrido().getRadio());
 		angulo= Math.toDegrees(angulo);
 		return angulo;
 	}
+	/**
+	 * Metodo que calcula lo que tiene enviar el programa a la CPLD (giro)
+	 * 
+	 * @param datos
+	 * @return
+	 */
 	public double getGiro(Datos datos){
 		giro=datos.getAngulo()*45/50;
 		return giro;
 	}
 
-	
-	//TODO funtziño bat falta da, non biratzerakuan emon bihar daben giruan graduak kalkulauko dittuan.
-	//Gero datu hori Datos.giro-n gordeko da, servoari bidali beharreko datua baita hori. Normalean zuzen joango da
-	//baina biratu behar duenean gradu kopuru hori biratzen egon beharko da denbora osoan.
 
 }

@@ -21,8 +21,12 @@ import Interfaces.Dibujable;
 
 
 public class Conjunto extends Observable implements Dibujable {
+
 	static final int POSX = 0;
 	static final int POSY = 1;
+	/**
+	 * Los cinco tramos del circuito
+	 */
 	static final int RECTA1 = 2;
 	static final int CURVA1 = 3;
 	static final int RECTA2 = 4;
@@ -31,13 +35,10 @@ public class Conjunto extends Observable implements Dibujable {
 	Circuito circuito;
 	Coche coche;
 	Recorrido recorrido;
-	Double distancia=0.0;
-	int x = 0, y = 0;
-
-	//TODO distantzia hau berez ez da hemen egongo, datos klasetik hartuko dau.
-
+	double distancia;
 	double pixelsPorMetro = 20;
-
+	int x = 0;
+	int y = 0;
 	/**
 	 * Constructor del conjunto
 	 * @param circuito 
@@ -68,6 +69,11 @@ public class Conjunto extends Observable implements Dibujable {
 		return ret;
 	}
 
+	/**
+	 * Metodo que al enviar un nuevo conjunto guarda los datos del circuito, del coche y del recorrido
+	 * y notifica a los observadores.
+	 * @param conjunto
+	 */
 	public void setConjunto(Conjunto conjunto) {
 		circuito = conjunto.getCircuito();
 		recorrido = conjunto.getRecorrido();
@@ -78,12 +84,7 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 	/**
-	 * @param metros
-	 */
-
-	
-
-	/**
+	 * Metodo que devuelve la distancia desde el punto de partida del circuito hasta el final del tramo indicado
 	 * @param tramo
 	 * @return distancia
 	 */
@@ -106,6 +107,8 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 	/**
+	 * Metodo que calcula la posicion del coche en el trayecto segun la distancia recorrida desde el
+	 * punto de partida. Según cual es el tramo que está el coche utiliza diferentes formulas.
 	 * @param distancia
 	 * @param g
 	 */
@@ -211,6 +214,11 @@ public class Conjunto extends Observable implements Dibujable {
 		return coche;
 	}
 
+	/**
+	 * setea los pixels por metro del coche, del circuito y del recorrido
+	 * para que todos los componentes aparezcan con la misma escala
+	 * @param pixelsPorMetro
+	 */
 	public void setPIXELS_POR_METRO(double pixelsPorMetro) {
 		this.pixelsPorMetro = pixelsPorMetro;
 		coche.setPixelsPorMetro(pixelsPorMetro);
@@ -234,6 +242,10 @@ public class Conjunto extends Observable implements Dibujable {
 		return distancia;
 	}
 
+	/**
+	 * HAce set de la distancia, y avisa a los observadores de que ha cambiado.
+	 * @param distancia
+	 */
 	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 		setChanged();

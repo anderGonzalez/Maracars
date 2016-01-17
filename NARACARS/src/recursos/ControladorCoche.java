@@ -20,21 +20,31 @@ import gnu.io.UnsupportedCommOperationException;
  *
  * @author Ander
  */
-
 public class ControladorCoche{
 	final int INICIAL = 0;
 	final int ACELEROMETRO_X = 1;
 	final int ACELEROMETRO_Y = 2;
 	final int OBSTACULO = 3;
 	final int REVOLUCIONES = 4;
+	final int BAUDRATE = 9600;
+	final int TIEMPOABRIR = 2000;
+	final int TURNOENVIARMAX = 2;
+	final int BYTEINICIAL = 255;
+	final int RETRASOLEER = 1;
+	final int RETRASOENVIAR = 19;
 	SerialPort serialPort;
 	OutputStream outputStream;
 	InputStream inputStream;
 	Datos datos;
-	Timer timerEnviar, timerRecibir;
-	static int turno = 0;
-	static int turnoEnviar=0;
+	Timer timerEnviar;
+	Timer timerRecibir;
+	static int turnoEnviar = 0;
+	static int turnoRecibir=0;
 
+	/**
+	 * Metodo que trata de hacer la conexion serial y le asigna unos parametros a dicha conexion
+	 * @param datos
+	 */
 	public ControladorCoche(Datos datos) {
 		@SuppressWarnings("rawtypes")
 		Enumeration portList;
@@ -50,7 +60,7 @@ public class ControladorCoche{
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
 				System.out.println("He encontrado un serial jajajaja");
 				try {
-					serialPort = (SerialPort) portId.open("SimpleWriteApp", 2000);
+					serialPort = (SerialPort) portId.open("SimpleWriteApp", TIEMPOABRIR);
 				} catch (PortInUseException e) {
 				}
 				try {
@@ -60,7 +70,7 @@ public class ControladorCoche{
 				} catch (IOException | NullPointerException e) {
 				}
 				try {
-					serialPort.setSerialPortParams(9600, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
+					serialPort.setSerialPortParams(BAUDRATE, SerialPort.DATABITS_8, SerialPort.STOPBITS_1,
 							SerialPort.PARITY_NONE);
 					serialPort.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);	
 					procesoEnviar();
@@ -72,6 +82,8 @@ public class ControladorCoche{
 	}
 
 	/**
+	 * Metodo que envia los comandos a la CPLD, es un ciclo que envia tres
+	 * datos: el byte inicial, el giro y el motor.
 	 * 
 	 * @param giro 
 	 * @param motor
@@ -80,9 +92,9 @@ public class ControladorCoche{
 
 		try {
 			
-			switch (turno) {
+			switch (turnoEnviar) {
 			case 0:
-				outputStream.write(new Integer(255).byteValue());
+				outputStream.write(new Integer(BYTEINICIAL).byteValue());
 				break;
 			case 1:
 				if(giro>50){
@@ -105,27 +117,34 @@ public class ControladorCoche{
 
 		} catch (IOException e) {
 		}
-		turno++;
-		if (turno > 2)
-			turno = 0;
+		turnoEnviar++;
+		if (turnoEnviar > TURNOENVIARMAX)
+			turnoEnviar = 0;
 	}
 	
 	
+	/**
+	 * Metodo que guarda los datos recibidos desde la CPDL, es un ciclo que espera
+	 * al byte de inicio (255), y después recibe los datos del acelerometro (x e y),
+	 * si hay algun obstaculo o no y por ultimo las revoluciones del coche.
+	 * 
+	 * @param numero
+	 */
 	public void guardar(int numero){
-		int turnoEnviarAux= turnoEnviar;
-		switch(turnoEnviarAux){
+		int turnoRecibirAux= turnoRecibir;
+		switch(turnoRecibirAux){
 		case INICIAL:
-			if(numero==255){
-				turnoEnviar++;
+			if(numero==BYTEINICIAL){
+				turnoRecibir++;
 			}
 			break;
 		case ACELEROMETRO_X:
 			datos.setAcelerometro_x(numero);
-			turnoEnviar++;
+			turnoRecibir++;
 			break;
 		case ACELEROMETRO_Y:
 			datos.setAcelerometro_y(numero);
-			turnoEnviar++;
+			turnoRecibir++;
 			break;
 		case OBSTACULO:
 			if(numero==0){
@@ -133,12 +152,11 @@ public class ControladorCoche{
 			}else{
 				datos.setObstaculo(true);
 			}
-			System.err.println("Obstaculo: "+numero);
-			turnoEnviar++;
+			turnoRecibir++;
 			break;
 		case REVOLUCIONES:
 			datos.setRevol(numero);
-			turnoEnviar=0;
+			turnoRecibir=0;
 			break;
 			default:
 				break;
@@ -147,6 +165,8 @@ public class ControladorCoche{
 	}
 
 	/**
+	 * Metodo que si algún byte esta disponible para ser leido, lo lee y llama
+	 * al metodo guardar para guardar en la variable correcta.
 	 * 
 	 */
 	public void read() {
@@ -155,7 +175,7 @@ public class ControladorCoche{
 			while (inputStream.available() > 0) {
 				int numBytes = inputStream.read(readBuffer);
 				for(int i=0; i<numBytes;i++){
-					Thread.sleep(1);
+					Thread.sleep(RETRASOLEER);
 					int numero=(readBuffer[i] & 0xFF);
 					guardar(numero);
 				}
@@ -166,7 +186,7 @@ public class ControladorCoche{
 	}
 
 	/**
-	 * 
+	 * Metodo que inicia el proceso de leer desde la CPLD
 	 */
 	public void procesoLeer() {
 		timerRecibir = new Timer();
@@ -174,15 +194,13 @@ public class ControladorCoche{
 
 			@Override
 			public void run() {
-				//TODO hemen irakurri biharko zan serialekua eta gero datosen gorde
-				//Ez dakit baina zela juango gan gordetzen... suposatzen da ordenian datozela...				
 				ControladorCoche.this.read();
 			}
-		}, 0, 1);
+		}, 0, RETRASOLEER);
 	}
 
 	/**
-	 * 
+	 * Metodo que inicia el proceso de enviar datos a la CPLD
 	 */
 	public void procesoEnviar( ) {
 		timerEnviar = new Timer();
@@ -192,7 +210,7 @@ public class ControladorCoche{
 			public void run() {
 				ControladorCoche.this.enviarComando(datos.getGiro(), datos.getMotor());
 			}
-		}, 0, 19);
+		}, 0, RETRASOENVIAR);
 	}
 
 

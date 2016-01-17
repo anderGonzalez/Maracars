@@ -12,18 +12,10 @@ import ui.VentanaPrincipal;
 /**
  * Esta clase es una accion que cambia el conjunto de el menu principal
  * 
- * @author Ander
- *
+ * @author Joanes
+ *@see Conjunto
  */
 
-/**
- * @author Joanes
- *
- */
-/**
- * @author Joanes
- *
- */
 @SuppressWarnings("serial")
 public class AccionCambioConjunto extends AbstractAction implements Traducible {
 	VentanaPrincipal ventana;

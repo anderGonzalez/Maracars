@@ -1,33 +1,61 @@
 package recursos;
 
+/**
+ * @author Joanes
+ *
+ */
 public class Datos {
 	
-	double  velMax=0, velMom;
-	
-	double  tiempoInicioVuelta, tiempoVuelta,tiempoInicio, tiempoTotal, distanciaTotal=0.0, angulo;
-	int  acelerometro_x,acelerometro_y, giro=0, motor=0, revol, giro_aux;
+	double  velMax=0;
+	double velMom;
+	double  tiempoInicioVuelta;
+	double tiempoVuelta;
+	double tiempoInicio;
+	double tiempoTotal;
+	double distanciaTotal = 0.0;
+	double angulo;
+	int  acelerometro_x;
+	int acelerometro_y;
+	int giro = 0;
+	int motor = 0;
+	int revol;
+	int giro_aux;
 	boolean obstaculo=false;
 	Conjunto conjunto;
 	
 	Fisicas fisicas;
 
+	/**
+	 * Constructor de la clase Datos
+	 */
 	public Datos(){
 		fisicas= new Fisicas();
 		conjunto=null;
-		
-	}
+		}
 	
+	/**
+	 * Guarda el tiempo para tener una referencia
+	 */
 	public void inicializarTiempoVuelta(){
 		this.tiempoInicioVuelta=System.currentTimeMillis();
 	}
+	/**
+	 * Guarda el tiempo para tener una referencia
+	 */
 	public void inicializarTiempoTotal(){
 		this.tiempoInicio=System.currentTimeMillis();
 	}
 	
+	/**
+	 * @return Devuelve el tiempo transcurrido desde que ha empezado la simulación
+	 */
 	public double getTiempoTotal() {
 		tiempoTotal=System.currentTimeMillis()-tiempoInicio;
 		return tiempoTotal;
 	}	
+	/**
+	 * @return Devuelve el tiempo transcurrido desde que empezó la vuelta 
+	 */
 	public double getTiempo() {
 		tiempoVuelta= System.currentTimeMillis()-tiempoInicioVuelta;
 		return tiempoVuelta;
@@ -62,6 +90,12 @@ public class Datos {
 	public void setMotor(int motor) {
 		this.motor = motor;
 	}
+	/**
+	 * Al setear un nuevo conjunto, se calcula la velocidad maxima del coche en curva,
+	 * el angulo y el señal que hay que enviar a la CPLD
+	 * 
+	 * @param conjunto
+	 */
 	public void setConjunto(Conjunto conjunto) {
 		if (this.conjunto == null){
 			this.conjunto = conjunto;
