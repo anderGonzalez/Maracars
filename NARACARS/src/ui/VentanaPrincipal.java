@@ -19,11 +19,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-
 import Enums.Modo;
 import Interfaces.Controlador;
 import Interfaces.Traducible;
@@ -68,9 +65,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	JMenu idiomas;
 	JMenu mModos;
 	JMenuItem crearConjunto;
-	JTable tablaDatos;
+	TablaDatos tablaDatos;
 	JMenuBar menuBar;
-	Controlador panelControlador;
+	PanelControlJoystick controladorJoystick;
+	PanelControlAutomatico controladorAuto;
 	Datos datos;
 	ControladorCoche controlador;
 	public VentanaPrincipal() {
@@ -78,7 +76,6 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		controlador= new ControladorCoche(datos);
 		modo = Modo.MANUAL;
 		traducibles = new ArrayList<>();
-		traducibles.add(this);
 		
 		idioma = new Idioma(CASTELLANO_FILE);
 		idioma.addObserver(this);
@@ -94,10 +91,30 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().add(crearPanelTabs(), BorderLayout.CENTER);
+		añadirTraducibles();
 		this.escribirTextos();
 		setVisible(true);
 	}
 
+	public void añadirTraducibles(){
+		traducibles.clear();
+		traducibles.add(this);
+		traducibles.add((Traducible) accionConjunto);
+		traducibles.add((Traducible) idiomaCast);
+		traducibles.add((Traducible) idiomaEng);
+		traducibles.add((Traducible) idiomaEusk);
+		traducibles.add((Traducible) modoAuto);
+		traducibles.add((Traducible) modoMan);
+		traducibles.add(tablaDatos);
+		if(modo==Modo.AUTOMATICO){
+			traducibles.add(controladorAuto);
+		}else{
+			traducibles.add(controladorJoystick);
+		}
+		
+		
+		
+	}
 	
 
 	private JMenuBar crearBarraMenus() {
@@ -165,8 +182,8 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		case AUTOMATICO:
 			
 			iconControl = new ImageIcon(iconControl.getImage().getScaledInstance(ICONSIZE, ICONSIZE, Image.SCALE_SMOOTH));
-			JComponent panelControlAuto = new PanelControlAutomatico(this);
-			tabbedPane.addTab("Panel de Control Automatico", iconControl, panelControlAuto,
+			controladorAuto = new PanelControlAutomatico(this);
+			tabbedPane.addTab("Panel de Control Automatico", iconControl, controladorAuto,
 			                  "Panel de control del modo automatico");
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
 			ImageIcon iconoMapa = new ImageIcon(propiedades.getProperty("DirectorioImagenes", "iconos/") + propiedades.getProperty("IconoMapa", "mapa.png"));
@@ -202,9 +219,8 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	
 
 	private JComponent crearPanelControlMan() {
-		panelControlador = new PanelControlJoystick(this);
-		traducibles.add((Traducible) panelControlador);
-		return (JComponent) panelControlador;
+		controladorJoystick = new PanelControlJoystick(this);
+		return  controladorJoystick;
 	}
 
 	private JComponent crearPanelMapa() {
@@ -220,7 +236,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 
 	private JComponent crearPanelTabla() {
 		JScrollPane panel = new JScrollPane();
-		tablaDatos= new TablaDatos(datos);
+		tablaDatos= new TablaDatos(this);
 		panel.setViewportView(tablaDatos);
 		return panel;
 	}
@@ -267,13 +283,13 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		}
 	}
 	
-	public void setTablaDatos(JTable tablaDatos) {
+	public void setTablaDatos(TablaDatos tablaDatos) {
 		this.tablaDatos = tablaDatos;
 	}
 
 
 
-	public JTable getTablaDatos() {
+	public TablaDatos getTablaDatos() {
 		return tablaDatos;
 	}
 
@@ -310,11 +326,11 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	}
 
 	public Controlador getPanelControlador() {
-		return panelControlador;
+		return controladorJoystick;
 	}
 
-	public void setPanelControlador(Controlador panelControlador) {
-		this.panelControlador = panelControlador;
+	public void setPanelControlador(PanelControlJoystick panelControlador) {
+		this.controladorJoystick = panelControlador;
 	}
 
 	public JMenuItem getCrearConjunto() {

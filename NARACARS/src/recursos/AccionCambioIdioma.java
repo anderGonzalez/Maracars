@@ -38,9 +38,7 @@ public class AccionCambioIdioma extends AbstractAction implements Traducible{
 		super(nombre);
 		
 		this.ventana = ventana;
-		this.path = path;
-		ventana.getTraducibles().add(this);
-		
+		this.path = path;		
 		escribirTextos();
 	}
 	

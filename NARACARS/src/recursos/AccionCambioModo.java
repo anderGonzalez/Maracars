@@ -60,9 +60,9 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 					ventana.getOpciones().add(ventana.getCrearConjunto());
 				}
 			}
-			
+			ventana.añadirTraducibles();
 			ventana.escribirTextos();
-			
+		
 		}catch(Exception a){
 			a.getMessage();
 		}

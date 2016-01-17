@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import Interfaces.Controlador;
 import Interfaces.Traducible;
 import recursos.Datos;
+import recursos.Idioma;
 
 /**
  * Esta clase define un panel que es un controlador automatico
@@ -40,19 +41,27 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	final int MARGEN = 30; //px
 	final int ANCHO_COMPONENTE = 900; //px
 	final int ALTO_COMPONENTE = 100; //px
+	final int TAMAÑOFUENTE = 28;
 	static int turno = 0;
 	Datos datos;
+	Idioma idioma;
 	Timer actualizarDatos;
 	VentanaPrincipal ventana;
 	JLabel situacion;
-	JButton reset_bt, start_bt, conjunto_bt;
+	JButton reset_bt;
+	JButton start_bt;
+	JButton conjunto_bt;
 	
+	/**
+	 * @param ventana
+	 */
 	public PanelControlAutomatico(VentanaPrincipal ventana){
 		
 		setLayout(new GridLayout(FILAS, COLUMNAS, MARGEN, MARGEN));
 		setAlignmentX(CENTER_ALIGNMENT);
 		setAlignmentY(CENTER_ALIGNMENT);
 		this.ventana= ventana;
+		idioma= ventana.getIdioma();
 		datos = ventana.getDatos();
 		crearContenido();
 		escribirTextos();
@@ -82,7 +91,6 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		reset_bt.addActionListener(this);
 		reset_bt.setActionCommand("reset");
 		panelReset.add(reset_bt);				
-		
 		return panelReset;
 	}
 
@@ -92,37 +100,34 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		conjunto_bt.addActionListener(this);
 		conjunto_bt.setActionCommand("nuevo");
 		panelNuevoConjunto.add(conjunto_bt);
-		
 		return panelNuevoConjunto;
 	}
 	
 	private Component crearPanelSituacion() {
 		JPanel panelEstado = new JPanel(new FlowLayout());
-		
 		situacion= new JLabel();
 		panelEstado.add(situacion);
-		
 		return panelEstado;
 	}
 	
 	@Override
 	public void escribirTextos() {
-		start_bt.setText("START");
+		start_bt.setText(idioma.getProperty("Empezar", "Empezar"));
 		start_bt.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
-		start_bt.setFont(new Font("Arial", Font.BOLD, 28));
-		reset_bt.setText("RESET");
+		start_bt.setFont(new Font("Arial", Font.BOLD, TAMAÑOFUENTE));
+		reset_bt.setText(idioma.getProperty("Parar", "Parar"));
 		reset_bt.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
-		reset_bt.setFont(new Font("Arial", Font.BOLD, 28));
-		conjunto_bt.setText("NUEVO CONJUNTO");
+		reset_bt.setFont(new Font("Arial", Font.BOLD, TAMAÑOFUENTE));
+		conjunto_bt.setText(idioma.getProperty("NuevoConjunto", "Nuevo circuito"));
 		conjunto_bt.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
-		conjunto_bt.setFont(new Font("Arial", Font.BOLD, 28));
+		conjunto_bt.setFont(new Font("Arial", Font.BOLD, TAMAÑOFUENTE));
 		if(start_bt.isEnabled()){
-			situacion.setText("Simulación no iniciada");
+			situacion.setText(idioma.getProperty("SimulacionNo", "Simulacion no empezada"));
 		}else{
-			situacion.setText("Simulación iniciada");
+			situacion.setText(idioma.getProperty("SimulacionSi", "Simulacion empezada"));
 		}
 		situacion.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
-		situacion.setFont(new Font("Arial", Font.BOLD, 32));
+		situacion.setFont(new Font("Arial", Font.BOLD, TAMAÑOFUENTE));
 		}
 
 	@Override
@@ -137,10 +142,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			
 			@Override
 			public void run() {
-				calcularDistanciaRecorrida();
-				//TODO hemen scripta exekutauko da, eta datuak klaseko motor eta giro eguneratuko dittu
-				//Bittartian, pintatzen juango da panelMapa, hau da, PanelMapa observa a datos
-			}
+				calcularDistanciaRecorrida();			}
 		}, 0, 1);
 		
 	}
@@ -208,14 +210,14 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			datos.inicializarTiempoTotal();
 			turno=0;
 			iniciarActualizacionDatos();
-			situacion.setText("Simulacion iniciada");
+			situacion.setText(idioma.getProperty("SimulacionSi", "Simulacion empezada"));
 			reset_bt.setEnabled(true);
 			start_bt.setEnabled(false);
 			break;
 		case "nuevo":
 			ventana.accionConjunto.actionPerformed(null);
 		case "reset":
-			situacion.setText("Simulacion parada");
+			situacion.setText(idioma.getProperty("SimulacionNo", "Simulacion no empezada"));
 			datos.inicializarTiempoVuelta();
 			reset_bt.setEnabled(false);
 			start_bt.setEnabled(true);

@@ -65,6 +65,13 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	double marrus;
 	
 	
+	/**
+	 * Constructor del dialogo para crear un nuevo conjunto
+	 * 
+	 * @param ventana
+	 * @param titulo
+	 * @param modo
+	 */
 	public DialogoNuevoConjunto (VentanaPrincipal ventana,String titulo, boolean modo) {
 		super(ventana,titulo,modo);
 		this.idioma=ventana.getIdioma();
@@ -121,7 +128,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	
 	private Container behekoPanela(){
 		JPanel behekoPanela= new JPanel (new FlowLayout());
-		behekoPanela.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		behekoPanela.setBorder(BorderFactory.createEmptyBorder(MARGEN,MARGEN,MARGEN,MARGEN));
 		botonOk= new JButton();
 		botonOk.addActionListener(this);
 		botonOk.setActionCommand("Ok");

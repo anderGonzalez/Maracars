@@ -8,13 +8,16 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import Interfaces.Traducible;
 import recursos.Datos;
+import recursos.Idioma;
 
 @SuppressWarnings("serial")
-public class TablaDatos extends JTable { 
+public class TablaDatos extends JTable implements Traducible{ 
 	//TODO txukunduta
 	final int DIGITOS = 2;
 	final int FRECUENCIA = 1;
+	final int NOMBRES = 0;
 	final int DATOS = 1;
 	final int VELOCIDAD = 0;
 	final int OBSTACULO = 1;
@@ -24,20 +27,22 @@ public class TablaDatos extends JTable {
 	RendererTabla renderer;
 	DefaultTableModel model;
 	Datos datos;
-
-	public TablaDatos(Datos datos) {
+	Idioma idioma;
+	public TablaDatos(VentanaPrincipal ventana) {
 		String[][] rowData = { {"Velocidad", ""}, { "Obstaculo", ""},
 				{"Giro", ""},{"Motor",""},{"Distancia Total"} };
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
+		this.datos = ventana.getDatos();
+		this.idioma= ventana.getIdioma();
 		setModel(model);
 		setDefaultRenderer(Object.class, renderer);
 		getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		getTableHeader().setReorderingAllowed(false);
 		setFillsViewportHeight(true);
 		setEnabled(false);
-		this.datos = datos;
+		escribirTextos();
 		procesoTablaDatos();
 	}
 
@@ -64,5 +69,19 @@ public class TablaDatos extends JTable {
 
 			}
 		}, 0, FRECUENCIA);
+	}
+
+	@Override
+	public void escribirTextos() {
+		 getColumnModel().getColumn(NOMBRES).setHeaderValue(idioma.getProperty("Nombres", "Nombres"));
+		 getColumnModel().getColumn(DATOS).setHeaderValue(idioma.getProperty("Valores", "Valores"));
+		setValueAt(idioma.getProperty("Velocidad", "Velocidad"), VELOCIDAD, NOMBRES);
+		setValueAt(idioma.getProperty("Obstaculo", "Obstaculo"), OBSTACULO, NOMBRES);
+		setValueAt(idioma.getProperty("Giro", "Giro"), GIRO, NOMBRES);
+		setValueAt(idioma.getProperty("Motor", "Motor"), MOTOR, NOMBRES);
+		setValueAt(idioma.getProperty("Distancia", "Distancia"), DISTANCIA, NOMBRES);
+
+
+
 	}
 }
