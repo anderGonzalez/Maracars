@@ -51,7 +51,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 
 	/**
 	 * Constructor del panel de control del Joystick
-	 * @param ventana
+	 * 
+	 * @param ventana Ventana principal para recibir datos de el
 	 */
 	public PanelControlJoystick(VentanaPrincipal ventana) {
 		mando = new Joystick();
@@ -67,7 +68,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	}
 
 	/**
-	 * Metodo que llama a las funciones necesarias para luego añadir los paneles al panel principal
+	 * Metodo que llama a las funciones necesarias para luego añadir los paneles
+	 * al panel principal
 	 */
 	private void crearContenido() {
 		add(crearLabelEstado());
@@ -76,7 +78,9 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	}
 
 	/**
-	 * Metodo que crea un panel y le añade un progressbar que luego el joystick controlá
+	 * Metodo que crea un panel y le añade un progressbar que luego el joystick
+	 * controlá
+	 * 
 	 * @return devuelve el panel con el Progressbar
 	 */
 	private Component crearPBGiro() {
@@ -90,7 +94,9 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	}
 
 	/**
-	 * Metodo que crea un panel y le añade un progressbar que luego el joystick controlá
+	 * Metodo que crea un panel y le añade un progressbar que luego el joystick
+	 * controlá
+	 * 
 	 * @return devuelve el panel con el Progressbar
 	 */
 	private Component crearPBAceleracion() {
@@ -105,7 +111,9 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	}
 
 	/**
-	 * Metodo que crea un panel y le añade un label que mostrará cual es el estado del mando
+	 * Metodo que crea un panel y le añade un label que mostrará cual es el
+	 * estado del mando
+	 * 
 	 * @return devuelve el panel con el label
 	 */
 	private Component crearLabelEstado() {

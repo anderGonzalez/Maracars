@@ -1,63 +1,68 @@
 package recursos;
 
 /**
+ * Clase que tiene los datos necesarios para la simulacion
+ *
  * @author Joanes
  *
  */
 public class Datos {
-	
-	double  velMax=0;
+
+	double velMax = 0;
 	double velMom;
-	double  tiempoInicioVuelta;
+	double tiempoInicioVuelta;
 	double tiempoVuelta;
 	double tiempoInicio;
 	double tiempoTotal;
 	double distanciaTotal = 0.0;
 	double angulo;
-	int  acelerometro_x;
+	int acelerometro_x;
 	int acelerometro_y;
 	int giro = 0;
 	int motor = 0;
 	int revol;
 	int giro_aux;
-	boolean obstaculo=false;
+	boolean obstaculo = false;
 	Conjunto conjunto;
-	
+
 	Fisicas fisicas;
 
 	/**
 	 * Constructor de la clase Datos
 	 */
-	public Datos(){
-		fisicas= new Fisicas();
-		conjunto=null;
-		}
-	
+	public Datos() {
+		fisicas = new Fisicas();
+		conjunto = null;
+	}
+
 	/**
 	 * Guarda el tiempo para tener una referencia
 	 */
-	public void inicializarTiempoVuelta(){
-		this.tiempoInicioVuelta=System.currentTimeMillis();
+	public void inicializarTiempoVuelta() {
+		this.tiempoInicioVuelta = System.currentTimeMillis();
 	}
+
 	/**
 	 * Guarda el tiempo para tener una referencia
 	 */
-	public void inicializarTiempoTotal(){
-		this.tiempoInicio=System.currentTimeMillis();
+	public void inicializarTiempoTotal() {
+		this.tiempoInicio = System.currentTimeMillis();
 	}
-	
+
 	/**
-	 * @return Devuelve el tiempo transcurrido desde que ha empezado la simulación
+	 * @return Devuelve el tiempo transcurrido desde que ha empezado la
+	 *         simulación
 	 */
 	public double getTiempoTotal() {
-		tiempoTotal=System.currentTimeMillis()-tiempoInicio;
+		tiempoTotal = System.currentTimeMillis() - tiempoInicio;
 		return tiempoTotal;
-	}	
+	}
+
 	/**
-	 * @return Devuelve el tiempo transcurrido desde que empezó la vuelta 
+	 * @return Devuelve el tiempo transcurrido desde que empezó la vuelta
 	 */
 	public double getTiempo() {
-		tiempoVuelta= System.currentTimeMillis()-tiempoInicioVuelta;
+		tiempoVuelta = System.currentTimeMillis() - tiempoInicioVuelta;
 		return tiempoVuelta;
 	}
 
@@ -68,6 +73,7 @@ public class Datos {
 	public void setAngulo(double angulo) {
 		this.angulo = angulo;
 	}
+
 	public int getRevol() {
 		return revol;
 	}
@@ -83,6 +89,7 @@ public class Datos {
 	public void setVelMom(double velMom) {
 		this.velMom = velMom;
 	}
+
 	public int getMotor() {
 		return motor;
 	}
@@ -90,27 +97,28 @@ public class Datos {
 	public void setMotor(int motor) {
 		this.motor = motor;
 	}
+
 	/**
-	 * Al setear un nuevo conjunto, se calcula la velocidad maxima del coche en curva,
-	 * el angulo y el señal que hay que enviar a la CPLD
+	 * Al setear un nuevo conjunto, se calcula la velocidad maxima del coche en
+	 * curva, el angulo y el señal que hay que enviar a la CPLD
 	 * 
-	 * @param conjunto
+	 * @param conjunto Conjunto (circuito, recorrido, coche)
 	 */
 	public void setConjunto(Conjunto conjunto) {
-		if (this.conjunto == null){
+		if (this.conjunto == null) {
 			this.conjunto = conjunto;
 		}
-			
+
 		this.conjunto.setConjunto(conjunto);
-		if(this.conjunto!=null){
-			velMax=fisicas.getVmax(this);
-		}else{
-			velMax= 0;
+		if (this.conjunto != null) {
+			velMax = fisicas.getVmax(this);
+		} else {
+			velMax = 0;
 		}
-		angulo= fisicas.getAngulo(this);
-		giro_aux=Math.round((float)fisicas.getGiro(this));
+		angulo = fisicas.getAngulo(this);
+		giro_aux = Math.round((float) fisicas.getGiro(this));
 	}
-	
+
 	public Conjunto getConjunto() {
 		return conjunto;
 	}
@@ -122,12 +130,15 @@ public class Datos {
 	public double getVelMax() {
 		return velMax;
 	}
+
 	public void setVelMax(double velMax) {
 		this.velMax = velMax;
 	}
+
 	public int getGiro() {
 		return giro;
 	}
+
 	public void setGiro(int giro) {
 		this.giro = giro;
 	}
@@ -135,13 +146,15 @@ public class Datos {
 	public void setTiempo(double tiempo) {
 		this.tiempoVuelta = tiempo;
 	}
+
 	public double getDistancia() {
 		return distanciaTotal;
 	}
+
 	public void setDistancia(double distancia) {
 		this.distanciaTotal = distancia;
 	}
-	
+
 	public int getAcelerometro_x() {
 		return acelerometro_x;
 	}
@@ -161,6 +174,7 @@ public class Datos {
 	public boolean isObstaculo() {
 		return obstaculo;
 	}
+
 	public void setObstaculo(boolean obstaculo) {
 		this.obstaculo = obstaculo;
 	}

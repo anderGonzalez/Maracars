@@ -9,16 +9,15 @@ import Enums.Sentido;
 import Interfaces.Dibujable;
 
 /**
- * Esta clase define el conjunto formado por un chche, el circuito 
- * en el que esta y recorrido que realiza en este.
+ * Esta clase define el conjunto formado por un chche, el circuito en el que
+ * esta y recorrido que realiza en este.
  * 
  * @author Ander
- * @see Circuito
- * @see Coche
- * @see Recorrido
+ * @see Circuito Circuito construido desde los parametros
+ * @see Coche Coche construido desde los parametros
+ * @see Recorrido Recorrido construido desde los parametros
  *
  */
-
 
 public class Conjunto extends Observable implements Dibujable {
 
@@ -39,11 +38,13 @@ public class Conjunto extends Observable implements Dibujable {
 	double pixelsPorMetro = 20;
 	int x = 0;
 	int y = 0;
+
 	/**
 	 * Constructor del conjunto
-	 * @param circuito 
-	 * @param coche
-	 * @param recorrido
+	 * 
+	 * @param circuito Circuito construido desde los parametros
+	 * @param coche Coche construido desde los parametros
+	 * @param recorrido Recorrido construido desde los parametros
 	 */
 	public Conjunto(Circuito circuito, Coche coche, Recorrido recorrido) {
 		this.coche = coche;
@@ -62,12 +63,12 @@ public class Conjunto extends Observable implements Dibujable {
 
 	}
 
-
-
 	/**
-	 * Metodo que devuelve la distancia desde el punto de partida del circuito hasta el final del tramo indicado
-	 * @param tramo
-	 * @return distancia
+	 * Metodo que devuelve la distancia desde el punto de partida del circuito
+	 * hasta el final del tramo indicado
+	 * 
+	 * @param tramo tramo que el coche esta recorriendo
+	 * @return distancia distancia hasta el final del tramo
 	 */
 	public double distanciaHasta(int tramo) {
 		switch (tramo) {
@@ -88,10 +89,12 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 	/**
-	 * Metodo que calcula la posicion del coche en el trayecto segun la distancia recorrida desde el
-	 * punto de partida. Según cual es el tramo que está el coche utiliza diferentes formulas.
-	 * @param distancia
-	 * @param g
+	 * Metodo que calcula la posicion del coche en el trayecto segun la
+	 * distancia recorrida desde el punto de partida. Según cual es el tramo que
+	 * está el coche utiliza diferentes formulas.
+	 * 
+	 * @param distancia distancia recorrida por el coche
+	 * 
 	 */
 	public void calcularPosicionCoche(double distancia) {
 		while (distancia >= distanciaHasta(RECTA3)) {
@@ -107,23 +110,23 @@ public class Conjunto extends Observable implements Dibujable {
 			this.y = recorrido.coordenadasInicio[POSY];
 
 		} else if (distancia < distanciaHasta(CURVA1)) {
-			
+
 			double angulo = ((distancia - distanciaHasta(RECTA1)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				
+
 				this.y = (recorrido.coordenadasInicio[POSY])
 						+ (int) ((recorrido.getRadio() * (1 - Math.cos(angulo))) * pixelsPorMetro);
-				
+
 				this.x = recorrido.coordenadasInicio[POSX]
 						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
 			} else {
-				
+
 				this.y = recorrido.coordenadasInicio[POSY]
 						- (int) ((recorrido.getRadio() * (Math.cos(angulo) - 1)) * pixelsPorMetro);
-				
+
 				this.x = recorrido.coordenadasInicio[POSX]
-					+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
+						+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
 
 			}
 
@@ -144,37 +147,35 @@ public class Conjunto extends Observable implements Dibujable {
 
 			double angulo = ((distancia - distanciaHasta(RECTA2)) / recorrido.getRadio());
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				
-				this.y = recorrido.coordenadasInicio[POSY]
-							+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
-				this.x = recorrido.coordenadasInicio[POSX]
-							+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
-									* pixelsPorMetro);
-				
-			} else {
-				
+
 				this.y = recorrido.coordenadasInicio[POSY]
 						+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
 				this.x = recorrido.coordenadasInicio[POSX]
-						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio())
-						* pixelsPorMetro);
-				
+						+ (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
+
+			} else {
+
+				this.y = recorrido.coordenadasInicio[POSY]
+						+ (int) ((recorrido.getRadio() * (1 + Math.cos(angulo))) * pixelsPorMetro);
+				this.x = recorrido.coordenadasInicio[POSX]
+						- (int) ((distanciaHasta(RECTA1) + Math.sin(angulo) * recorrido.getRadio()) * pixelsPorMetro);
+
 			}
 		} else if (distancia <= distanciaHasta(RECTA3)) {
 
 			if (recorrido.sentido == Sentido.CLOCKWISE) {
-				this.x = (	recorrido.coordenadasInicio[POSX]
+				this.x = (recorrido.coordenadasInicio[POSX]
 						+ (int) ((recorrido.longitudRecta / 2 - (distancia - distanciaHasta(CURVA2)))
-						* pixelsPorMetro));
+								* pixelsPorMetro));
 			} else {
-				this.x = (	recorrido.coordenadasInicio[POSX]
+				this.x = (recorrido.coordenadasInicio[POSX]
 						- (int) ((recorrido.longitudRecta / 2 - (distancia - distanciaHasta(CURVA2)))
-						* pixelsPorMetro));
+								* pixelsPorMetro));
 			}
 			this.y = recorrido.coordenadasInicio[POSY];
 
 		}
-		
+
 	}
 
 	@SuppressWarnings("unused")
@@ -202,9 +203,10 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 	/**
-	 * Metodo que al enviar un nuevo conjunto guarda los datos del circuito, del coche y del recorrido
-	 * y notifica a los observadores.
-	 * @param conjunto
+	 * Metodo que al enviar un nuevo conjunto guarda los datos del circuito, del
+	 * coche y del recorrido y notifica a los observadores.
+	 * 
+	 * @param conjunto Conjunto (coche, recorrido, circuito)
 	 */
 	public void setConjunto(Conjunto conjunto) {
 		circuito = conjunto.getCircuito();
@@ -216,9 +218,10 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 	/**
-	 * setea los pixels por metro del coche, del circuito y del recorrido
-	 * para que todos los componentes aparezcan con la misma escala
-	 * @param pixelsPorMetro
+	 * setea los pixels por metro del coche, del circuito y del recorrido para
+	 * que todos los componentes aparezcan con la misma escala
+	 * 
+	 * @param pixelsPorMetro medida inventada por nosotros para poder ver bien el conjunto
 	 */
 	public void setPIXELS_POR_METRO(double pixelsPorMetro) {
 		this.pixelsPorMetro = pixelsPorMetro;
@@ -245,7 +248,8 @@ public class Conjunto extends Observable implements Dibujable {
 
 	/**
 	 * HAce set de la distancia, y avisa a los observadores de que ha cambiado.
-	 * @param distancia
+	 * 
+	 * @param distancia distancia recorrida
 	 */
 	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
@@ -285,5 +289,4 @@ public class Conjunto extends Observable implements Dibujable {
 		notifyObservers();
 	}
 
-	
 }

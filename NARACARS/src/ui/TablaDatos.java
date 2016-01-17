@@ -11,16 +11,17 @@ import javax.swing.table.DefaultTableModel;
 import Interfaces.Traducible;
 import recursos.Datos;
 import recursos.Idioma;
+
 //TODO txukunduta
 /**
  * Esta clase define una tabla donde los datos se irán actualizando
  * 
- * @see datos
+ * @see datos 
  * @author Joanes
  *
  */
 @SuppressWarnings("serial")
-public class TablaDatos extends JTable implements Traducible{ 
+public class TablaDatos extends JTable implements Traducible {
 	final int DIGITOS = 2;
 	final int FRECUENCIA = 1;
 	final int NOMBRES = 0;
@@ -34,19 +35,21 @@ public class TablaDatos extends JTable implements Traducible{
 	DefaultTableModel model;
 	Datos datos;
 	Idioma idioma;
-	
+
 	/**
-	 * Metodo constructor de la clase TableDatos, que crea un JTable, con 5 filas y dos columnas
-	 * @param ventana
+	 * Metodo constructor de la clase TableDatos, que crea un JTable, con 5
+	 * filas y dos columnas
+	 * 
+	 * @param ventana Ventana principal
 	 */
 	public TablaDatos(VentanaPrincipal ventana) {
-		String[][] rowData = { {"Velocidad", ""}, { "Obstaculo", ""},
-				{"Giro", ""},{"Motor",""},{"Distancia Total"} };
+		String[][] rowData = { { "Velocidad", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
+				{ "Distancia Total" } };
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
 		this.datos = ventana.getDatos();
-		this.idioma= ventana.getIdioma();
+		this.idioma = ventana.getIdioma();
 		setModel(model);
 		setDefaultRenderer(Object.class, renderer);
 		getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -58,11 +61,11 @@ public class TablaDatos extends JTable implements Traducible{
 	}
 
 	/**
-	 * Metodo que inicia un timer para que los datos de la tabla se vayan actualizando y sincronizandose con los datos 
-	 * de la clase datos
+	 * Metodo que inicia un timer para que los datos de la tabla se vayan
+	 * actualizando y sincronizandose con los datos de la clase datos
 	 */
 	public void procesoTablaDatos() {
-		NumberFormat nf= NumberFormat.getInstance();
+		NumberFormat nf = NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(DIGITOS);
 		nf.setMinimumFractionDigits(DIGITOS);
 
@@ -71,16 +74,15 @@ public class TablaDatos extends JTable implements Traducible{
 
 			@Override
 			public void run() {
-				setValueAt(""+datos.getVelMax(), VELOCIDAD, DATOS);
-				setValueAt(""+datos.isObstaculo(), OBSTACULO, DATOS);
-				setValueAt(""+datos.getAngulo(), GIRO, DATOS);
-				setValueAt(""+datos.getGiro(), MOTOR, DATOS);
-				if(datos.getConjunto()!=null){
-					setValueAt(""+nf.format(datos.getDistancia()), DISTANCIA, DATOS);
-				}else{
+				setValueAt("" + datos.getVelMax(), VELOCIDAD, DATOS);
+				setValueAt("" + datos.isObstaculo(), OBSTACULO, DATOS);
+				setValueAt("" + datos.getAngulo(), GIRO, DATOS);
+				setValueAt("" + datos.getGiro(), MOTOR, DATOS);
+				if (datos.getConjunto() != null) {
+					setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
+				} else {
 					setValueAt("0.0", DISTANCIA, DATOS);
 				}
-				
 
 			}
 		}, 0, FRECUENCIA);
@@ -88,15 +90,13 @@ public class TablaDatos extends JTable implements Traducible{
 
 	@Override
 	public void escribirTextos() {
-		 getColumnModel().getColumn(NOMBRES).setHeaderValue(idioma.getProperty("Nombres", "Nombres"));
-		 getColumnModel().getColumn(DATOS).setHeaderValue(idioma.getProperty("Valores", "Valores"));
+		getColumnModel().getColumn(NOMBRES).setHeaderValue(idioma.getProperty("Nombres", "Nombres"));
+		getColumnModel().getColumn(DATOS).setHeaderValue(idioma.getProperty("Valores", "Valores"));
 		setValueAt(idioma.getProperty("Velocidad", "Velocidad"), VELOCIDAD, NOMBRES);
 		setValueAt(idioma.getProperty("Obstaculo", "Obstaculo"), OBSTACULO, NOMBRES);
 		setValueAt(idioma.getProperty("Giro", "Giro"), GIRO, NOMBRES);
 		setValueAt(idioma.getProperty("Motor", "Motor"), MOTOR, NOMBRES);
 		setValueAt(idioma.getProperty("Distancia", "Distancia"), DISTANCIA, NOMBRES);
-
-
 
 	}
 }

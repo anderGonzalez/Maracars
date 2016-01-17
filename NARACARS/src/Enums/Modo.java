@@ -4,9 +4,9 @@ import ui.VentanaPrincipal;
 
 /**
  * 
- *  Esta clase es un enumerador de los modos disponibles en el programa
- *  principal de este projecto descrito en la clase VentanaPrincipal
- *  
+ * Esta clase es un enumerador de los modos disponibles en el programa principal
+ * de este projecto descrito en la clase VentanaPrincipal
+ * 
  * @author Ander
  * @see VentanaPrincipal
  *

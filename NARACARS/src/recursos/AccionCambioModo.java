@@ -10,12 +10,12 @@ import Interfaces.Traducible;
 import ui.VentanaPrincipal;
 
 /**
- * Esta clase que extiende a una accion realiza un cambio en el modo de 
- * de una VentanaPrincipal.
+ * Esta clase que extiende a una accion realiza un cambio en el modo de de una
+ * VentanaPrincipal.
  * 
  * @author Ander
- * @see Modo
- * @see VentanaPrincipal
+ * @see Modo Modo(automatico,manual)
+ * @see VentanaPrincipal Ventana Principal
  *
  */
 
@@ -24,11 +24,12 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 
 	VentanaPrincipal ventana;
 	Modo modo;
+
 	/**
 	 * Constructor de la accion de cambio de modo (automatico, manual)
 	 * 
-	 * @param modo 
-	 * @param ventana
+	 * @param modo modo (automatico, manual)
+	 * @param ventana Ventana principal
 	 */
 	public AccionCambioModo(Modo modo, VentanaPrincipal ventana) {
 		super();
@@ -41,38 +42,39 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		AccionCambioConjunto conjunto= new AccionCambioConjunto(ventana);
-		if(modo==Modo.AUTOMATICO){
+		AccionCambioConjunto conjunto = new AccionCambioConjunto(ventana);
+		if (modo == Modo.AUTOMATICO) {
 			conjunto.actionPerformed(null);
 		}
 		ventana.getPanelControlador().terminarActualizarDatos();
 		ventana.setModo(modo);
 		ventana.getContentPane().removeAll();
 		ventana.getContentPane().add(ventana.crearPanelTabs(), BorderLayout.CENTER);
-		try{
-			if(ventana.getOpciones().getMenuComponentCount()==3){
-				if(modo==Modo.MANUAL){
+		try {
+			if (ventana.getOpciones().getMenuComponentCount() == 3) {
+				if (modo == Modo.MANUAL) {
 					ventana.getOpciones().remove(ventana.getCrearConjunto());
 				}
-				
-			}else if(ventana.getOpciones().getMenuComponentCount()==2){
-				if(modo==Modo.AUTOMATICO){
+
+			} else if (ventana.getOpciones().getMenuComponentCount() == 2) {
+				if (modo == Modo.AUTOMATICO) {
 					ventana.getOpciones().add(ventana.getCrearConjunto());
 				}
 			}
 			ventana.añadirTraducibles();
 			ventana.escribirTextos();
-		
-		}catch(Exception a){
+
+		} catch (Exception a) {
 			a.getMessage();
 		}
-		
+
 	}
 
 	@Override
 	public void escribirTextos() {
 
-		putValue(SHORT_DESCRIPTION, ventana.getIdioma().getProperty("DescripcionCambioDeModo", "Cambiar al modo seleccionado")); // DescripccionCAmbioDeModo
+		putValue(SHORT_DESCRIPTION,
+				ventana.getIdioma().getProperty("DescripcionCambioDeModo", "Cambiar al modo seleccionado")); // DescripccionCAmbioDeModo
 		switch (modo) {
 		case AUTOMATICO:
 			putValue(NAME, ventana.getIdioma().getProperty("Automatico", "Automático")); // Automatico

@@ -5,7 +5,6 @@ package Interfaces;
  * texto mediante un objeto Idioma o similar.
  * 
  * @author Ander
- * @see Idioma
  *
  */
 

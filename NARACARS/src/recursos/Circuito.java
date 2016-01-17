@@ -7,7 +7,9 @@ import java.util.Observable;
 import Interfaces.Dibujable;
 
 /**
- * Esta clase define un circuito compuesto por dos rectas paralelas y dos semicirculos del mismo radio.
+ * Esta clase define un circuito compuesto por dos rectas paralelas y dos
+ * semicirculos del mismo radio.
+ * 
  * @author Joanes
  *
  */
@@ -21,55 +23,45 @@ public class Circuito extends Observable implements Dibujable {
 	double friccion;
 
 	/**
-	 * Constructor del circuito 
+	 * Constructor del circuito
 	 * 
-	 * @param radioGrande El radio mas ancho del circuito
-	 * @param anchoDePista Ancho de la pista
-	 * @param recta Longitud de la recta del circuito
-	 * @param friccion Coeficiente de friccion del circuito
+	 * @param radioGrande
+	 *            El radio mas ancho del circuito
+	 * @param anchoDePista
+	 *            Ancho de la pista
+	 * @param recta
+	 *            Longitud de la recta del circuito
+	 * @param friccion
+	 *            Coeficiente de friccion del circuito
 	 */
 	public Circuito(double radioGrande, double anchoDePista, double recta, double friccion) {
 		this.ancho = anchoDePista;
 		this.radioGrande = radioGrande;
 		this.radioPequeño = radioGrande - anchoDePista;
 		this.recta = recta;
-		this.friccion= friccion;
-		
+		this.friccion = friccion;
+
 	}
-	
+
 	/**
 	 * Dibuja el circuito en el panel
 	 */
 	@Override
 	public void dibujar(Graphics g, int x, int y) {
 		g.setColor(Color.BLACK);
-		g.fillRect(	(int)(x + (radioGrande * pixelsPorMetro)),
-					(int) (y),
-					(int) (recta * pixelsPorMetro), 
-					(int) (radioGrande * 2 * pixelsPorMetro));
-		g.fillOval(	x ,
-					y ,
-					(int) (2 * radioGrande * pixelsPorMetro),
-					(int) (2* radioGrande * pixelsPorMetro));
-		g.fillOval(	(int) (x + (recta * pixelsPorMetro)),
-					y ,
-					(int) (2 * radioGrande * pixelsPorMetro),
-					(int) (2* radioGrande * pixelsPorMetro));
+		g.fillRect((int) (x + (radioGrande * pixelsPorMetro)), (int) (y), (int) (recta * pixelsPorMetro),
+				(int) (radioGrande * 2 * pixelsPorMetro));
+		g.fillOval(x, y, (int) (2 * radioGrande * pixelsPorMetro), (int) (2 * radioGrande * pixelsPorMetro));
+		g.fillOval((int) (x + (recta * pixelsPorMetro)), y, (int) (2 * radioGrande * pixelsPorMetro),
+				(int) (2 * radioGrande * pixelsPorMetro));
 		g.setColor(Color.WHITE);
-		g.fillRect(	(int)(x + ((ancho + radioPequeño) * pixelsPorMetro)),
-					(int) (y + (ancho * pixelsPorMetro)),
-					(int) (recta * pixelsPorMetro), 
-					(int) (radioPequeño * 2 * pixelsPorMetro));
-		g.fillOval(	(int) (x + (ancho * pixelsPorMetro)),
-					(int) (y + (ancho * pixelsPorMetro)),
-					(int) (2 * radioPequeño * pixelsPorMetro),
-					(int) (2 * radioPequeño * pixelsPorMetro));
-		g.fillOval(	(int) (x + ((recta + ancho)* pixelsPorMetro)),
-					(int) (y + (ancho * pixelsPorMetro)),
-					(int) (2 * radioPequeño * pixelsPorMetro),
-					(int) (2 * radioPequeño * pixelsPorMetro));
-		
-			
+		g.fillRect((int) (x + ((ancho + radioPequeño) * pixelsPorMetro)), (int) (y + (ancho * pixelsPorMetro)),
+				(int) (recta * pixelsPorMetro), (int) (radioPequeño * 2 * pixelsPorMetro));
+		g.fillOval((int) (x + (ancho * pixelsPorMetro)), (int) (y + (ancho * pixelsPorMetro)),
+				(int) (2 * radioPequeño * pixelsPorMetro), (int) (2 * radioPequeño * pixelsPorMetro));
+		g.fillOval((int) (x + ((recta + ancho) * pixelsPorMetro)), (int) (y + (ancho * pixelsPorMetro)),
+				(int) (2 * radioPequeño * pixelsPorMetro), (int) (2 * radioPequeño * pixelsPorMetro));
+
 	}
 
 	public double getFriccion() {

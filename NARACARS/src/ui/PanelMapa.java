@@ -15,59 +15,58 @@ import recursos.Conjunto;
  * @author Ander
  */
 
-
 @SuppressWarnings("serial")
 public class PanelMapa extends JPanel implements Observer {
 	final int ANCHO = 900;
 	final int ALTO = 900;
 	Conjunto conjunto;
-	
+
 	/**
 	 * Constructor del panel mapa
-	 * @param conjunto
+	 * 
+	 * @param conjunto Conjunto del panel para poder pintarlo en el panel
 	 */
 	public PanelMapa(Conjunto conjunto) {
 		super();
 		this.conjunto = conjunto;
 		conjunto.addObserver(this);
 		escalar();
-		setPreferredSize(conjunto.getDimension());	
+		setPreferredSize(conjunto.getDimension());
 	}
+
 	/**
-	 * Metodo que escala la imagen, cambiando la variable pixel por metro para asi poder ver mejor el conjunto
+	 * Metodo que escala la imagen, cambiando la variable pixel por metro para
+	 * asi poder ver mejor el conjunto
 	 */
-	public void escalar(){
+	public void escalar() {
 		Dimension defaultDim = conjunto.getDimension();
 		double newPixelPM;
-		if(defaultDim.getWidth() < defaultDim.getHeight()){
-			newPixelPM = ALTO/defaultDim.getHeight() * conjunto.getPIXELS_POR_METRO();
+		if (defaultDim.getWidth() < defaultDim.getHeight()) {
+			newPixelPM = ALTO / defaultDim.getHeight() * conjunto.getPIXELS_POR_METRO();
 			conjunto.setPIXELS_POR_METRO(newPixelPM);
-		}else{
-			newPixelPM = ANCHO/defaultDim.getWidth() * conjunto.getPIXELS_POR_METRO();
+		} else {
+			newPixelPM = ANCHO / defaultDim.getWidth() * conjunto.getPIXELS_POR_METRO();
 			conjunto.setPIXELS_POR_METRO(newPixelPM);
 		}
 	}
-	
-	
+
 	@Override
-	public void paint(Graphics g){
+	public void paint(Graphics g) {
 		setOpaque(false);
 		conjunto.dibujar(g, 0, 0);
-		
+
 	}
 
-	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		
+
 		escalar();
-		
+
 		setPreferredSize(conjunto.getDimension());
-		
+
 		this.repaint();
 	}
-	
-	
+
 	public Conjunto getConjunto() {
 		return conjunto;
 	}
@@ -75,5 +74,5 @@ public class PanelMapa extends JPanel implements Observer {
 	public void setConjunto(Conjunto conjunto) {
 		this.conjunto.setConjunto(conjunto);
 	}
-	
+
 }

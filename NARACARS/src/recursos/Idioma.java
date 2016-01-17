@@ -20,30 +20,29 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-
 /**
  * Esta clase define un idioma mediante un properties
  * 
  * @author Ander
  */
 
-
 public class Idioma extends Observable {
 
 	Properties idioma;
-	
+
 	/**
 	 * Constructor de la clase idioma, carga los properties del idioma
-	 * @param idiomaPredeterminado
+	 * 
+	 * @param idiomaPredeterminado idioma Predeterminado
 	 */
-	public  Idioma(String idiomaPredeterminado) {
+	public Idioma(String idiomaPredeterminado) {
 		idioma = new Properties();
 		try {
-			idioma.load(new FileInputStream("idiomas/"+idiomaPredeterminado));
+			idioma.load(new FileInputStream("idiomas/" + idiomaPredeterminado));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -57,7 +56,7 @@ public class Idioma extends Observable {
 	}
 
 	/**
-	 * @return
+	 * @return clone
 	 * @see java.util.Hashtable#clone()
 	 */
 	public Object clone() {
@@ -68,7 +67,8 @@ public class Idioma extends Observable {
 	 * @param key
 	 * @param remappingFunction
 	 * @return
-	 * @see java.util.Hashtable#compute(java.lang.Object, java.util.function.BiFunction)
+	 * @see java.util.Hashtable#compute(java.lang.Object,
+	 *      java.util.function.BiFunction)
 	 */
 	public Object compute(Object key, BiFunction<? super Object, ? super Object, ? extends Object> remappingFunction) {
 		return idioma.compute(key, remappingFunction);
@@ -78,7 +78,8 @@ public class Idioma extends Observable {
 	 * @param key
 	 * @param mappingFunction
 	 * @return
-	 * @see java.util.Hashtable#computeIfAbsent(java.lang.Object, java.util.function.Function)
+	 * @see java.util.Hashtable#computeIfAbsent(java.lang.Object,
+	 *      java.util.function.Function)
 	 */
 	public Object computeIfAbsent(Object key, Function<? super Object, ? extends Object> mappingFunction) {
 		return idioma.computeIfAbsent(key, mappingFunction);
@@ -88,7 +89,8 @@ public class Idioma extends Observable {
 	 * @param key
 	 * @param remappingFunction
 	 * @return
-	 * @see java.util.Hashtable#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
+	 * @see java.util.Hashtable#computeIfPresent(java.lang.Object,
+	 *      java.util.function.BiFunction)
 	 */
 	public Object computeIfPresent(Object key,
 			BiFunction<? super Object, ? super Object, ? extends Object> remappingFunction) {
@@ -280,7 +282,8 @@ public class Idioma extends Observable {
 	 * @param value
 	 * @param remappingFunction
 	 * @return
-	 * @see java.util.Hashtable#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
+	 * @see java.util.Hashtable#merge(java.lang.Object, java.lang.Object,
+	 *      java.util.function.BiFunction)
 	 */
 	public Object merge(Object key, Object value,
 			BiFunction<? super Object, ? super Object, ? extends Object> remappingFunction) {
@@ -361,7 +364,8 @@ public class Idioma extends Observable {
 	 * @param oldValue
 	 * @param newValue
 	 * @return
-	 * @see java.util.Hashtable#replace(java.lang.Object, java.lang.Object, java.lang.Object)
+	 * @see java.util.Hashtable#replace(java.lang.Object, java.lang.Object,
+	 *      java.lang.Object)
 	 */
 	public boolean replace(Object key, Object oldValue, Object newValue) {
 		Boolean b = idioma.replace(key, oldValue, newValue);
@@ -449,7 +453,8 @@ public class Idioma extends Observable {
 	 * @param comment
 	 * @param encoding
 	 * @throws IOException
-	 * @see java.util.Properties#storeToXML(java.io.OutputStream, java.lang.String, java.lang.String)
+	 * @see java.util.Properties#storeToXML(java.io.OutputStream,
+	 *      java.lang.String, java.lang.String)
 	 */
 	public void storeToXML(OutputStream os, String comment, String encoding) throws IOException {
 		idioma.storeToXML(os, comment, encoding);
@@ -459,7 +464,8 @@ public class Idioma extends Observable {
 	 * @param os
 	 * @param comment
 	 * @throws IOException
-	 * @see java.util.Properties#storeToXML(java.io.OutputStream, java.lang.String)
+	 * @see java.util.Properties#storeToXML(java.io.OutputStream,
+	 *      java.lang.String)
 	 */
 	public void storeToXML(OutputStream os, String comment) throws IOException {
 		idioma.storeToXML(os, comment);
@@ -488,7 +494,5 @@ public class Idioma extends Observable {
 	public Collection<Object> values() {
 		return idioma.values();
 	}
-	
-	
-	
+
 }
