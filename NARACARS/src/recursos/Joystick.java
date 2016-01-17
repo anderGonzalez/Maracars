@@ -60,7 +60,9 @@ public class Joystick extends Observable {
 	}
 
 	/**
-	 * Metodo que intenta buscar un mando
+	 * Metodo que busca en el sistema todos los controladores de juego conectados y despues selecciona el primero
+	 * que necuentra que pertenezca al tipo JOYSTICK para ser usado como input.
+	 * 
 	 */
 	private void buscarMando() {
 		Controller[] controllers = null;
@@ -83,6 +85,12 @@ public class Joystick extends Observable {
 		}
 	}
 
+	/**
+	 * Modificador estatico de la clase que permite que la busqueda de controladotres se realize constantemente y no solo 
+	 * la primera vez que se llama a la clase para permitir la reconexion de un controlador.
+	 */
+	
+	
 	static {
 		AccessController.doPrivilegedWithCombiner(new PrivilegedAction<Object>() {
 			public Object run() {
@@ -98,7 +106,9 @@ public class Joystick extends Observable {
 	}
 
 	/**
-	 * 
+	 * Loop que se realiza cada vez que esta clase refrersca sus datos.
+	 * <p>
+	 * Busca el mando y acontinuacion lee de el.
 	 */
 	private void loop() {
 
@@ -137,8 +147,11 @@ public class Joystick extends Observable {
 	}
 
 	/**
+	 * Devuelve el valor de un eje reciviendo el valor de entrada como un double de -1 a 1 y transformandolo
+	 *  en un int de 0 a 100.
+	 * 
 	 * @param axisValue
-	 * @return
+	 * @return valor del eje seleccionado entre 0 y 100
 	 */
 	private int sacarValor(double axisValue) {
 		if (Math.abs(axisValue) < deadZone) {
