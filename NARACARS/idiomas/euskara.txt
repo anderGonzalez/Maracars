@@ -38,3 +38,6 @@ Obstaculo=Oztopoa
 Giro= Bira
 Distancia=Distantzia
 Motor=Motorra
+NoValido= Balore hauek ez dira egokiak
+NoFormato=Datuen formatua ez da egokia
+NoRellenado=Mesedez, bete hutsune guztiak

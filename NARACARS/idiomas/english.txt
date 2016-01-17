@@ -38,3 +38,6 @@ Obstaculo=Obstacle
 Giro=Turn
 Distancia= Distance
 Motor=Motor
+NoValido=These values are not valid
+NoFormato=Format of the data not valid
+NoRellenado=Please fill all the blanks

@@ -202,7 +202,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 			preparado = true;
 			this.dispose();
 		} else {
-			JOptionPane.showMessageDialog(this, "Estos valores no son validos.", "ERROR", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, idioma.getProperty("NoValido", "Estos valores no son validos"), "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -218,12 +218,12 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 				try {
 					guardarVariables();
 				} catch (NumberFormatException ex) {
-					JOptionPane.showMessageDialog(this, "Formato de los datos no valido", "ERROR",
+					JOptionPane.showMessageDialog(this,idioma.getProperty("NoFormato", "El formato de los datos no es valido"), "ERROR",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
 			} else {
-				JOptionPane.showMessageDialog(this, "Rellene todos los campos por favor.", "ERROR",
+				JOptionPane.showMessageDialog(this, idioma.getProperty("NoRellenado", "Por favor rellene todos los campos"), "ERROR",
 						JOptionPane.ERROR_MESSAGE);
 			}
 			break;
