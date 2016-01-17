@@ -59,7 +59,7 @@ public class ControladorCoche {
 
 			portId = (CommPortIdentifier) portList.nextElement();
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				System.out.println("He encontrado un serial jajajaja");
+				
 				try {
 					serialPort = (SerialPort) portId.open("SimpleWriteApp", TIEMPOABRIR);
 				} catch (PortInUseException e) {
