@@ -22,25 +22,27 @@ import recursos.Coche;
 import recursos.Conjunto;
 import recursos.Idioma;
 import recursos.Recorrido;
-
+//TODO txukunduta
 /**
  * Un dialogo que recoge los parametros de un conjunto.
  * 
- * @author Ander
+ * @author Joanes
  * @see Conjunto
  */
 
 
 @SuppressWarnings("serial")
 public class DialogoNuevoConjunto extends JDialog implements ActionListener {
-	final int POSX = 200;
-	final int POSY = 75;
-	final int WIDTH = 400;
-	final int HEIGHT = 470;
-	final int ROW = 7;
-	final int COLUMN = 1;
-	final int MARGEN = 10;
-	final int TAMAÑOTF = 20;
+	static final int POSX = 200;
+	static final int POSY = 75;
+	static final int WIDTH = 400;
+	static final int HEIGHT = 470;
+	static final int ROWGENERAL = 7;
+	static final int COLUMNGENERAL = 1;
+	static final int FILARELOJ = 1;
+	static final int COLUMNARELOJ = 2;
+	static final int MARGEN = 10;
+	static final int TAMAÑOTF = 20;
 	JTextField anchoCoche_tf;
 	JTextField longitudCoche_tf;
 	JTextField anchoPista_tf;
@@ -57,12 +59,12 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	Idioma idioma;
 
 	boolean preparado=false;
-	double kotxezabal;
+	double cocheAncho;
 	double longitudCoche;
-	double pistaZabal;
-	double rektaLuze;
-	double erradio;
-	double marrus;
+	double anchoPista;
+	double longitudRecta;
+	double radio;
+	double friccion;
 	
 	
 	/**
@@ -76,24 +78,33 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		super(ventana,titulo,modo);
 		this.idioma=ventana.getIdioma();
 		this.setBounds(POSX, POSY,WIDTH ,HEIGHT);
-		this.add(this.panelNagusia());
+		this.add(this.panelPrincipal());
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		escribirTexto();
 		this.setVisible(true);
 		this.setResizable(false);
 		
 	}
-	private Container panelNagusia(){
+	/**
+	 * Metodo que crea el panel principal, añade el panel central al centro de dicho panel y el panel inferior
+	 * a la parte inferior.
+	 * @return Devuelve el panel principal ya con los paneles añadidos
+	 */
+	private Container panelPrincipal(){
 		JPanel panelPrincipal = new JPanel(new BorderLayout());
-		panelPrincipal.add(this.erdikoPanela(), BorderLayout.CENTER);
-		panelPrincipal.add(this.behekoPanela(), BorderLayout.SOUTH);
-		escribirTexto();
+		panelPrincipal.add(this.panelCentral(), BorderLayout.CENTER);
+		panelPrincipal.add(this.panelInferior(), BorderLayout.SOUTH);
 		return panelPrincipal;
 	}
 	
 
-	private Container erdikoPanela(){
+	/**
+	 * Metodo que crea el panel central, para ello añade 6 textfields 
+	 * @return devuelve el panel con los textfields
+	 */
+	private Container panelCentral(){
 
-		JPanel panelCentral=new JPanel(new GridLayout(ROW,COLUMN,MARGEN,MARGEN));
+		JPanel panelCentral=new JPanel(new GridLayout(ROWGENERAL,COLUMNGENERAL,MARGEN,MARGEN));
 		panelCentral.setBorder(BorderFactory.createEmptyBorder(MARGEN,MARGEN,MARGEN,MARGEN));
 		anchoCoche_tf=new JTextField("",TAMAÑOTF);
 		longitudCoche_tf= new JTextField("",TAMAÑOTF);
@@ -113,8 +124,12 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		return panelCentral;
 	}
 	
+	/**
+	 * Metodo que crea un panel con dos JRadioButtons, en direccion a las agujas del reloj y en contra.
+	 * @return devuelve el panel con dos radiobuttons
+	 */
 	private Container añadirReloj(){
-		JPanel panel= new JPanel (new GridLayout(1,2));
+		JPanel panel= new JPanel (new GridLayout(FILARELOJ,COLUMNARELOJ));
 		reloj= new JRadioButton();
 		grupo= new ButtonGroup();
 		reloj.setSelected(true);
@@ -126,7 +141,11 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		return panel;
 	}
 	
-	private Container behekoPanela(){
+	/**
+	 * Crea el panel inferior con un boton
+	 * @return Devuelve un panel con un boton
+	 */
+	private Container panelInferior(){
 		JPanel behekoPanela= new JPanel (new FlowLayout());
 		behekoPanela.setBorder(BorderFactory.createEmptyBorder(MARGEN,MARGEN,MARGEN,MARGEN));
 		botonOk= new JButton();
@@ -135,6 +154,10 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		behekoPanela.add(botonOk);
 		return behekoPanela;
 	}
+	/**
+	 * Metodo que escribe todos los textos del dialogo, teniendo en cuenta cual es el idioma que 
+	 * se esta utilizando en ese momento.
+	 */
 	public void escribirTexto(){
 		anchoCoche_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoCoche","Ancho del coche")));//metrotan
 		anchoPista_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("AnchoPista","Ancho de la pista")));//metrotan
@@ -147,17 +170,24 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		contrareloj.setText(idioma.getProperty("Contrareloj","Contrareloj"));
 	}
 	
-	private void aldagaiGorde()throws NumberFormatException{
-		kotxezabal= getAnchoCoche();
+	/**
+	 * Metodo que intenta guardar los datos que tenemos escritos en los textfields, con esos datos creamos
+	 * un circuito, un coche y el recorrido que el coche seguirá en el circuito, si al crearlos pasa 
+	 * algo inesperado, saltará una excepción, sino cerrara la vista del dialogo.
+	 * 
+	 * @throws NumberFormatException
+	 */
+	private void guardarVariables()throws NumberFormatException{
+		cocheAncho= getAnchoCoche();
 		longitudCoche= getLongitudCoche();
-		pistaZabal=getAnchoPista();
-		rektaLuze=getLongitudRecta();
-		erradio= getRadioAncho();
-		marrus=getCoefFriccion();
-		if(kotxezabal<=pistaZabal&&pistaZabal>0&&rektaLuze>=0
-				&&marrus>=0){
-			Circuito circuito= new Circuito(erradio, pistaZabal, rektaLuze, marrus);
-			Coche coche= new Coche(kotxezabal, longitudCoche);
+		anchoPista=getAnchoPista();
+		longitudRecta=getLongitudRecta();
+		radio= getRadioAncho();
+		friccion=getCoefFriccion();
+		if(cocheAncho<=anchoPista&&anchoPista>0&&longitudRecta>=0
+				&&friccion>=0){
+			Circuito circuito= new Circuito(radio, anchoPista, longitudRecta, friccion);
+			Coche coche= new Coche(cocheAncho, longitudCoche);
 			Recorrido recorrido= new Recorrido();
 			recorrido.crearRecorrido(circuito, coche, getReloj()?Sentido.CLOCKWISE:Sentido.COUNTERCLOCKWISE);
 			conjunto= new Conjunto(circuito, coche, recorrido);
@@ -165,7 +195,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 			this.dispose();
 		}else{
 			JOptionPane.showMessageDialog(this, 
-					"Balio horiek ez dira onak.",
+					"Estos valores no son validos.",
 					"ERROR", JOptionPane.ERROR_MESSAGE);
 			}			
 	}
@@ -179,7 +209,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 			&&radioAncho_tf.getText().length()!=0&&coefFriccion_tf.getText().length()!=0){
 				
 				try{
-					aldagaiGorde();
+					guardarVariables();
 				}catch(NumberFormatException ex){
 					JOptionPane.showMessageDialog
 					(this, 	"Formato de los datos no valido",
@@ -219,6 +249,9 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		return preparado;
 	}
 
+	/** 
+	 * @return devuelve un boolean, si va en direccion a las agujas del reloj true, sino false
+	 */
 	public boolean getReloj() {
 		if(reloj.isSelected()){
 			return true;

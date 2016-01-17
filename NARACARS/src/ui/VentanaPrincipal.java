@@ -38,7 +38,7 @@ import recursos.Idioma;
  * 
  * @author Ander
  */
-
+//TODO txukunduta
 
 @SuppressWarnings("serial")
 public class VentanaPrincipal extends JFrame implements Traducible, Observer {
@@ -48,7 +48,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	final String EUSKARA_FILE = "euskara.txt";
 	final String ENGLISH_FILE = "english.txt";
 	final int ICONSIZE = 24; //px
-
+	final int TABLADATOS = 0;
+	final int CONTROLADOR = 1;
+	final int PANELMAPA = 2;
+	final int PESTAÑASAUTO = 3;
 	Modo modo;
 	JTabbedPane tabbedPane;
 	ArrayList<Traducible> traducibles;
@@ -71,6 +74,9 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	PanelControlAutomatico controladorAuto;
 	Datos datos;
 	ControladorCoche controlador;
+	/**
+	 * Metodo constructor de la ventana principal
+	 */
 	public VentanaPrincipal() {
 		datos= new Datos();
 		controlador= new ControladorCoche(datos);
@@ -96,6 +102,9 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		setVisible(true);
 	}
 
+	/**
+	 * Metodo que vacia la lista de traducibles y lo vuelve a rellenar con la informacion nueva
+	 */
 	public void añadirTraducibles(){
 		traducibles.clear();
 		traducibles.add(this);
@@ -112,11 +121,13 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 			traducibles.add(controladorJoystick);
 		}
 		
-		
-		
 	}
 	
 
+	/**
+	 * Metodo que crea la barra de menus
+	 * @return
+	 */
 	private JMenuBar crearBarraMenus() {
 		menuBar = new JMenuBar();
 		opciones = new JMenu("Opciones");
@@ -129,6 +140,9 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		return menuBar;
 	}
 
+	/**
+	 * Metodo que crea el menu modo, con el modo automatico y el modo manual dentro
+	 */
 	private void crearMenuModo() {
 		mModos = new JMenu("Modos");
 		modoAuto = new AccionCambioModo(Modo.AUTOMATICO, this);
@@ -137,6 +151,9 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		mModos.add(modoMan);
 		}
 
+	/**
+	 * Metodo que crea el menu de idiomas, con euskara, castellaño e ingles dentro
+	 */
 	private void crearMenuIdiomas() {
 		
 		idiomas = new JMenu("Idiomas");
@@ -151,20 +168,14 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		
 	}
 
-	/**
-	 * @return the traducibles
-	 */
-	public ArrayList<Traducible> getTraducibles() {
-		return traducibles;
-	}
+	
 
 	/**
-	 * @param traducibles the traducibles to set
+	 * Metodo que crea las pestañas de la tabla de datos, del controlador y 
+	 * si el modo es automatico el panel del mapa
+	 * 
+	 * @return devuelve el tabbedpane para añadirlo al panel principal
 	 */
-	public void setTraducibles(ArrayList<Traducible> traducibles) {
-		this.traducibles = traducibles;
-	}
-
 	public Component crearPanelTabs() {
 		tabbedPane = new JTabbedPane();
 		
@@ -203,8 +214,8 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		case MANUAL:
 			
 			iconControl = new ImageIcon(iconControl.getImage().getScaledInstance(ICONSIZE, ICONSIZE, Image.SCALE_SMOOTH));
-			JComponent panelControlMan = crearPanelControlMan();
-			tabbedPane.addTab("Panel de Control Manual", iconControl, panelControlMan,
+			controladorJoystick = new PanelControlJoystick(this);
+			tabbedPane.addTab("Panel de Control Manual", iconControl, controladorJoystick,
 			                  "Panel de control del modo manual");
 			tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
 			if(opciones.getMenuComponentCount()==3){
@@ -216,13 +227,12 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		return tabbedPane;
 	}
 	
-	
 
-	private JComponent crearPanelControlMan() {
-		controladorJoystick = new PanelControlJoystick(this);
-		return  controladorJoystick;
-	}
 
+	/**
+	 * Metodo que crea el panel del mapa (solo para modo automatico)
+	 * @return devuelve el panel creado en un scrollpane
+	 */
 	private JComponent crearPanelMapa() {
 		
 		if(conjunto == null){
@@ -234,6 +244,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		return panel;
 	}
 
+	/**
+	 * Metodo que crea el panel (Scrollpane) de la tabla de datos
+	 * @return la tabla de datos dentro de un scrollpane
+	 */
 	private JComponent crearPanelTabla() {
 		JScrollPane panel = new JScrollPane();
 		tablaDatos= new TablaDatos(this);
@@ -241,6 +255,9 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		return panel;
 	}
 
+	/**
+	 * Metodo que carga las propiedades segun el idioma seleccionado
+	 */
 	private void cargarPropiedades() {
 		propiedades = new Properties();
 		try {
@@ -263,17 +280,17 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	public void escribirTextos() {
 		try {
 			setTitle(idioma.getProperty("TituloVentana", "MaracarsController")); // TituloVentana
-			tabbedPane.setTitleAt(0, idioma.getProperty("TablaDatos", "Tabla de Datos")); //TablaDatos
-			tabbedPane.setTitleAt(1, idioma.getProperty("Controlador", "Panel de Control")); //Controlador
-			if(tabbedPane.getTabCount()==3){
-				tabbedPane.setTitleAt(2, idioma.getProperty("Mapa", "Panel del Mapa")); //Mapa
+			tabbedPane.setTitleAt(TABLADATOS, idioma.getProperty("TablaDatos", "Tabla de Datos")); //TablaDatos
+			tabbedPane.setTitleAt(CONTROLADOR, idioma.getProperty("Controlador", "Panel de Control")); //Controlador
+			if(tabbedPane.getTabCount()==PESTAÑASAUTO){
+				tabbedPane.setTitleAt(PANELMAPA, idioma.getProperty("Mapa", "Panel del Mapa")); //Mapa
 			}
 			
 			
 			opciones.setText(idioma.getProperty("Configuracion", "Configuracion"));   //Configuracion
 			idiomas.setText(idioma.getProperty("Idiomas", "Idiomas")); //Idiomas
 			mModos.setText(idioma.getProperty("Modos", "Modos")); //Modos
-			if(opciones.getMenuComponentCount()==3){
+			if(opciones.getMenuComponentCount()==PESTAÑASAUTO){
 				crearConjunto.setText(idioma.getProperty("AñadirPista","Añadir pista"));//AñadirPista
 			}
 			
@@ -282,18 +299,27 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @return the traducibles
+	 */
+	public ArrayList<Traducible> getTraducibles() {
+		return traducibles;
+	}
+
+	/**
+	 * @param traducibles the traducibles to set
+	 */
+	public void setTraducibles(ArrayList<Traducible> traducibles) {
+		this.traducibles = traducibles;
+	}
 	
 	public void setTablaDatos(TablaDatos tablaDatos) {
 		this.tablaDatos = tablaDatos;
 	}
 
-
-
 	public TablaDatos getTablaDatos() {
 		return tablaDatos;
 	}
-
-
 
 	public Datos getDatos() {
 		return datos;

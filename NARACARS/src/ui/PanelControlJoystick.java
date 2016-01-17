@@ -23,6 +23,7 @@ import recursos.Datos;
 import recursos.Idioma;
 import recursos.Joystick;
 
+//TODO txukunduta
 /**
  * Esta clase define un panel que es un controlador mediante un joystick
  * 
@@ -37,6 +38,8 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	final int MARGEN = 30; // px
 	final int ANCHO_COMPONENTE = 900; // px
 	final int ALTO_COMPONENTE = 100; // px
+	final int TAMAÑOFUENTE = 32;
+	final int FRECUENCIA = 19;
 
 	Joystick mando;
 	JLabel estadoDelLink;
@@ -46,6 +49,10 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 	Datos datos;
 	Timer actualizarDatos;
 
+	/**
+	 * Constructor del panel de control del Joystick
+	 * @param ventana
+	 */
 	public PanelControlJoystick(VentanaPrincipal ventana) {
 		mando = new Joystick();
 		mando.addObserver(this);
@@ -59,15 +66,21 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		escribirTextos();
 	}
 
+	/**
+	 * Metodo que llama a las funciones necesarias para luego añadir los paneles al panel principal
+	 */
 	private void crearContenido() {
 		add(crearLabelEstado());
 		add(crearPBAceleracion());
 		add(crearPBGiro());
 	}
 
+	/**
+	 * Metodo que crea un panel y le añade un progressbar que luego el joystick controlá
+	 * @return devuelve el panel con el Progressbar
+	 */
 	private Component crearPBGiro() {
 		JPanel panelGiro = new JPanel(new FlowLayout());
-
 		giro = new JProgressBar();
 		giro.setForeground(Color.BLUE);
 		giro.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
@@ -76,6 +89,10 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		return panelGiro;
 	}
 
+	/**
+	 * Metodo que crea un panel y le añade un progressbar que luego el joystick controlá
+	 * @return devuelve el panel con el Progressbar
+	 */
 	private Component crearPBAceleracion() {
 		JPanel panelAceleracion = new JPanel(new FlowLayout());
 
@@ -87,12 +104,16 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 		return panelAceleracion;
 	}
 
+	/**
+	 * Metodo que crea un panel y le añade un label que mostrará cual es el estado del mando
+	 * @return devuelve el panel con el label
+	 */
 	private Component crearLabelEstado() {
 		JPanel panelEstado = new JPanel(new FlowLayout());
 
 		estadoDelLink = new JLabel("Conectado");
 		estadoDelLink.setPreferredSize(new Dimension(ANCHO_COMPONENTE, ALTO_COMPONENTE));
-		estadoDelLink.setFont(new Font("Arial", Font.BOLD, 32));
+		estadoDelLink.setFont(new Font("Arial", Font.BOLD, TAMAÑOFUENTE));
 		panelEstado.add(estadoDelLink);
 
 		return panelEstado;
@@ -138,7 +159,7 @@ public class PanelControlJoystick extends JPanel implements Traducible, Controla
 				PanelControlJoystick.this.datos.setGiro(PanelControlJoystick.this.mando.getGiro());
 
 			}
-		}, 0, 19);
+		}, 0, FRECUENCIA);
 
 	}
 

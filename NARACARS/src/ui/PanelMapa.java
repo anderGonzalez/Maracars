@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import recursos.Conjunto;
 
-
+//TODO txukunduta
 /**
  * Panel en el que se dibuja un conjunto
  * 
@@ -16,37 +16,26 @@ import recursos.Conjunto;
  */
 
 
+@SuppressWarnings("serial")
 public class PanelMapa extends JPanel implements Observer {
-	private static final long serialVersionUID = 2245416530216305191L;
 	final int ANCHO = 900;
 	final int ALTO = 900;
 	Conjunto conjunto;
 	
+	/**
+	 * Constructor del panel mapa
+	 * @param conjunto
+	 */
 	public PanelMapa(Conjunto conjunto) {
 		super();
 		this.conjunto = conjunto;
 		conjunto.addObserver(this);
 		escalar();
-		setPreferredSize(conjunto.getDimension());
-		
-		
+		setPreferredSize(conjunto.getDimension());	
 	}
-	
-	public Conjunto getConjunto() {
-		return conjunto;
-	}
-
-	public void setConjunto(Conjunto conjunto) {
-		this.conjunto.setConjunto(conjunto);
-	}
-	
-	@Override
-	public void paint(Graphics g){
-		setOpaque(false);
-		conjunto.dibujar(g, 0, 0);
-		
-	}
-
+	/**
+	 * Metodo que escala la imagen, cambiando la variable pixel por metro para asi poder ver mejor el conjunto
+	 */
 	public void escalar(){
 		Dimension defaultDim = conjunto.getDimension();
 		double newPixelPM;
@@ -59,6 +48,15 @@ public class PanelMapa extends JPanel implements Observer {
 		}
 	}
 	
+	
+	@Override
+	public void paint(Graphics g){
+		setOpaque(false);
+		conjunto.dibujar(g, 0, 0);
+		
+	}
+
+	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		
@@ -70,6 +68,12 @@ public class PanelMapa extends JPanel implements Observer {
 	}
 	
 	
-	
+	public Conjunto getConjunto() {
+		return conjunto;
+	}
+
+	public void setConjunto(Conjunto conjunto) {
+		this.conjunto.setConjunto(conjunto);
+	}
 	
 }

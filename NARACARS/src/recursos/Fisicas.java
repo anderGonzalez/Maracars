@@ -31,7 +31,7 @@ public class Fisicas {
 	 * Metodo que calcula el angulo de las ruedas que debe dar el coche en la curva
 	 * 
 	 * @param datos
-	 * @return
+	 * @return devuelve el angulo de giro que el coche debe dar en la curva
 	 */
 	public double getAngulo(Datos datos) {
 		angulo=Math.asin(datos.getConjunto().getCoche().getAncho()/
@@ -43,7 +43,7 @@ public class Fisicas {
 	 * Metodo que calcula lo que tiene enviar el programa a la CPLD (giro)
 	 * 
 	 * @param datos
-	 * @return
+	 * @return 
 	 */
 	public double getGiro(Datos datos){
 		giro=datos.getAngulo()*45/50;

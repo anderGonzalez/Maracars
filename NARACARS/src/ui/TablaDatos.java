@@ -11,10 +11,16 @@ import javax.swing.table.DefaultTableModel;
 import Interfaces.Traducible;
 import recursos.Datos;
 import recursos.Idioma;
-
+//TODO txukunduta
+/**
+ * Esta clase define una tabla donde los datos se irán actualizando
+ * 
+ * @see datos
+ * @author Joanes
+ *
+ */
 @SuppressWarnings("serial")
 public class TablaDatos extends JTable implements Traducible{ 
-	//TODO txukunduta
 	final int DIGITOS = 2;
 	final int FRECUENCIA = 1;
 	final int NOMBRES = 0;
@@ -28,6 +34,11 @@ public class TablaDatos extends JTable implements Traducible{
 	DefaultTableModel model;
 	Datos datos;
 	Idioma idioma;
+	
+	/**
+	 * Metodo constructor de la clase TableDatos, que crea un JTable, con 5 filas y dos columnas
+	 * @param ventana
+	 */
 	public TablaDatos(VentanaPrincipal ventana) {
 		String[][] rowData = { {"Velocidad", ""}, { "Obstaculo", ""},
 				{"Giro", ""},{"Motor",""},{"Distancia Total"} };
@@ -46,6 +57,10 @@ public class TablaDatos extends JTable implements Traducible{
 		procesoTablaDatos();
 	}
 
+	/**
+	 * Metodo que inicia un timer para que los datos de la tabla se vayan actualizando y sincronizandose con los datos 
+	 * de la clase datos
+	 */
 	public void procesoTablaDatos() {
 		NumberFormat nf= NumberFormat.getInstance();
 		nf.setMaximumFractionDigits(DIGITOS);

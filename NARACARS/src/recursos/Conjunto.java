@@ -63,25 +63,6 @@ public class Conjunto extends Observable implements Dibujable {
 	}
 
 
-	public Dimension getDimension() {
-		Dimension ret = new Dimension((int) ((circuito.getRadioGrande() * 2 + circuito.getRecta()) * pixelsPorMetro),
-				(int) ((circuito.getRadioGrande() * 2 * pixelsPorMetro)));
-		return ret;
-	}
-
-	/**
-	 * Metodo que al enviar un nuevo conjunto guarda los datos del circuito, del coche y del recorrido
-	 * y notifica a los observadores.
-	 * @param conjunto
-	 */
-	public void setConjunto(Conjunto conjunto) {
-		circuito = conjunto.getCircuito();
-		recorrido = conjunto.getRecorrido();
-		coche = conjunto.getCoche();
-		distancia = 0.0;
-		setChanged();
-		notifyObservers();
-	}
 
 	/**
 	 * Metodo que devuelve la distancia desde el punto de partida del circuito hasta el final del tramo indicado
@@ -212,6 +193,26 @@ public class Conjunto extends Observable implements Dibujable {
 
 	public Coche getCoche() {
 		return coche;
+	}
+
+	public Dimension getDimension() {
+		Dimension ret = new Dimension((int) ((circuito.getRadioGrande() * 2 + circuito.getRecta()) * pixelsPorMetro),
+				(int) ((circuito.getRadioGrande() * 2 * pixelsPorMetro)));
+		return ret;
+	}
+
+	/**
+	 * Metodo que al enviar un nuevo conjunto guarda los datos del circuito, del coche y del recorrido
+	 * y notifica a los observadores.
+	 * @param conjunto
+	 */
+	public void setConjunto(Conjunto conjunto) {
+		circuito = conjunto.getCircuito();
+		recorrido = conjunto.getRecorrido();
+		coche = conjunto.getCoche();
+		distancia = 0.0;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**

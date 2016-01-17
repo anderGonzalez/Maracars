@@ -26,6 +26,15 @@ public class Coche implements Dibujable {
 		this.ancho = ancho;
 		this.longitud= longitud;
 	}
+	@Override
+	public void dibujar(Graphics g, int x, int y) {
+		g.fillOval(	(int) (x - (ancho * pixelsPorMetro / 2)),
+					(int) (y - (ancho * pixelsPorMetro / 2)),
+					(int) (ancho * pixelsPorMetro), 
+					(int) (ancho * pixelsPorMetro));
+
+	}
+
 
 	public double getLongitud() {
 		return longitud;
@@ -57,13 +66,5 @@ public class Coche implements Dibujable {
 		this.pixelsPorMetro = pixelsPorMetro;
 	}
 
-	@Override
-	public void dibujar(Graphics g, int x, int y) {
-		g.fillOval(	(int) (x - (ancho * pixelsPorMetro / 2)),
-					(int) (y - (ancho * pixelsPorMetro / 2)),
-					(int) (ancho * pixelsPorMetro), 
-					(int) (ancho * pixelsPorMetro));
-
-	}
-
+	
 }

@@ -20,7 +20,7 @@ import Interfaces.Controlador;
 import Interfaces.Traducible;
 import recursos.Datos;
 import recursos.Idioma;
-
+//TODO txukunduta
 /**
  * Esta clase define un panel que es un controlador automatico
  * 
@@ -42,6 +42,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	final int ANCHO_COMPONENTE = 900; //px
 	final int ALTO_COMPONENTE = 100; //px
 	final int TAMAÑOFUENTE = 28;
+	final int FRECUENCIA = 1;
 	static int turno = 0;
 	Datos datos;
 	Idioma idioma;
@@ -53,7 +54,8 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	JButton conjunto_bt;
 	
 	/**
-	 * @param ventana
+	 * Constructor del panel automatico
+	 * @param ventana Ventana principal para recoger datos desde esa clase.
 	 */
 	public PanelControlAutomatico(VentanaPrincipal ventana){
 		
@@ -67,6 +69,9 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		escribirTextos();
 	}
 
+	/**
+	 * Metodo que crea el contenido del panel, llamando a las funciones necesarias para ello
+	 */
 	private void crearContenido() {
 		add(crearPanelSituacion());
 		add(crearSTART());
@@ -75,6 +80,10 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 
 	}
 
+	/**
+	 * Metodo que crea el boton de start, y lo añade a un panel.
+	 * @return devuelve el panel creado con un boton
+	 */
 	private Component crearSTART() {
 		JPanel panelStart = new JPanel(new FlowLayout());
 		start_bt= new JButton();
@@ -84,6 +93,10 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		return panelStart;
 	}
 
+	/**
+	 * Metodo que crea el boton de reset, y lo añade a un panel.
+	 * @return devuelve el panel creado con un boton
+	 */
 	private Component crearRESET() {
 		JPanel panelReset = new JPanel(new FlowLayout());
 		reset_bt= new JButton();
@@ -94,6 +107,10 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		return panelReset;
 	}
 
+	/**
+	 * Metodo que crea el boton de crear un nuevo conjunto, y lo añade a un panel.
+	 * @return devuelve el panel creado con un boton
+	 */
 	private Component crearNuevoConjunto() {
 		JPanel panelNuevoConjunto = new JPanel(new FlowLayout());
 		conjunto_bt = new JButton();
@@ -103,6 +120,10 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		return panelNuevoConjunto;
 	}
 	
+	/**
+	 * Metodo que crea un panel y un label, dicho label reflejará el estado de la simulacion.
+	 * @return Devuelve un panel con el estado o situacion de la simulacion
+	 */
 	private Component crearPanelSituacion() {
 		JPanel panelEstado = new JPanel(new FlowLayout());
 		situacion= new JLabel();
@@ -142,11 +163,15 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			
 			@Override
 			public void run() {
-				calcularDistanciaRecorrida();			}
-		}, 0, 1);
+				calcularTramo();			}
+		}, 0, FRECUENCIA);
 		
 	}
-	public void calcularDistanciaRecorrida(){
+	/**
+	 * Metodo que calcula segun la distancia recorrida, el tramo que el coche está recorriendo 
+	 * en dicho momento. Se van guardando los datos de giro y motor, que varián segun el tramo. 
+	 */
+	public void calcularTramo(){
 		double distanciaVuelta=(datos.getTiempo()/1000)*datos.getVelMax();
 		double distanciaTotal=(datos.getTiempoTotal()/1000)*datos.getVelMax();
 	
