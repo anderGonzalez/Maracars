@@ -76,8 +76,8 @@ public class TablaDatos extends JTable implements Traducible {
 			public void run() {
 				setValueAt("" + datos.getVelMax(), VELOCIDAD, DATOS);
 				setValueAt("" + datos.isObstaculo(), OBSTACULO, DATOS);
-				setValueAt("" + datos.getAngulo(), GIRO, DATOS);
-				setValueAt("" + datos.getGiro(), MOTOR, DATOS);
+				setValueAt("" + datos.getGiro(), GIRO, DATOS);
+				setValueAt("" + datos.getMotor(), MOTOR, DATOS);
 				if (datos.getConjunto() != null) {
 					setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
 				} else {
