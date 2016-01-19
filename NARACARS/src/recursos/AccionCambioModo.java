@@ -46,9 +46,14 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 		if (modo == Modo.AUTOMATICO) {
 			conjunto.actionPerformed(null);
 		}
-		
+		try{
+			ventana.getControladorAuto().terminarActualizarDatos();
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 		ventana.getDatos().setMotor(Datos.PARADA);
 		ventana.getDatos().setGiro(Datos.RECTO);
+		ventana.getDatos().setDistancia(Datos.NODISTANCIA);
 		ventana.getPanelControlador().terminarActualizarDatos();
 		ventana.setModo(modo);
 		ventana.getContentPane().removeAll();

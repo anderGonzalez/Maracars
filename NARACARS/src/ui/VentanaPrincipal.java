@@ -64,6 +64,8 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	Action accionConjunto;
 	Conjunto conjunto;
 	JMenu opciones;
+	
+
 	JMenu idiomas;
 	JMenu mModos;
 	JMenuItem crearConjunto;
@@ -382,4 +384,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 		this.conjunto = conjunto;
 	}
 
+	public PanelControlAutomatico getControladorAuto() {
+		return controladorAuto;
+	}
 }
