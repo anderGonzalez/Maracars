@@ -27,6 +27,7 @@ public class Joystick extends Observable {
 	int aceleracion;
 	int giro;
 	double deadZone = 0.15;
+	final int REFRESH_PERIOD = 20; //ms
 
 	/**
 	 * Constructor del Joystick, inicializa un timer
@@ -34,15 +35,15 @@ public class Joystick extends Observable {
 	public Joystick() {
 		refresh = new Timer();
 		conectado = false;
-		aceleracion = 50;
-		giro = 50;
+		aceleracion = Datos.PARADA;
+		giro = Datos.RECTO;
 		refresh.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				loop();
 			}
-		}, 0, 20);
+		}, 0, REFRESH_PERIOD);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class Joystick extends Observable {
 					}
 
 					if (componentIdentifier == Component.Identifier.Axis.X) {
-						axisValueInPercentage = sacarValor(axisValue);
+						axisValueInPercentage = sacarValor(-axisValue);
 						giro = axisValueInPercentage;
 						continue;
 					}

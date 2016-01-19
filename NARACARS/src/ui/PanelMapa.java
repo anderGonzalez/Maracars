@@ -17,8 +17,10 @@ import recursos.Conjunto;
 
 @SuppressWarnings("serial")
 public class PanelMapa extends JPanel implements Observer {
-	final int ANCHO = 900;
-	final int ALTO = 900;
+	private static final int MARGEN_IZQUIERDA = 100; //px
+	private static final int MARGEN_ARRIBA = 100; //px
+	final int ANCHO = 900; //px
+	final int ALTO = 900; //px
 	Conjunto conjunto;
 
 	/**
@@ -53,7 +55,7 @@ public class PanelMapa extends JPanel implements Observer {
 	@Override
 	public void paint(Graphics g) {
 		setOpaque(false);
-		conjunto.dibujar(g, 0, 0);
+		conjunto.dibujar(g, MARGEN_IZQUIERDA, MARGEN_ARRIBA);
 
 	}
 

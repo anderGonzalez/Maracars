@@ -59,7 +59,7 @@ public class Conjunto extends Observable implements Dibujable {
 		recorrido.dibujar(g, getXRecorrido(x), getYRecorrido(y));
 		calcularPosicionCoche(distancia);
 		g.setColor(Color.MAGENTA);
-		coche.dibujar(g, this.x, this.y);
+		coche.dibujar(g, this.x + x, this.y + y);
 
 	}
 

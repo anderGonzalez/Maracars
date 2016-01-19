@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.9" icons="true" automaticImage="PNG">  
+  <object id="1" language="java" name="java.util.TimerThread" project="NARACARS" 
+    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="timerThread" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="2">      
+      <position height="720" width="0" x="0" y="89"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="648" width="0" x="0" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="7" language="java" name="recursos.Joystick" project="NARACARS" file="/NARACARS/src/recursos/Joystick.java" 
+    binary="false" label="joystick" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="588" width="0" x="0" y="173"/>    
+    </execution>    
+    <execution id="9">      
+      <position height="516" width="0" x="0" y="221"/>    
+    </execution>  
+  </object>  
+  <object id="12" language="java" name="net.java.games.input.DefaultControllerEnvironment" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="defaultControllerEnvironment" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="11">      
+      <position height="456" width="0" x="0" y="257"/>    
+    </execution>  
+  </object>  
+  <object id="15" language="java" name="sun.reflect.DelegatingConstructorAccessorImpl" project="NARACARS" 
+    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="delegatingConstructorAccessorImpl" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="408" width="0" x="0" y="281"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="net.java.games.input.DirectAndRawInputEnvironmentPlugin" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="directAndRawInputEnvironmentPlugin" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="17">      
+      <position height="360" width="0" x="0" y="305"/>    
+    </execution>  
+  </object>  
+  <object id="21" language="java" name="net.java.games.input.DirectInputEnvironmentPlugin" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="directInputEnvironmentPlugin" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="20">      
+      <position height="312" width="0" x="0" y="329"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="240" width="0" x="0" y="377"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="net.java.games.input.IDirectInput" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="iDirectInput" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="25">      
+      <position height="180" width="0" x="0" y="413"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="108" width="0" x="0" y="461"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="24" width="0" x="0" y="521"/>    
+    </execution>  
+  </object>  
+  <object id="31" language="java" name="java.util.TimerThread" project="NARACARS" 
+    file="C:/Program Files/Java/jre1.8.0_66/lib/rt.jar" binary="true" label="timerThread1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="32">      
+      <position height="96" width="0" x="0" y="89"/>    
+    </execution>    
+    <execution id="34">      
+      <position height="24" width="0" x="0" y="137"/>    
+    </execution>  
+  </object>  
+  <object id="35" language="java" name="net.java.games.input.RawInputEventQueue" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="rawInputEventQueue" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="36">      
+      <position height="180" width="0" x="0" y="89"/>    
+    </execution>    
+    <execution id="38">      
+      <position height="108" width="0" x="0" y="137"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="24" width="0" x="0" y="197"/>    
+    </execution>  
+  </object>  
+  <object id="41" language="java" name="net.java.games.input.RawInputEventQueue" project="NARACARS" 
+    file="/NARACARS/jinput.jar" binary="true" label="rawInputEventQueue1" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="42">      
+      <position height="180" width="0" x="0" y="89"/>    
+    </execution>    
+    <execution id="44">      
+      <position height="108" width="0" x="0" y="137"/>    
+    </execution>    
+    <execution id="46">      
+      <position height="24" width="0" x="0" y="197"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="mainLoop():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="loop():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="8" operation="buscarMando():void" asynchronous="false">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="getControllers():net.java.games.input.Controller[]" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="13" operation="newInstance(java.lang.Object[]):java.lang.Object" asynchronous="false">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="16" operation="DirectAndRawInputEnvironmentPlugin()" asynchronous="false">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="19" operation="DirectInputEnvironmentPlugin()" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="22" operation="enumControllers(net.java.games.input.DummyWindow):net.java.games.input.Controller[]" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="24" operation="IDirectInput(net.java.games.input.DummyWindow)" asynchronous="false">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="27" operation="enumDevices():void" asynchronous="false">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="nEnumDevices(long):void" asynchronous="false">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="33" operation="mainLoop():void" asynchronous="false">    
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="37" operation="poll(net.java.games.input.DummyWindow):void" asynchronous="false">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="nPoll(long):void" asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="43" operation="poll(net.java.games.input.DummyWindow):void" asynchronous="false">    
+    <end type="SOURCE" refId="42"/>    
+    <end type="TARGET" refId="44"/>  
+  </message>  
+  <message id="45" operation="nPoll(long):void" asynchronous="false">    
+    <end type="SOURCE" refId="44"/>    
+    <end type="TARGET" refId="46"/>  
+  </message>
+</sequence-diagram>

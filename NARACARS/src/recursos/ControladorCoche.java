@@ -44,7 +44,8 @@ public class ControladorCoche {
 	 * Metodo que trata de hacer la conexion serial y le asigna unos parametros
 	 * a dicha conexion
 	 * 
-	 * @param datos datos de los sensores + los que hay que enviar
+	 * @param datos
+	 *            datos de los sensores + los que hay que enviar
 	 */
 	public ControladorCoche(Datos datos) {
 		@SuppressWarnings("rawtypes")
@@ -59,7 +60,7 @@ public class ControladorCoche {
 
 			portId = (CommPortIdentifier) portList.nextElement();
 			if (portId.getPortType() == CommPortIdentifier.PORT_SERIAL) {
-				
+
 				try {
 					serialPort = (SerialPort) portId.open("SimpleWriteApp", TIEMPOABRIR);
 				} catch (PortInUseException e) {
@@ -86,8 +87,10 @@ public class ControladorCoche {
 	 * Metodo que envia los comandos a la CPLD, es un ciclo que envia tres
 	 * datos: el byte inicial, el giro y el motor.
 	 * 
-	 * @param giro la cuantia del giro
-	 * @param motor la cuantia de la velocidad
+	 * @param giro
+	 *            la cuantia del giro
+	 * @param motor
+	 *            la cuantia de la velocidad
 	 */
 	public void enviarComando(int giro, int motor) { // ambos valores 0-100
 
@@ -96,20 +99,23 @@ public class ControladorCoche {
 			switch (turnoEnviar) {
 			case 0:
 				outputStream.write(new Integer(BYTEINICIAL).byteValue());
+				System.out.println("BYTEINICIAL: " + BYTEINICIAL);
 				break;
 			case 1:
 				if (giro > 50) {
 					giro -= 50;
-					giro = giro * 35 / 50 + 15;
+					giro = giro * 30 / 50 + 50;
 				}
 				if (giro < 50) {
-					giro = giro * 30 / 50 + 50;
+					giro = giro * 35 / 50 + 15;
 
 				}
 				outputStream.write(((Integer) giro).byteValue());
+				System.out.println("GIRO: " + giro);
 				break;
 			case 2:
 				outputStream.write(((Integer) motor).byteValue());
+				System.out.println("MOTOR: " + motor);
 				break;
 
 			default:
@@ -129,7 +135,8 @@ public class ControladorCoche {
 	 * acelerometro (x e y), si hay algun obstaculo o no y por ultimo las
 	 * revoluciones del coche.
 	 * 
-	 * @param numero el numero a guardar
+	 * @param numero
+	 *            el numero a guardar
 	 */
 	public void guardar(int numero) {
 		int turnoRecibirAux = turnoRecibir;
