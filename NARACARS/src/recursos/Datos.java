@@ -8,6 +8,9 @@ package recursos;
  */
 public class Datos {
 
+	
+	static public int PARADA = 50;
+	static public int RECTO = 50;
 	double velMax = 0;
 	double velMom;
 	double tiempoInicioVuelta;
