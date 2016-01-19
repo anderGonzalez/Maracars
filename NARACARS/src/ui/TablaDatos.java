@@ -44,7 +44,7 @@ public class TablaDatos extends JTable implements Traducible {
 	 */
 	public TablaDatos(VentanaPrincipal ventana) {
 		String[][] rowData = { { "Velocidad", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
-				{ "Distancia Total" } };
+				{ "Distancia Total","" } };
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);

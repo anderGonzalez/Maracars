@@ -26,6 +26,7 @@ CoeficienteFriccion=Coefficient of friction
 Reloj=Clockwise
 Contrareloj=Counterclockwise
 AñadirPista=Add a new circuit 
+CircunferenciaRueda=Wheel's circumference
 Empezar=Start
 Parar=Stop
 NuevoConjunto=New circuit

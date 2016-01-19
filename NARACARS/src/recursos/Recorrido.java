@@ -14,6 +14,7 @@ import Interfaces.Dibujable;
 
 public class Recorrido implements Dibujable {
 
+	
 	static final int POSX = 0;
 	static final int POSY = 1;
 	static final int NUMPOS = 2;
@@ -56,6 +57,9 @@ public class Recorrido implements Dibujable {
 				y);
 		g.drawLine((int) (x + ((radio) * pixelsPorMetro)), (int) (y + ((2 * radio) * pixelsPorMetro)),
 				(int) (x + ((radio + longitudRecta) * pixelsPorMetro)), (int) (y + ((2 * radio) * pixelsPorMetro)));
+	}
+	public Sentido getSentido() {
+		return sentido;
 	}
 
 	public Circuito getCircuito() {

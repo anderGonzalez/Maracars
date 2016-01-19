@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Enums.Sentido;
 import Interfaces.Controlador;
 import Interfaces.Traducible;
 import recursos.Datos;
@@ -190,15 +191,20 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		switch (turno) {
 		case 0:
 			datos.setGiro(50);
-			datos.setMotor(50);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA1) <= distanciaVuelta) {
 				turno++;
 			}
 			break;
 		case 1:
-			datos.setGiro(50 + datos.getGiro_aux());
-			datos.setMotor(50);// TODO kalkulatu egin behar da zenbat den bidali
+			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
+				datos.setGiro(50 + datos.getGiro_aux());	
+			}else{
+				datos.setGiro(50 - datos.getGiro_aux());	
+			}
+			
+			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA1) <= distanciaVuelta) {
 				turno++;
@@ -206,15 +212,19 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 2:
 			datos.setGiro(50);
-			datos.setMotor(50);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA2) <= distanciaVuelta) {
 				turno++;
 			}
 			break;
 		case 3:
-			datos.setGiro(50 - datos.getGiro_aux());
-			datos.setMotor(50);// TODO kalkulatu egin behar da zenbat den bidali
+			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
+				datos.setGiro(50 + datos.getGiro_aux());	
+			}else{
+				datos.setGiro(50 - datos.getGiro_aux());	
+			}
+			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA2) <= distanciaVuelta) {
 				turno++;
@@ -222,7 +232,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 4:
 			datos.setGiro(50);
-			datos.setMotor(50);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA3) <= distanciaVuelta) {
 				datos.inicializarTiempoVuelta();

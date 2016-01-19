@@ -37,7 +37,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	static final int POSY = 75;
 	static final int WIDTH = 400;
 	static final int HEIGHT = 470;
-	static final int ROWGENERAL = 7;
+	static final int ROWGENERAL = 8;
 	static final int COLUMNGENERAL = 1;
 	static final int FILARELOJ = 1;
 	static final int COLUMNARELOJ = 2;
@@ -49,6 +49,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	JTextField longitudRecta_tf;
 	JTextField radioAncho_tf;
 	JTextField coefFriccion_tf;
+	JTextField circunferencia_tf;
 
 	JRadioButton reloj;
 	JRadioButton contrareloj;
@@ -65,7 +66,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	double longitudRecta;
 	double radio;
 	double friccion;
-
+	double circunferencia;
 	/**
 	 * Constructor del dialogo para crear un nuevo conjunto
 	 * 
@@ -113,9 +114,12 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		longitudRecta_tf = new JTextField("", TAMAÑOTF);
 		radioAncho_tf = new JTextField("", TAMAÑOTF);
 		coefFriccion_tf = new JTextField("", TAMAÑOTF);
+		circunferencia_tf = new JTextField("", TAMAÑOTF);
+
 
 		panelCentral.add(anchoCoche_tf);
 		panelCentral.add(longitudCoche_tf);
+		panelCentral.add(circunferencia_tf);
 		panelCentral.add(anchoPista_tf);
 		panelCentral.add(longitudRecta_tf);
 		panelCentral.add(radioAncho_tf);
@@ -176,8 +180,8 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		botonOk.setText("Ok");
 		reloj.setText(idioma.getProperty("Reloj", "Reloj"));
 		contrareloj.setText(idioma.getProperty("Contrareloj", "Contrareloj"));
+		circunferencia_tf.setBorder(BorderFactory.createTitledBorder(idioma.getProperty("CircunferenciaRueda", "Circunferencia de la rueda")));
 	}
-
 	/**
 	 * Metodo que intenta guardar los datos que tenemos escritos en los
 	 * textfields, con esos datos creamos un circuito, un coche y el recorrido
@@ -192,10 +196,11 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 		anchoPista = getAnchoPista();
 		longitudRecta = getLongitudRecta();
 		radio = getRadioAncho();
+		circunferencia = getCircunferencia_tf();
 		friccion = getCoefFriccion();
 		if (cocheAncho <= anchoPista && anchoPista > 0 && longitudRecta >= 0 && friccion >= 0) {
 			Circuito circuito = new Circuito(radio, anchoPista, longitudRecta, friccion);
-			Coche coche = new Coche(cocheAncho, longitudCoche);
+			Coche coche = new Coche(cocheAncho, longitudCoche, circunferencia);
 			Recorrido recorrido = new Recorrido();
 			recorrido.crearRecorrido(circuito, coche, getReloj() ? Sentido.CLOCKWISE : Sentido.COUNTERCLOCKWISE);
 			conjunto = new Conjunto(circuito, coche, recorrido);
@@ -212,7 +217,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 
 		case "Ok":
 			if (anchoCoche_tf.getText().length() != 0 && longitudCoche_tf.getText().length() != 0
-					&& anchoPista_tf.getText().length() != 0 && longitudRecta_tf.getText().length() != 0
+					&&circunferencia_tf.getText().length()!=0&& anchoPista_tf.getText().length() != 0 && longitudRecta_tf.getText().length() != 0
 					&& radioAncho_tf.getText().length() != 0 && coefFriccion_tf.getText().length() != 0) {
 
 				try {
@@ -229,6 +234,11 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 			break;
 
 		}
+	}
+
+
+	public double getCircunferencia_tf() {
+		return Double.parseDouble(circunferencia_tf.getText());
 	}
 
 	public double getLongitudCoche() {

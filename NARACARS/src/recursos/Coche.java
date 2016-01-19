@@ -15,6 +15,7 @@ public class Coche implements Dibujable {
 	double pixelsPorMetro = 20; // px
 	double ancho;
 	double longitud;
+	double circunferenciaRueda;
 
 	/**
 	 * Constructor de la clase del coche
@@ -24,9 +25,10 @@ public class Coche implements Dibujable {
 	 * @param longitud
 	 *            longitud del coche
 	 */
-	public Coche(Double ancho, Double longitud) {
+	public Coche(Double ancho, Double longitud, Double circunferencia) {
 		this.ancho = ancho;
 		this.longitud = longitud;
+		this.circunferenciaRueda = circunferencia;
 	}
 
 	@Override
@@ -34,6 +36,14 @@ public class Coche implements Dibujable {
 		g.fillOval((int) (x - (ancho * pixelsPorMetro / 2)), (int) (y - (ancho * pixelsPorMetro / 2)),
 				(int) (ancho * pixelsPorMetro), (int) (ancho * pixelsPorMetro));
 
+	}
+
+	public double getCircunferenciaRueda() {
+		return circunferenciaRueda;
+	}
+
+	public void setCircunferenciaRueda(double circunferenciaRueda) {
+		this.circunferenciaRueda = circunferenciaRueda;
 	}
 
 	public double getLongitud() {

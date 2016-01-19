@@ -26,6 +26,7 @@ CoeficienteFriccion= Marruskadura koefizientea
 Reloj=Erlojuaren orratzen norantzan
 Contrareloj=Erlojuaren orratzen aurkako norantzan
 AñadirPista=Zirkuito berri bat gehitu
+CircunferenciaRueda=Gurpilaren zirkunferentzia
 Empezar=Hasi
 Parar=Gelditu
 NuevoConjunto=Zirkuitu berria

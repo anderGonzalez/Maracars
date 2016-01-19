@@ -26,6 +26,7 @@ CoeficienteFriccion= Coeficiente de friccion
 Reloj=En sentido de las agujas
 Contrareloj=En contra del sentido de las agujas
 AñadirPista=Añadir un nuevo circuito
+CircunferenciaRueda=Circunferencia de la rueda
 Empezar=Empezar
 Parar=Parar
 NuevoConjunto= Nuevo circuito
