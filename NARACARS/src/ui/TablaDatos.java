@@ -32,6 +32,7 @@ public class TablaDatos extends JTable implements Traducible {
 	final int MOTOR = 3;
 	final int DISTANCIA = 4;
 	final int REVOLUCIONES = 5;
+	final int VELOCIDAD_ACTUAL = 6;
 	RendererTabla renderer;
 	DefaultTableModel model;
 	Datos datos;
@@ -45,8 +46,8 @@ public class TablaDatos extends JTable implements Traducible {
 	 *            Ventana principal
 	 */
 	public TablaDatos(VentanaPrincipal ventana) {
-		String[][] rowData = { { "Velocidad", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
-				{ "Distancia Total", "" } ,{"Revoluciones",""}};
+		String[][] rowData = { { "Velocidad Máxima", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
+				{ "Distancia Total", "" } ,{"Revoluciones",""}, {"Velocidad Actual", ""}};
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
@@ -80,10 +81,9 @@ public class TablaDatos extends JTable implements Traducible {
 				setValueAt("" + datos.isObstaculo(), OBSTACULO, DATOS);
 				setValueAt("" + datos.getGiro(), GIRO, DATOS);
 				setValueAt("" + datos.getMotor(), MOTOR, DATOS);
-					setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
-				
+				setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
 				setValueAt("" + datos.getRevol(), REVOLUCIONES, DATOS);
-
+				setValueAt("" + datos.getVelMom(), VELOCIDAD_ACTUAL, DATOS);
 			}
 		}, 0, FRECUENCIA);
 	}
@@ -92,11 +92,13 @@ public class TablaDatos extends JTable implements Traducible {
 	public void escribirTextos() {
 		getColumnModel().getColumn(NOMBRES).setHeaderValue(idioma.getProperty("Nombres", "Nombres"));
 		getColumnModel().getColumn(DATOS).setHeaderValue(idioma.getProperty("Valores", "Valores"));
-		setValueAt(idioma.getProperty("Velocidad", "Velocidad"), VELOCIDAD, NOMBRES);
+		setValueAt(idioma.getProperty("Velocidad", "Velocidad Máxima"), VELOCIDAD, NOMBRES);
 		setValueAt(idioma.getProperty("Obstaculo", "Obstaculo"), OBSTACULO, NOMBRES);
 		setValueAt(idioma.getProperty("Giro", "Giro"), GIRO, NOMBRES);
 		setValueAt(idioma.getProperty("Motor", "Motor"), MOTOR, NOMBRES);
 		setValueAt(idioma.getProperty("Distancia", "Distancia"), DISTANCIA, NOMBRES);
+		setValueAt(idioma.getProperty("Revoluciones", "Revoluciones"), REVOLUCIONES, NOMBRES);
+		setValueAt(idioma.getProperty("VelocidadActual", "Velocidad Actual"), VELOCIDAD_ACTUAL, NOMBRES);
 
 	}
 }
