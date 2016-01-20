@@ -16,6 +16,7 @@ public class Datos {
 	static public int RECTO = 50;
 	static public int NODISTANCIA = 0;
 	static final int FRECUENCIA=500; 
+	static final double CIRCUNFDEFAULT= 0.2;
 	double velMax = 0;
 	double velMom;
 	double tiempoInicioVuelta;
@@ -54,8 +55,19 @@ public class Datos {
 			
 			@Override
 			public void run() {
-				int rev, dist, vel;
-				rev=Datos.this.cocheRev.getRevTotal();
+				int rev;
+				double dist, vel;
+				rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
+				if(conjunto!=null){
+					dist=rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2);
+
+				}else{
+					dist=rev*(CIRCUNFDEFAULT/2);
+
+				}
+				vel=dist/(FRECUENCIA/1000);
+				velMom=vel;
+				revAnterior=rev;
 				
 			}
 		},0, FRECUENCIA);
