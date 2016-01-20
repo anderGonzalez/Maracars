@@ -16,7 +16,7 @@ import recursos.Idioma;
 /**
  * Esta clase define una tabla donde los datos se irán actualizando
  * 
- * @see datos 
+ * @see datos
  * @author Joanes
  *
  */
@@ -31,6 +31,7 @@ public class TablaDatos extends JTable implements Traducible {
 	final int GIRO = 2;
 	final int MOTOR = 3;
 	final int DISTANCIA = 4;
+	final int REVOLUCIONES = 5;
 	RendererTabla renderer;
 	DefaultTableModel model;
 	Datos datos;
@@ -40,11 +41,12 @@ public class TablaDatos extends JTable implements Traducible {
 	 * Metodo constructor de la clase TableDatos, que crea un JTable, con 5
 	 * filas y dos columnas
 	 * 
-	 * @param ventana Ventana principal
+	 * @param ventana
+	 *            Ventana principal
 	 */
 	public TablaDatos(VentanaPrincipal ventana) {
 		String[][] rowData = { { "Velocidad", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
-				{ "Distancia Total","" } };
+				{ "Distancia Total", "" } ,{"Revoluciones",""}};
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
@@ -78,11 +80,9 @@ public class TablaDatos extends JTable implements Traducible {
 				setValueAt("" + datos.isObstaculo(), OBSTACULO, DATOS);
 				setValueAt("" + datos.getGiro(), GIRO, DATOS);
 				setValueAt("" + datos.getMotor(), MOTOR, DATOS);
-				if (datos.getConjunto() != null) {
 					setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
-				} else {
-					setValueAt("0.0", DISTANCIA, DATOS);
-				}
+				
+				setValueAt("" + datos.getRevol(), REVOLUCIONES, DATOS);
 
 			}
 		}, 0, FRECUENCIA);

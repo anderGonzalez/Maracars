@@ -28,7 +28,7 @@ public class ControladorCoche {
 	final int BAUDRATE = 9600;
 	final int TIEMPOABRIR = 2000;
 	final int TURNOENVIARMAX = 2;
-	final int BYTEINICIAL = 255;
+	final int BYTEINICIAL = 177;
 	final int RETRASOLEER = 1;
 	final int RETRASOENVIAR = 19;
 	SerialPort serialPort;
@@ -99,7 +99,6 @@ public class ControladorCoche {
 			switch (turnoEnviar) {
 			case 0:
 				outputStream.write(new Integer(BYTEINICIAL).byteValue());
-				System.out.println("BYTEINICIAL: " + BYTEINICIAL);
 				break;
 			case 1:
 				if (giro > 50) {
@@ -111,11 +110,9 @@ public class ControladorCoche {
 
 				}
 				outputStream.write(((Integer) giro).byteValue());
-				System.out.println("GIRO: " + giro);
 				break;
 			case 2:
 				outputStream.write(((Integer) motor).byteValue());
-				System.out.println("MOTOR: " + motor);
 				break;
 
 			default:
@@ -155,9 +152,12 @@ public class ControladorCoche {
 			turnoRecibir++;
 			break;
 		case OBSTACULO:
+			System.out.println("Revoluciones:"+numero);
+
 			if (numero == 0) {
 				datos.setObstaculo(false);
 			} else {
+
 				datos.setObstaculo(true);
 			}
 			turnoRecibir++;

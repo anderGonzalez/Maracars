@@ -37,7 +37,7 @@ public class Fisicas {
 	 * @return devuelve el angulo de giro que el coche debe dar en la curva
 	 */
 	public double getAngulo(Datos datos) {
-		angulo = Math.asin(datos.getConjunto().getCoche().getAncho() / datos.getConjunto().getRecorrido().getRadio());
+		angulo = Math.asin(datos.getConjunto().getCoche().getLongitud() / datos.getConjunto().getRecorrido().getRadio());
 		angulo = Math.toDegrees(angulo);
 		return angulo;
 	}

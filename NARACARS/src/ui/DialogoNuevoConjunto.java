@@ -36,7 +36,7 @@ public class DialogoNuevoConjunto extends JDialog implements ActionListener {
 	static final int POSX = 200;
 	static final int POSY = 75;
 	static final int WIDTH = 400;
-	static final int HEIGHT = 470;
+	static final int HEIGHT = 550;
 	static final int ROWGENERAL = 8;
 	static final int COLUMNGENERAL = 1;
 	static final int FILARELOJ = 1;

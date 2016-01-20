@@ -191,7 +191,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		switch (turno) {
 		case 0:
 			datos.setGiro(50);
-			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA1) <= distanciaVuelta) {
 				turno++;
@@ -204,7 +204,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 				datos.setGiro(50 - datos.getGiro_aux());	
 			}
 			
-			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA1) <= distanciaVuelta) {
 				turno++;
@@ -212,7 +212,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 2:
 			datos.setGiro(50);
-			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA2) <= distanciaVuelta) {
 				turno++;
@@ -224,7 +224,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			}else{
 				datos.setGiro(50 - datos.getGiro_aux());	
 			}
-			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA2) <= distanciaVuelta) {
 				turno++;
@@ -232,7 +232,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 4:
 			datos.setGiro(50);
-			datos.setMotor(65);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA3) <= distanciaVuelta) {
 				datos.inicializarTiempoVuelta();
@@ -274,6 +274,8 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			reset_bt.setEnabled(false);
 			start_bt.setEnabled(true);
 			actualizarDatos.cancel();
+			datos.setGiro(Datos.RECTO);
+			datos.setMotor(Datos.PARADA);
 			break;
 
 		default:

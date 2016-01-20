@@ -1,5 +1,8 @@
 package recursos;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Clase que tiene los datos necesarios para la simulacion
  *
@@ -12,6 +15,7 @@ public class Datos {
 	static public int PARADA = 50;
 	static public int RECTO = 50;
 	static public int NODISTANCIA = 0;
+	static final int FRECUENCIA=500; 
 	double velMax = 0;
 	double velMom;
 	double tiempoInicioVuelta;
@@ -22,12 +26,15 @@ public class Datos {
 	double angulo;
 	int acelerometro_x;
 	int acelerometro_y;
-	int giro = 0;
-	int motor = 0;
+	int giro = 50;
+	int motor = 50;
+	int revol_anterior=0;
 	int revol;
 	int giro_aux;
 	boolean obstaculo = false;
 	Conjunto conjunto;
+	CocheRevoluciones cocheRev;
+	Timer timerVel;
 
 	Fisicas fisicas;
 
@@ -35,8 +42,23 @@ public class Datos {
 	 * Constructor de la clase Datos
 	 */
 	public Datos() {
+		cocheRev= new CocheRevoluciones();
 		fisicas = new Fisicas();
 		conjunto = null;
+	}
+	
+	public void calcVelMomento(){
+		timerVel= new Timer();
+		timerVel.schedule(new TimerTask() {
+			int revAnterior=0;
+			
+			@Override
+			public void run() {
+				int rev, dist, vel;
+				rev=Datos.this.cocheRev.getRevTotal();
+				
+			}
+		},0, FRECUENCIA);
 	}
 
 	/**
@@ -77,13 +99,21 @@ public class Datos {
 	public void setAngulo(double angulo) {
 		this.angulo = angulo;
 	}
+	public int getRevol_anterior() {
+		return revol_anterior;
+	}
+
+	public void setRevol_anterior(int revol_anterior) {
+		this.revol_anterior = revol_anterior;
+	}
+
 
 	public int getRevol() {
 		return revol;
 	}
 
 	public void setRevol(int revol) {
-		this.revol = revol;
+
 	}
 
 	public double getVelMom() {
