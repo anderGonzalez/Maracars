@@ -18,7 +18,7 @@ public class Datos {
 	static final int FRECUENCIA=500; 
 	static final double CIRCUNFDEFAULT= 0.2;
 	double velMax = 0;
-	double velMom;
+	double velMom=0;
 	double tiempoInicioVuelta;
 	double tiempoVuelta;
 	double tiempoInicio;
@@ -36,7 +36,6 @@ public class Datos {
 	Conjunto conjunto;
 	CocheRevoluciones cocheRev;
 	Timer timerVel;
-
 	Fisicas fisicas;
 
 	/**
@@ -46,6 +45,7 @@ public class Datos {
 		cocheRev= new CocheRevoluciones();
 		fisicas = new Fisicas();
 		conjunto = null;
+		calcVelMomento();
 	}
 	
 	public void calcVelMomento(){
@@ -57,20 +57,28 @@ public class Datos {
 			public void run() {
 				int rev;
 				double dist, vel;
+			//	System.out.println(Datos.this.cocheRev.getRevTotal());
 				rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
 				if(conjunto!=null){
-					dist=rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2);
+					dist=(double)rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2.0);
 
 				}else{
-					dist=rev*(CIRCUNFDEFAULT/2);
+					dist=(double)rev*(CIRCUNFDEFAULT/2.0);
+
+				}if(dist==0){
+					vel=0;
+				}else{
+					vel=dist/(FRECUENCIA/1000);
 
 				}
-				vel=dist/(FRECUENCIA/1000);
 				velMom=vel;
 				revAnterior=rev;
 				
 			}
 		},0, FRECUENCIA);
+	}
+	public void pararCalcVelMomento(){
+		timerVel.cancel();
 	}
 
 	/**
@@ -85,6 +93,10 @@ public class Datos {
 	 */
 	public void inicializarTiempoTotal() {
 		this.tiempoInicio = System.currentTimeMillis();
+	}
+
+	public CocheRevoluciones getCocheRev() {
+		return cocheRev;
 	}
 
 	/**
