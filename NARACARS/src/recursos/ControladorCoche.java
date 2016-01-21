@@ -144,19 +144,19 @@ public class ControladorCoche {
 			}
 			break;
 		case ACELEROMETRO_X:
-			System.out.println("Acel x:"+numero);
+			//System.out.println("Acel x:"+numero);
 
 			datos.setAcelerometro_x(numero);
 			turnoRecibir++;
 			break;
 		case ACELEROMETRO_Y:
-			System.out.println("Acel y:"+numero);
+			//System.out.println("Acel y:"+numero);
 
 			datos.setAcelerometro_y(numero);
 			turnoRecibir++;
 			break;
 		case OBSTACULO:
-			System.out.println("Obstaculo:"+numero);
+			//System.out.println("Obstaculo:"+numero);
 
 			if (numero == 0) {
 				datos.setObstaculo(false);
@@ -167,7 +167,7 @@ public class ControladorCoche {
 			turnoRecibir++;
 			break;
 		case REVOLUCIONES:
-			System.out.println("Revoluciones:"+numero);
+			//System.out.println("Revoluciones:"+numero);
 			datos.getCocheRev().motorRevol(numero);
 			turnoRecibir = 0;
 			break;

@@ -9,7 +9,9 @@ public class CocheRevoluciones {
 		return currentRev+ stackRev*255;
 	}
 	public void motorRevol(int revSensor){
-		if(currentRev<revSensor){
+//		System.out.println("Rev sensor: "+revSensor);
+		//System.out.println("Current: "+currentRev);
+		if(currentRev>revSensor){
 			stackRev++;
 		}
 		currentRev=revSensor;

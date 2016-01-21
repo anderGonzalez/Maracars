@@ -10,8 +10,6 @@ import java.util.TimerTask;
  *
  */
 public class Datos {
-
-	
 	static public int PARADA = 50;
 	static public int RECTO = 50;
 	static public int NODISTANCIA = 0;
@@ -49,30 +47,43 @@ public class Datos {
 	}
 	
 	public void calcVelMomento(){
+	
 		timerVel= new Timer();
 		timerVel.schedule(new TimerTask() {
-			int revAnterior=0;
-			
+			int revAnterior;
+			int rev;
+			double dist, vel, cnt=0;
 			@Override
 			public void run() {
-				int rev;
-				double dist, vel;
-			//	System.out.println(Datos.this.cocheRev.getRevTotal());
-				rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
-				if(conjunto!=null){
-					dist=(double)rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2.0);
-
+				if(cnt<3){
+					cnt++;
+					revAnterior=Datos.this.cocheRev.getRevTotal();
 				}else{
-					dist=(double)rev*(CIRCUNFDEFAULT/2.0);
+					
+					rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
+					
+					if(conjunto!=null){
+						dist=(double)rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2.0);
 
-				}if(dist==0){
-					vel=0;
-				}else{
-					vel=dist/(FRECUENCIA/1000);
+					}else{
+						//System.out.println("Rev: "+rev);
+						dist=(double)rev*(CIRCUNFDEFAULT/2.0);
+						Datos.this.distanciaTotal+=dist;
+						//System.out.println(dist);
+					}if(dist==0){
+						vel=0;
+					}else{
+						vel=dist/((double)FRECUENCIA/1000.0);
 
+					}
+					velMom=vel;
+					if(rev!=0){
+						//System.out.println("Rev anterior: "+revAnterior);
+						revAnterior=revAnterior+rev;
+					}
+					
 				}
-				velMom=vel;
-				revAnterior=rev;
+				
 				
 			}
 		},0, FRECUENCIA);

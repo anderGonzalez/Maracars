@@ -185,8 +185,13 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	 * motor, que varián segun el tramo.
 	 */
 	public void calcularTramo() {
-		double distanciaVuelta = (datos.getTiempo() / 1000) * datos.getVelMax();
-		double distanciaTotal = (datos.getTiempoTotal() / 1000) * datos.getVelMax();
+		
+		//double distanciaVuelta = (datos.getTiempo() / 1000) * datos.getVelMax();
+		//double distanciaTotal = (datos.getTiempoTotal() / 1000) * datos.getVelMax();
+		double distanciaVuelta= datos.getDistancia();
+		if(distanciaVuelta>=datos.getConjunto().distanciaHasta(RECTA3)){
+			distanciaVuelta-=datos.getConjunto().distanciaHasta(RECTA3);
+		}
 
 		switch (turno) {
 		case 0:
@@ -243,7 +248,6 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		default:
 			break;
 		}
-		datos.setDistancia(distanciaTotal);
 		datos.getConjunto().setDistancia(distanciaVuelta);
 	}
 
