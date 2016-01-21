@@ -44,6 +44,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	final int ALTO_COMPONENTE = 100; // px
 	final int TAMAÑOFUENTE = 28;
 	final int FRECUENCIA = 1;
+	final int PULSOVELOCIDAD = 5;
 	static int turno = 0;
 	Datos datos;
 	Idioma idioma;
@@ -189,14 +190,12 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 		//double distanciaVuelta = (datos.getTiempo() / 1000) * datos.getVelMax();
 		//double distanciaTotal = (datos.getTiempoTotal() / 1000) * datos.getVelMax();
 		double distanciaVuelta= datos.getDistancia();
-		if(distanciaVuelta>=datos.getConjunto().distanciaHasta(RECTA3)){
-			distanciaVuelta-=datos.getConjunto().distanciaHasta(RECTA3);
-		}
+		
 
 		switch (turno) {
 		case 0:
 			datos.setGiro(50);
-			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA1) <= distanciaVuelta) {
 				turno++;
@@ -204,12 +203,12 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 1:
 			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
-				datos.setGiro(50 + datos.getGiro_aux());	
+				datos.setGiro(71);	
 			}else{
 				datos.setGiro(50 - datos.getGiro_aux());	
 			}
 			
-			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA1) <= distanciaVuelta) {
 				turno++;
@@ -217,19 +216,19 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 2:
 			datos.setGiro(50);
-			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
-			if (datos.getConjunto().distanciaHasta(RECTA2) <= distanciaVuelta) {
+			if ((datos.getConjunto().distanciaHasta(RECTA2)) <= distanciaVuelta) {
 				turno++;
 			}
 			break;
 		case 3:
 			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
-				datos.setGiro(50 + datos.getGiro_aux());	
+				datos.setGiro(71);	
 			}else{
 				datos.setGiro(50 - datos.getGiro_aux());	
 			}
-			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(CURVA2) <= distanciaVuelta) {
 				turno++;
@@ -237,10 +236,11 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 4:
 			datos.setGiro(50);
-			datos.setMotor(60);// TODO kalkulatu egin behar da zenbat den bidali
+			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
 			if (datos.getConjunto().distanciaHasta(RECTA3) <= distanciaVuelta) {
 				datos.inicializarTiempoVuelta();
+				datos.setDistancia(0);
 				turno = 0;
 			}
 			break;

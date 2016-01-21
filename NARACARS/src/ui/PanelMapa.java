@@ -57,7 +57,7 @@ public class PanelMapa extends JPanel implements Observer {
 	@Override
 	public void paint(Graphics g) {
 		setOpaque(false);
-		datos.getConjunto().dibujar(g, MARGEN_IZQUIERDA, MARGEN_ARRIBA, datos.getDistancia());
+		datos.getConjunto().dibujar(g, MARGEN_IZQUIERDA, MARGEN_ARRIBA);
 
 	}
 

@@ -1,5 +1,6 @@
 DirectorioImagenes = iconos/
 DirectorioIdiomas = idiomas/
+TrataDeArrancarlo = sonidos/TrataDeArrancarlo
 IconoVentana = naracars.png
 DefaultIdioma = castellano
 IconoTabla = table.png

@@ -49,7 +49,6 @@ public class AccionCambioModo extends AbstractAction implements Traducible {
 		try{
 			ventana.getControladorAuto().terminarActualizarDatos();
 		}catch(Exception ex){
-			ex.printStackTrace();
 		}
 		ventana.getDatos().setMotor(Datos.PARADA);
 		ventana.getDatos().setGiro(Datos.RECTO);

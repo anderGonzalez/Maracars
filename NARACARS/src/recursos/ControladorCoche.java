@@ -27,10 +27,11 @@ public class ControladorCoche {
 	final int REVOLUCIONES = 4;
 	final int BAUDRATE = 9600;
 	final int TIEMPOABRIR = 2000;
-	final int TURNOENVIARMAX = 2;
+	final int TURNOENVIARMAX = 3;
 	final int BYTEINICIAL = 177;
+	final int BYTEFINAL =153;
 	final int RETRASOLEER = 1;
-	final int RETRASOENVIAR = 19;
+	final int RETRASOENVIAR = 25;
 	SerialPort serialPort;
 	OutputStream outputStream;
 	InputStream inputStream;
@@ -55,6 +56,7 @@ public class ControladorCoche {
 		serialPort = null;
 		outputStream = null;
 		inputStream = null;
+		
 		portList = CommPortIdentifier.getPortIdentifiers();
 		if (portList.hasMoreElements()) {
 
@@ -113,6 +115,9 @@ public class ControladorCoche {
 				break;
 			case 2:
 				outputStream.write(((Integer) motor).byteValue());
+				break;
+			case 3:
+				outputStream.write(new Integer(BYTEFINAL).byteValue());
 				break;
 
 			default:
@@ -188,7 +193,6 @@ public class ControladorCoche {
 			while (inputStream.available() > 0) {
 				int numBytes = inputStream.read(readBuffer);
 				for (int i = 0; i < numBytes; i++) {
-					Thread.sleep(RETRASOLEER);
 					int numero = (readBuffer[i] & 0xFF);
 					guardar(numero);
 				}

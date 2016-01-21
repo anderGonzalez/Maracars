@@ -39,6 +39,7 @@ public class Fisicas {
 	public double getAngulo(Datos datos) {
 		angulo = Math.asin(datos.getConjunto().getCoche().getLongitud() / datos.getConjunto().getRecorrido().getRadio());
 		angulo = Math.toDegrees(angulo);
+		System.out.println("angulo: "+angulo);
 		return angulo;
 	}
 

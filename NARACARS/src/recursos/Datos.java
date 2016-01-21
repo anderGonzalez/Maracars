@@ -10,14 +10,14 @@ import java.util.TimerTask;
  * @author Joanes
  *
  */
-public class Datos extends Observable{
+public class Datos extends Observable {
 	static public int PARADA = 50;
 	static public int RECTO = 50;
 	static public int NODISTANCIA = 0;
-	static final int FRECUENCIA=500; 
-	static final double CIRCUNFDEFAULT= 0.2;
+	static final int FRECUENCIA = 500;
+	static final double CIRCUNFDEFAULT = 0.2;
 	double velMax = 0;
-	double velMom=0;
+	double velMom = 0;
 	double tiempoInicioVuelta;
 	double tiempoVuelta;
 	double tiempoInicio;
@@ -39,52 +39,52 @@ public class Datos extends Observable{
 	 * Constructor de la clase Datos
 	 */
 	public Datos() {
-		cocheRev= new CocheRevoluciones();
+		cocheRev = new CocheRevoluciones();
 		fisicas = new Fisicas();
 		conjunto = null;
 		calcVelMomento();
 	}
-	
-	public void calcVelMomento(){
-	
-		timerVel= new Timer();
+
+	public void calcVelMomento() {
+
+		timerVel = new Timer();
 		timerVel.schedule(new TimerTask() {
 			int revAnterior;
 			int rev;
-			double dist, vel, cnt=0;
+			double dist, vel, cnt = 0;
+
 			@Override
 			public void run() {
-				if(cnt<3){
+				if (cnt < 3) {
 					cnt++;
 					revAnterior = cocheRev.getRevTotal();
 					cocheRev.SetRevTotal(0);
-				}else{
-					
-					rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
-					
+				} else {
+
+					rev = Datos.this.cocheRev.getRevTotal() - revAnterior;
+
 					dist = getDistancia(rev);
-					
-					if(dist == 0){
+
+					if (dist == 0) {
 						vel = 0;
-					}else{
-						vel = dist / ((double)FRECUENCIA/1000.0);
+					} else {
+						vel = dist / ((double) FRECUENCIA / 1000.0);
 
 					}
-					velMom=vel;
-					if(rev!=0){
+					velMom = vel;
+					if (rev != 0) {
 						revAnterior = Datos.this.cocheRev.getRevTotal();
 					}
-					
+
 				}
-				
-				
+
 			}
-		},0, FRECUENCIA);
+		}, 0, FRECUENCIA);
 	}
-	public void pararCalcVelMomento(){
+
+	public void pararCalcVelMomento() {
 		timerVel.cancel();
 	}
-	
 
 	/**
 	 * Guarda el tiempo para tener una referencia
@@ -156,7 +156,8 @@ public class Datos extends Observable{
 	 * Al setear un nuevo conjunto, se calcula la velocidad maxima del coche en
 	 * curva, el angulo y el señal que hay que enviar a la CPLD
 	 * 
-	 * @param conjunto Conjunto (circuito, recorrido, coche)
+	 * @param conjunto
+	 *            Conjunto (circuito, recorrido, coche)
 	 */
 	public void setConjunto(Conjunto conjunto) {
 		if (this.conjunto == null) {
@@ -202,23 +203,22 @@ public class Datos extends Observable{
 	}
 
 	public double getDistancia() {
-		if(conjunto!=null){
-			return (double)cocheRev.getRevTotal()*(conjunto.getCoche().getCircunferenciaRueda()/2.0);
+		if (conjunto != null) {
+			return (double) cocheRev.getRevTotal() * (conjunto.getCoche().getCircunferenciaRueda() / 2.0);
 
-		}else{
-			return (double)cocheRev.getRevTotal()*(CIRCUNFDEFAULT/2.0);
+		} else {
+			return (double) cocheRev.getRevTotal() * (CIRCUNFDEFAULT / 2.0);
 		}
 	}
-	
+
 	public double getDistancia(int revoluciones) {
-		if(conjunto!=null){
-			return (double)revoluciones*(conjunto.getCoche().getCircunferenciaRueda()/2.0);
+		if (conjunto != null) {
+			return (double) revoluciones * (conjunto.getCoche().getCircunferenciaRueda() / 2.0);
 
-		}else{
-			return (double)revoluciones*(CIRCUNFDEFAULT/2.0);
+		} else {
+			return (double) revoluciones * (CIRCUNFDEFAULT / 2.0);
 		}
 	}
-	
 
 	public void setDistancia(double distancia) {
 		this.distanciaTotal = distancia;
@@ -245,6 +245,10 @@ public class Datos extends Observable{
 	}
 
 	public void setObstaculo(boolean obstaculo) {
+		notifyObservers();
+		setChanged();
+
+
 		this.obstaculo = obstaculo;
 	}
 
@@ -260,7 +264,7 @@ public class Datos extends Observable{
 		cocheRev.motorRevol(numero);
 		notifyObservers();
 		setChanged();
-		
+
 	}
 
 }

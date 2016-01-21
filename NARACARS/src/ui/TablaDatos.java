@@ -33,6 +33,9 @@ public class TablaDatos extends JTable implements Traducible {
 	final int DISTANCIA = 4;
 	final int REVOLUCIONES = 5;
 	final int VELOCIDAD_ACTUAL = 6;
+	final int ACEL_X = 7;
+	final int ACEL_Y = 8;
+
 	RendererTabla renderer;
 	DefaultTableModel model;
 	Datos datos;
@@ -47,7 +50,7 @@ public class TablaDatos extends JTable implements Traducible {
 	 */
 	public TablaDatos(VentanaPrincipal ventana) {
 		String[][] rowData = { { "Velocidad Máxima", "" }, { "Obstaculo", "" }, { "Giro", "" }, { "Motor", "" },
-				{ "Distancia Total", "" } ,{"Revoluciones",""}, {"Velocidad Actual", ""}};
+				{ "Distancia Total", "" } ,{"Revoluciones",""}, {"Velocidad Actual", ""},{"Aceleracion x",""},{"Acelacion y",""}};
 		String[] columnNames = { "Nombre", "Valor" };
 		renderer = new RendererTabla();
 		model = new DefaultTableModel(rowData, columnNames);
@@ -84,6 +87,9 @@ public class TablaDatos extends JTable implements Traducible {
 				setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
 				setValueAt("" + datos.getCocheRev().getRevTotal(), REVOLUCIONES, DATOS);
 				setValueAt("" + datos.getVelMom(), VELOCIDAD_ACTUAL, DATOS);
+				setValueAt("" + datos.getAcelerometro_x(), ACEL_X, DATOS);
+				setValueAt("" + datos.getAcelerometro_y(), ACEL_Y, DATOS);
+
 			}
 		}, 0, FRECUENCIA);
 	}

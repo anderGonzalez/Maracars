@@ -31,6 +31,7 @@ import recursos.Conjunto;
 import recursos.ControladorCoche;
 import recursos.Datos;
 import recursos.Idioma;
+import recursos.Reproductor;
 
 /**
  * Esta clase define la ventana principal de el programa principal.
@@ -74,6 +75,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	PanelControlJoystick controladorJoystick;
 	PanelControlAutomatico controladorAuto;
 	Datos datos;
+	Reproductor reproductor;
 	ControladorCoche controlador;
 
 	/**
@@ -81,6 +83,7 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	 */
 	public VentanaPrincipal() {
 		datos = new Datos();
+		reproductor= new Reproductor(datos);
 		controlador = new ControladorCoche(datos);
 		modo = Modo.MANUAL;
 		traducibles = new ArrayList<>();
