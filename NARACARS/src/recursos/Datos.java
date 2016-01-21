@@ -1,5 +1,6 @@
 package recursos;
 
+import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -9,7 +10,7 @@ import java.util.TimerTask;
  * @author Joanes
  *
  */
-public class Datos {
+public class Datos extends Observable{
 	static public int PARADA = 50;
 	static public int RECTO = 50;
 	static public int NODISTANCIA = 0;
@@ -27,8 +28,6 @@ public class Datos {
 	int acelerometro_y;
 	int giro = 50;
 	int motor = 50;
-	int revol_anterior=0;
-	int revol;
 	int giro_aux;
 	boolean obstaculo = false;
 	Conjunto conjunto;
@@ -57,29 +56,23 @@ public class Datos {
 			public void run() {
 				if(cnt<3){
 					cnt++;
-					revAnterior=Datos.this.cocheRev.getRevTotal();
+					revAnterior = cocheRev.getRevTotal();
+					cocheRev.SetRevTotal(0);
 				}else{
 					
 					rev=Datos.this.cocheRev.getRevTotal()-revAnterior;
 					
-					if(conjunto!=null){
-						dist=(double)rev*(Datos.this.conjunto.getCoche().getCircunferenciaRueda()/2.0);
-
+					dist = getDistancia(rev);
+					
+					if(dist == 0){
+						vel = 0;
 					}else{
-						//System.out.println("Rev: "+rev);
-						dist=(double)rev*(CIRCUNFDEFAULT/2.0);
-						Datos.this.distanciaTotal+=dist;
-						//System.out.println(dist);
-					}if(dist==0){
-						vel=0;
-					}else{
-						vel=dist/((double)FRECUENCIA/1000.0);
+						vel = dist / ((double)FRECUENCIA/1000.0);
 
 					}
 					velMom=vel;
 					if(rev!=0){
-						//System.out.println("Rev anterior: "+revAnterior);
-						revAnterior=revAnterior+rev;
+						revAnterior = Datos.this.cocheRev.getRevTotal();
 					}
 					
 				}
@@ -91,12 +84,14 @@ public class Datos {
 	public void pararCalcVelMomento(){
 		timerVel.cancel();
 	}
+	
 
 	/**
 	 * Guarda el tiempo para tener una referencia
 	 */
 	public void inicializarTiempoVuelta() {
 		this.tiempoInicioVuelta = System.currentTimeMillis();
+		this.cocheRev.SetRevTotal(0);
 	}
 
 	/**
@@ -134,21 +129,11 @@ public class Datos {
 	public void setAngulo(double angulo) {
 		this.angulo = angulo;
 	}
-	public int getRevol_anterior() {
-		return revol_anterior;
-	}
-
-	public void setRevol_anterior(int revol_anterior) {
-		this.revol_anterior = revol_anterior;
-	}
-
-
-	public int getRevol() {
-		return revol;
-	}
 
 	public void setRevol(int revol) {
-
+		cocheRev.SetRevTotal(revol);
+		notifyObservers();
+		setChanged();
 	}
 
 	public double getVelMom() {
@@ -217,8 +202,23 @@ public class Datos {
 	}
 
 	public double getDistancia() {
-		return distanciaTotal;
+		if(conjunto!=null){
+			return (double)cocheRev.getRevTotal()*(conjunto.getCoche().getCircunferenciaRueda()/2.0);
+
+		}else{
+			return (double)cocheRev.getRevTotal()*(CIRCUNFDEFAULT/2.0);
+		}
 	}
+	
+	public double getDistancia(int revoluciones) {
+		if(conjunto!=null){
+			return (double)revoluciones*(conjunto.getCoche().getCircunferenciaRueda()/2.0);
+
+		}else{
+			return (double)revoluciones*(CIRCUNFDEFAULT/2.0);
+		}
+	}
+	
 
 	public void setDistancia(double distancia) {
 		this.distanciaTotal = distancia;
@@ -254,6 +254,13 @@ public class Datos {
 
 	public void setGiro_aux(int giro_aux) {
 		this.giro_aux = giro_aux;
+	}
+
+	public void entradaRevSerial(int numero) {
+		cocheRev.motorRevol(numero);
+		notifyObservers();
+		setChanged();
+		
 	}
 
 }

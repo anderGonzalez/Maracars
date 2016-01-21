@@ -289,4 +289,12 @@ public class Conjunto extends Observable implements Dibujable {
 		notifyObservers();
 	}
 
+	public void dibujar(Graphics g, int margenIzquierda, int margenArriba, double distancia) {
+		circuito.dibujar(g, x, y);
+		recorrido.dibujar(g, getXRecorrido(x), getYRecorrido(y));
+		calcularPosicionCoche(distancia);
+		g.setColor(Color.MAGENTA);
+		coche.dibujar(g, this.x + x, this.y + y);
+	}
+
 }

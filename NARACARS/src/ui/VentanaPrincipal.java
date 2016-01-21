@@ -243,10 +243,10 @@ public class VentanaPrincipal extends JFrame implements Traducible, Observer {
 	 */
 	private JComponent crearPanelMapa() {
 
-		if (conjunto == null) {
+		if (datos.getConjunto() == null) {
 			accionConjunto.actionPerformed(null);
 		}
-		PanelMapa panelMap = new PanelMapa(conjunto);
+		PanelMapa panelMap = new PanelMapa(datos);
 		JScrollPane panel = new JScrollPane(panelMap);
 
 		return panel;

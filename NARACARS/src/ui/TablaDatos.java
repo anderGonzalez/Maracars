@@ -82,7 +82,7 @@ public class TablaDatos extends JTable implements Traducible {
 				setValueAt("" + datos.getGiro(), GIRO, DATOS);
 				setValueAt("" + datos.getMotor(), MOTOR, DATOS);
 				setValueAt("" + nf.format(datos.getDistancia()), DISTANCIA, DATOS);
-				setValueAt("" + datos.getRevol(), REVOLUCIONES, DATOS);
+				setValueAt("" + datos.getCocheRev().getRevTotal(), REVOLUCIONES, DATOS);
 				setValueAt("" + datos.getVelMom(), VELOCIDAD_ACTUAL, DATOS);
 			}
 		}, 0, FRECUENCIA);

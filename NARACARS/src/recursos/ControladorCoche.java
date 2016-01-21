@@ -168,7 +168,7 @@ public class ControladorCoche {
 			break;
 		case REVOLUCIONES:
 			//System.out.println("Revoluciones:"+numero);
-			datos.getCocheRev().motorRevol(numero);
+			datos.entradaRevSerial(numero);
 			turnoRecibir = 0;
 			break;
 		default:
