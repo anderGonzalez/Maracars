@@ -44,7 +44,7 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 	final int ALTO_COMPONENTE = 100; // px
 	final int TAMAÑOFUENTE = 28;
 	final int FRECUENCIA = 1;
-	final int PULSOVELOCIDAD = 5;
+	final int PULSOVELOCIDAD = 60;
 	static int turno = 0;
 	Datos datos;
 	Idioma idioma;
@@ -203,9 +203,9 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 1:
 			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
-				datos.setGiro(71);	
+				datos.setGiro(68);	
 			}else{
-				datos.setGiro(50 - datos.getGiro_aux());	
+				datos.setGiro(32);	
 			}
 			
 			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
@@ -224,9 +224,9 @@ public class PanelControlAutomatico extends JPanel implements Traducible, Contro
 			break;
 		case 3:
 			if(ventana.getConjunto().getRecorrido().getSentido()==Sentido.CLOCKWISE){
-				datos.setGiro(71);	
+				datos.setGiro(68);	
 			}else{
-				datos.setGiro(50 - datos.getGiro_aux());	
+				datos.setGiro(32);	
 			}
 			datos.setMotor(PULSOVELOCIDAD);// TODO kalkulatu egin behar da zenbat den bidali
 								// beharrekoa
