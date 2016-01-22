@@ -35,7 +35,9 @@ public class PanelMapa extends JPanel implements Observer {
 		this.datos = datos;
 		datos.addObserver(this);
 		escalar();
-		setPreferredSize(datos.getConjunto().getDimension());
+		Dimension dimPanel = new Dimension((int)(datos.getConjunto().getDimension().getWidth() + 2*MARGEN_IZQUIERDA),
+										   (int)(datos.getConjunto().getDimension().getHeight() + 2*MARGEN_ARRIBA));
+		setPreferredSize(dimPanel);
 	}
 
 	/**
