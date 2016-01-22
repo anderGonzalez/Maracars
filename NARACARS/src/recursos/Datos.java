@@ -245,10 +245,7 @@ public class Datos extends Observable {
 	}
 
 	public void setObstaculo(boolean obstaculo) {
-		notifyObservers();
-		setChanged();
-
-
+	
 		this.obstaculo = obstaculo;
 	}
 
